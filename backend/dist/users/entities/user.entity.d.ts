@@ -1,6 +1,6 @@
-import { AssociationMembership } from '@/associations/entities/association-membership.entity';
-import { TournamentPlayer } from '@/tournaments/entities/tournament-player.entity';
-import { Notification } from '@/notifications/entities/notification.entity';
+import { AssociationMembership } from '../../associations/entities/association-membership.entity';
+import { TournamentPlayer } from '../../tournaments/entities/tournament-player.entity';
+import { Notification } from '../../notifications/entities/notification.entity';
 export declare enum UserRole {
     USER = "user",
     ADMIN = "admin",

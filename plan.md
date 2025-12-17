@@ -90,10 +90,10 @@ backend/
 
 ### Implementation for User Story 1
 - [x] T004 [P] [US1] Create Tournament entity (exists)
-- [ ] T005 [P] [US1] Implement TournamentService with CRUD operations
-- [ ] T006 [P] [US1] Create TournamentController with REST endpoints
-- [ ] T007 [US1] Add validation for tournament settings
-- [ ] T008 [US1] Implement tournament status transitions
+- [x] T005 [P] [US1] Implement TournamentService with CRUD operations
+- [x] T006 [P] [US1] Create TournamentController with REST endpoints
+- [x] T007 [US1] Add validation for tournament settings
+- [x] T008 [US1] Implement tournament status transitions
 
 ## Phase 4: User Story 2 - Player Registration (Priority: P1)
 

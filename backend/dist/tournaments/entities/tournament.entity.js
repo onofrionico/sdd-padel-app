@@ -9,12 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Tournament = void 0;
+exports.Tournament = exports.TournamentType = exports.TournamentStatus = void 0;
 const typeorm_1 = require("typeorm");
 const association_entity_1 = require("../../associations/entities/association.entity");
 const tournament_registration_entity_1 = require("./tournament-registration.entity");
 const tournament_match_entity_1 = require("./tournament-match.entity");
 const tournament_team_entity_1 = require("./tournament-team.entity");
+var TournamentStatus;
+(function (TournamentStatus) {
+    TournamentStatus["UPCOMING"] = "upcoming";
+    TournamentStatus["REGISTRATION_OPEN"] = "registration_open";
+    TournamentStatus["IN_PROGRESS"] = "in_progress";
+    TournamentStatus["COMPLETED"] = "completed";
+    TournamentStatus["CANCELLED"] = "cancelled";
+})(TournamentStatus || (exports.TournamentStatus = TournamentStatus = {}));
+var TournamentType;
+(function (TournamentType) {
+    TournamentType["SINGLE_ELIMINATION"] = "single_elimination";
+    TournamentType["DOUBLE_ELIMINATION"] = "double_elimination";
+    TournamentType["ROUND_ROBIN"] = "round_robin";
+    TournamentType["GROUPS_KNOCKOUT"] = "groups_knockout";
+})(TournamentType || (exports.TournamentType = TournamentType = {}));
 let Tournament = class Tournament {
     constructor(partial) {
         Object.assign(this, partial);

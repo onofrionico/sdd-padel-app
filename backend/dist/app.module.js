@@ -8,14 +8,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
+const config_1 = require("@nestjs/config");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
+const tournaments_module_1 = require("./tournaments/tournaments.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
+        imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+            }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                useFactory: (configService) => ({
+                    type: 'postgres',
+                    host: configService.get('DATABASE_HOST', 'localhost'),
+                    port: +configService.get('DATABASE_PORT', 5432),
+                    username: configService.get('DATABASE_USERNAME', 'postgres'),
+                    password: configService.get('DATABASE_PASSWORD', 'agusjgdf10'),
+                    database: configService.get('DATABASE_NAME', 'padel_tournament'),
+                    autoLoadEntities: true,
+                    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+                    synchronize: process.env.NODE_ENV !== 'production',
+                    logging: process.env.NODE_ENV !== 'production',
+                }),
+                inject: [config_1.ConfigService],
+            }),
+            tournaments_module_1.TournamentsModule,
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

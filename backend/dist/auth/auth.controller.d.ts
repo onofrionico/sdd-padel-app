@@ -9,9 +9,6 @@ export declare class AuthController {
         access_token: string;
         user: {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
-            notifications: import("../notifications/entities/notification.entity").Notification[];
             email: string;
             firstName: string;
             lastName: string;
@@ -23,13 +20,13 @@ export declare class AuthController {
             isVerified: boolean;
             associationMemberships: import("../associations/entities/association-membership.entity").AssociationMembership[];
             tournamentPlayers: import("../tournaments/entities/tournament-player.entity").TournamentPlayer[];
+            notifications: import("../notifications/entities/notification.entity").Notification[];
+            createdAt: Date;
+            updatedAt: Date;
         };
     }>;
     register(registerDto: RegisterDto): Promise<{
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        notifications: import("../notifications/entities/notification.entity").Notification[];
         email: string;
         firstName: string;
         lastName: string;
@@ -41,6 +38,9 @@ export declare class AuthController {
         isVerified: boolean;
         associationMemberships: import("../associations/entities/association-membership.entity").AssociationMembership[];
         tournamentPlayers: import("../tournaments/entities/tournament-player.entity").TournamentPlayer[];
+        notifications: import("../notifications/entities/notification.entity").Notification[];
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     getProfile(req: {
         user: User;

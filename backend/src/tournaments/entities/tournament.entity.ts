@@ -4,8 +4,20 @@ import { TournamentRegistration } from './tournament-registration.entity';
 import { TournamentMatch } from './tournament-match.entity';
 import { TournamentTeam } from './tournament-team.entity';
 
-export type TournamentStatus = 'upcoming' | 'registration_open' | 'in_progress' | 'completed' | 'cancelled';
-export type TournamentType = 'single_elimination' | 'double_elimination' | 'round_robin' | 'groups_knockout';
+export enum TournamentStatus {
+  UPCOMING = 'upcoming',
+  REGISTRATION_OPEN = 'registration_open',
+  IN_PROGRESS = 'in_progress',
+  COMPLETED = 'completed',
+  CANCELLED = 'cancelled'
+}
+
+export enum TournamentType {
+  SINGLE_ELIMINATION = 'single_elimination',
+  DOUBLE_ELIMINATION = 'double_elimination',
+  ROUND_ROBIN = 'round_robin',
+  GROUPS_KNOCKOUT = 'groups_knockout'
+}
 
 export interface TournamentSettings {
   maxTeams?: number;

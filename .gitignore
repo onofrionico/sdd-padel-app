@@ -1,6 +1,8 @@
 # Dependencies
 /backend/node_modules
+/node_modules
 package-lock.json
+docker-compose.yml
 
 # Environment variables
 .env

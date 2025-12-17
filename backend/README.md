@@ -23,26 +23,60 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Padel Tournament Management System - Backend API built with NestJS, TypeORM, and PostgreSQL.
+
+## Prerequisites
+
+- Node.js 18+ and npm
+- Docker and Docker Compose (for database)
 
 ## Project setup
+
+### 1. Install dependencies
 
 ```bash
 $ npm install
 ```
 
+### 2. Setup environment variables
+
+Copy the example environment file and configure it:
+
+```bash
+$ cp .env.example .env
+```
+
+Edit `.env` with your configuration (defaults work with Docker setup).
+
+### 3. Start PostgreSQL with Docker
+
+From the project root directory:
+
+```bash
+$ docker-compose up -d
+```
+
+This will start PostgreSQL on `localhost:5432`.
+
+### 4. Run database migrations
+
+```bash
+$ npm run migration:run
+```
+
 ## Compile and run the project
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
+# development (watch mode)
 $ npm run start:dev
 
 # production mode
 $ npm run start:prod
 ```
+
+The API will be available at `http://localhost:3000`.
+
+Swagger documentation: `http://localhost:3000/api`
 
 ## Run tests
 

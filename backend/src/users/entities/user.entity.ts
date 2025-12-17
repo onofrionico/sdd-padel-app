@@ -6,9 +6,9 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
-import { AssociationMembership } from '@/associations/entities/association-membership.entity';
-import { TournamentPlayer } from '@/tournaments/entities/tournament-player.entity';
-import { Notification } from '@/notifications/entities/notification.entity';
+import { AssociationMembership } from '../../associations/entities/association-membership.entity';
+import { TournamentPlayer } from '../../tournaments/entities/tournament-player.entity';
+import { Notification } from '../../notifications/entities/notification.entity';
 import { Exclude } from 'class-transformer';
 
 export enum UserRole {

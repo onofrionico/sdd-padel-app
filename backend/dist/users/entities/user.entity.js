@@ -11,9 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = exports.Gender = exports.UserRole = void 0;
 const typeorm_1 = require("typeorm");
-const association_membership_entity_1 = require("@/associations/entities/association-membership.entity");
-const tournament_player_entity_1 = require("@/tournaments/entities/tournament-player.entity");
-const notification_entity_1 = require("@/notifications/entities/notification.entity");
+const association_membership_entity_1 = require("../../associations/entities/association-membership.entity");
+const tournament_player_entity_1 = require("../../tournaments/entities/tournament-player.entity");
+const notification_entity_1 = require("../../notifications/entities/notification.entity");
 const class_transformer_1 = require("class-transformer");
 var UserRole;
 (function (UserRole) {
