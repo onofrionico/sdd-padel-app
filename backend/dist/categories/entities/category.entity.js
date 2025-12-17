@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Category = exports.CategoryLevel = void 0;
 const typeorm_1 = require("typeorm");
+const association_entity_1 = require("../../associations/entities/association.entity");
 var CategoryLevel;
 (function (CategoryLevel) {
     CategoryLevel["BEGINNER"] = "beginner";
@@ -52,6 +53,15 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'boolean', default: true }),
     __metadata("design:type", Boolean)
 ], Category.prototype, "isActive", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'uuid', nullable: true }),
+    __metadata("design:type", Object)
+], Category.prototype, "associationId", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => association_entity_1.Association, { onDelete: 'CASCADE', nullable: true }),
+    (0, typeorm_1.JoinColumn)({ name: 'associationId' }),
+    __metadata("design:type", Object)
+], Category.prototype, "association", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)('Tournament', 'category'),
     __metadata("design:type", Array)

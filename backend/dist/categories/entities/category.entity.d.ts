@@ -1,3 +1,4 @@
+import { Association } from '../../associations/entities/association.entity';
 export declare enum CategoryLevel {
     BEGINNER = "beginner",
     INTERMEDIATE = "intermediate",
@@ -12,6 +13,8 @@ export declare class Category {
     maxPoints: number;
     description: string | null;
     isActive: boolean;
+    associationId: string | null;
+    association: Association | null;
     tournaments: any[];
     createdAt: Date;
     updatedAt: Date;

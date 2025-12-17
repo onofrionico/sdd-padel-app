@@ -91,7 +91,7 @@ backend/
 ### Implementation for User Story 0
 - [x] A004 [P] [US0] Create Association entity
 - [x] A005 [P] [US0] Create AssociationMember (or equivalent) entity to support multi-association membership
-- [ ] A006 [P] [US0] Make Category system association-scoped (entity/relationship updates)
+- [x] A006 [P] [US0] Make Category system association-scoped (entity/relationship updates)
 - [x] A007 [P] [US0] Add AssociationService with CRUD + membership management
 - [x] A008 [P] [US0] Add AssociationController endpoints
 

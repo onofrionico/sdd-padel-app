@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { Tournament } from '../../tournaments/entities/tournament.entity';
+import { Association } from '../../associations/entities/association.entity';
 
 export enum CategoryLevel {
   BEGINNER = 'beginner',
@@ -30,6 +31,13 @@ export class Category {
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
+
+  @Column({ type: 'uuid', nullable: true })
+  associationId: string | null;
+
+  @ManyToOne(() => Association, { onDelete: 'CASCADE', nullable: true })
+  @JoinColumn({ name: 'associationId' })
+  association: Association | null;
 
   // Usamos un string para evitar dependencia circular
   @OneToMany('Tournament', 'category')
