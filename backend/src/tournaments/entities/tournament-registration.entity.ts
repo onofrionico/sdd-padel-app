@@ -27,7 +27,7 @@ export class TournamentRegistration {
   status: RegistrationStatus;
 
   @Column({ type: 'text', nullable: true })
-  rejectionReason: string;
+  rejectionReason: string | null;
 
   @CreateDateColumn()
   registeredAt: Date;

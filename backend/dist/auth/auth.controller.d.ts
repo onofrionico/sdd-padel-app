@@ -17,6 +17,8 @@ export declare class AuthController {
             gender: import("../users/entities/user.entity").Gender | null;
             dateOfBirth?: Date | undefined;
             profilePicture?: string | undefined;
+            playingHand?: "right" | "left" | "ambidextrous" | undefined;
+            playingStyle?: "defensive" | "offensive" | "all_around" | undefined;
             isVerified: boolean;
             associationMemberships: import("../associations/entities/association-membership.entity").AssociationMembership[];
             tournamentPlayers: import("../tournaments/entities/tournament-player.entity").TournamentPlayer[];
@@ -35,6 +37,8 @@ export declare class AuthController {
         gender: import("../users/entities/user.entity").Gender | null;
         dateOfBirth?: Date | undefined;
         profilePicture?: string | undefined;
+        playingHand?: "right" | "left" | "ambidextrous" | undefined;
+        playingStyle?: "defensive" | "offensive" | "all_around" | undefined;
         isVerified: boolean;
         associationMemberships: import("../associations/entities/association-membership.entity").AssociationMembership[];
         tournamentPlayers: import("../tournaments/entities/tournament-player.entity").TournamentPlayer[];

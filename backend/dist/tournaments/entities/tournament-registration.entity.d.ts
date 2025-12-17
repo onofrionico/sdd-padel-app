@@ -8,7 +8,7 @@ export declare class TournamentRegistration {
     teamId: string;
     team: TournamentTeam;
     status: RegistrationStatus;
-    rejectionReason: string;
+    rejectionReason: string | null;
     registeredAt: Date;
     updatedAt: Date;
     constructor(partial: Partial<TournamentRegistration>);

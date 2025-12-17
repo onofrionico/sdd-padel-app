@@ -23,6 +23,8 @@ export declare class User {
     gender: Gender | null;
     dateOfBirth?: Date;
     profilePicture?: string;
+    playingHand?: 'right' | 'left' | 'ambidextrous';
+    playingStyle?: 'defensive' | 'offensive' | 'all_around';
     isVerified: boolean;
     associationMemberships: AssociationMembership[];
     tournamentPlayers: TournamentPlayer[];

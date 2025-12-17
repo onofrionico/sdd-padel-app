@@ -126,9 +126,9 @@ backend/
 
 ### Implementation for User Story 2
 - [x] T012 [P] [US2] User entity exists
-- [ ] T013 [P] [US2] Extend User with player profile
-- [ ] T014 [P] [US2] Implement PlayerService
-- [ ] T015 [P] [US2] Add player endpoints to UserController
+- [x] T013 [P] [US2] Extend User with player profile
+- [x] T014 [P] [US2] Implement PlayerService
+- [x] T015 [P] [US2] Add player endpoints to UserController
 
 ## Phase 6: User Story 3 - Tournament Enrollment (Priority: P1)
 

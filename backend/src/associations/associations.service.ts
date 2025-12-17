@@ -162,4 +162,19 @@ export class AssociationsService {
 
     return { category: membership.category ?? null };
   }
+
+  async getMembership(
+    associationId: string,
+    userId: string,
+  ): Promise<AssociationMembership> {
+    const membership = await this.membershipRepository.findOne({
+      where: { associationId, userId },
+    });
+
+    if (!membership) {
+      throw new NotFoundException('Membership not found');
+    }
+
+    return membership;
+  }
 }

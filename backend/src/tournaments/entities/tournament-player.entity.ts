@@ -22,7 +22,7 @@ export class TournamentPlayer {
   team: TournamentTeam;
 
   @Column({ type: 'integer', nullable: true })
-  category: number;
+  category: number | null;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -65,6 +65,20 @@ export class User {
   @Column({ nullable: true })
   profilePicture?: string;
 
+  @Column({
+    type: 'varchar',
+    length: 20,
+    nullable: true,
+  })
+  playingHand?: 'right' | 'left' | 'ambidextrous';
+
+  @Column({
+    type: 'varchar',
+    length: 20,
+    nullable: true,
+  })
+  playingStyle?: 'defensive' | 'offensive' | 'all_around'; //TODO esto debe ser (drive, reves, mixto)
+
   @Column({ default: false })
   isVerified!: boolean;
 

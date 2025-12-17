@@ -43,7 +43,7 @@ __decorate([
 ], TournamentPlayer.prototype, "team", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'integer', nullable: true }),
-    __metadata("design:type", Number)
+    __metadata("design:type", Object)
 ], TournamentPlayer.prototype, "category", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),

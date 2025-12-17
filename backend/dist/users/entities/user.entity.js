@@ -86,6 +86,22 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "profilePicture", void 0);
 __decorate([
+    (0, typeorm_1.Column)({
+        type: 'varchar',
+        length: 20,
+        nullable: true,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "playingHand", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: 'varchar',
+        length: 20,
+        nullable: true,
+    }),
+    __metadata("design:type", String)
+], User.prototype, "playingStyle", void 0);
+__decorate([
     (0, typeorm_1.Column)({ default: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "isVerified", void 0);

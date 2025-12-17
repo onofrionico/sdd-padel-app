@@ -13,16 +13,31 @@ const tournament_entity_1 = require("./entities/tournament.entity");
 const tournament_controller_1 = require("./tournament.controller");
 const tournament_service_1 = require("./tournament.service");
 const association_entity_1 = require("../associations/entities/association.entity");
+const tournament_team_entity_1 = require("./entities/tournament-team.entity");
+const tournament_player_entity_1 = require("./entities/tournament-player.entity");
+const tournament_registration_entity_1 = require("./entities/tournament-registration.entity");
+const enrollment_service_1 = require("./enrollment.service");
+const enrollment_controller_1 = require("./enrollment.controller");
+const associations_module_1 = require("../associations/associations.module");
+const notifications_module_1 = require("../notifications/notifications.module");
 let TournamentsModule = class TournamentsModule {
 };
 exports.TournamentsModule = TournamentsModule;
 exports.TournamentsModule = TournamentsModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([tournament_entity_1.Tournament, association_entity_1.Association]),
+            typeorm_1.TypeOrmModule.forFeature([
+                tournament_entity_1.Tournament,
+                association_entity_1.Association,
+                tournament_team_entity_1.TournamentTeam,
+                tournament_player_entity_1.TournamentPlayer,
+                tournament_registration_entity_1.TournamentRegistration,
+            ]),
+            associations_module_1.AssociationsModule,
+            notifications_module_1.NotificationsModule,
         ],
-        controllers: [tournament_controller_1.TournamentController],
-        providers: [tournament_service_1.TournamentService],
+        controllers: [tournament_controller_1.TournamentController, enrollment_controller_1.EnrollmentController],
+        providers: [tournament_service_1.TournamentService, enrollment_service_1.EnrollmentService],
         exports: [tournament_service_1.TournamentService],
     })
 ], TournamentsModule);

@@ -5,6 +5,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TournamentsModule } from './tournaments/tournaments.module';
 import { AssociationsModule } from './associations/associations.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -29,6 +32,9 @@ import { AssociationsModule } from './associations/associations.module';
     }),
     TournamentsModule,
     AssociationsModule,
+    UsersModule,
+    AuthModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -6,7 +6,7 @@ export declare class TournamentPlayer {
     user: User;
     teamId: string;
     team: TournamentTeam;
-    category: number;
+    category: number | null;
     createdAt: Date;
     updatedAt: Date;
     constructor(partial: Partial<TournamentPlayer>);
