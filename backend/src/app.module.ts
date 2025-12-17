@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TournamentsModule } from './tournaments/tournaments.module';
+import { AssociationsModule } from './associations/associations.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { TournamentsModule } from './tournaments/tournaments.module';
       inject: [ConfigService],
     }),
     TournamentsModule,
+    AssociationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

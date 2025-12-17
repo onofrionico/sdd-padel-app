@@ -5,7 +5,7 @@
 
 ## Summary
 
-The Padel Tournament Management System will enable organizers to create and manage padel tournaments with various formats (single elimination, round-robin, etc.) and support player registration, team formation, tournament enrollment, and point tracking. The system will maintain player categories (1st to 8th) and calculate rankings based on tournament performance.
+The Padel Tournament Management System will enable organizers to create and manage padel tournaments with various formats (single elimination, round-robin, etc.) and support player registration, association membership, team formation, tournament enrollment, and point tracking. The system will maintain player categories (1st to 8th) per association and calculate rankings based on tournament performance.
 
 ## Technical Context
 
@@ -77,7 +77,25 @@ backend/
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
-## Phase 3: User Story 1 - Tournament Management (Priority: P1)
+## Phase 3: User Story 0 - Association System (Priority: P1)
+
+**Goal**: Support multiple associations, each with its own category system and rules, and allow players to be members of multiple associations.
+
+**Independent Test**: Can create an association, add a player as a member, and store/read the player's category within that association.
+
+### Tests for User Story 0
+- [ ] A001 [P] [US0] Create association with valid data
+- [ ] A002 [P] [US0] Add/remove player membership in an association
+- [ ] A003 [P] [US0] Set/get player category per association
+
+### Implementation for User Story 0
+- [x] A004 [P] [US0] Create Association entity
+- [x] A005 [P] [US0] Create AssociationMember (or equivalent) entity to support multi-association membership
+- [ ] A006 [P] [US0] Make Category system association-scoped (entity/relationship updates)
+- [x] A007 [P] [US0] Add AssociationService with CRUD + membership management
+- [x] A008 [P] [US0] Add AssociationController endpoints
+
+## Phase 4: User Story 1 - Tournament Management (Priority: P1)
 
 **Goal**: Allow organizers to create and manage padel tournaments with configurable settings.
 
@@ -95,7 +113,7 @@ backend/
 - [x] T007 [US1] Add validation for tournament settings
 - [x] T008 [US1] Implement tournament status transitions
 
-## Phase 4: User Story 2 - Player Registration (Priority: P1)
+## Phase 5: User Story 2 - Player Registration (Priority: P1)
 
 **Goal**: Allow players to register and manage their profiles with category information.
 
@@ -103,7 +121,7 @@ backend/
 
 ### Tests for User Story 2
 - [ ] T009 [P] [US2] Register new player
-- [ ] T010 [P] [US2] Update player category
+- [ ] T010 [P] [US2] Update player category per association
 - [ ] T011 [P] [US2] View player profile
 
 ### Implementation for User Story 2
@@ -112,7 +130,7 @@ backend/
 - [ ] T014 [P] [US2] Implement PlayerService
 - [ ] T015 [P] [US2] Add player endpoints to UserController
 
-## Phase 5: User Story 3 - Tournament Enrollment (Priority: P1)
+## Phase 6: User Story 3 - Tournament Enrollment (Priority: P1)
 
 **Goal**: Enable players to enroll in tournaments with partners, subject to organizer approval.
 
@@ -130,7 +148,7 @@ backend/
 - [ ] T022 [P] [US3] Add enrollment endpoints
 - [ ] T023 [P] [US3] Implement notification system
 
-## Phase 6: User Story 4 - Tournament Execution (Priority: P2)
+## Phase 7: User Story 4 - Tournament Execution (Priority: P2)
 
 **Goal**: Support tournament execution with match management and scoring.
 
@@ -147,7 +165,7 @@ backend/
 - [ ] T029 [P] [US4] Add match management service
 - [ ] T030 [P] [US4] Implement scoring system
 
-## Phase 7: User Story 5 - Rankings and Statistics (Priority: P2)
+## Phase 8: User Story 5 - Rankings and Statistics (Priority: P2)
 
 **Goal**: Provide player rankings and tournament statistics.
 
@@ -163,7 +181,7 @@ backend/
 - [ ] T035 [P] [US5] Add ranking endpoints
 - [ ] T036 [P] [US5] Create statistics service
 
-## Phase 8: Polish & Cross-Cutting Concerns
+## Phase 9: Polish & Cross-Cutting Concerns
 
 - [ ] Add comprehensive API documentation
 - [ ] Implement request validation and sanitization
@@ -175,9 +193,9 @@ backend/
 
 ## Next Steps
 
-1. Complete Phase 1 setup
-2. Implement authentication/authorization
-3. Set up database migrations
+1. Add tests for Association System (A001-A003) and verify compilation
+2. Decide/implement Category entity scope per association (A006)
+3. Complete Phase 1 setup items that are still open
 4. Proceed with user story implementation in priority order
 
 ## Current Status
@@ -186,6 +204,7 @@ backend/
 - Core entities have been created
 - Database configuration is set up
 - Authentication system is partially implemented
+- Association System endpoints (associations + memberships + category per association) are implemented
 
 ## Notes
 
