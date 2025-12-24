@@ -8,6 +8,7 @@ import { AssociationsModule } from './associations/associations.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { RankingsModule } from './rankings/rankings.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     UsersModule,
     AuthModule,
     NotificationsModule,
+    RankingsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
