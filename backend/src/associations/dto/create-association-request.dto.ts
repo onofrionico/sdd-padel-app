@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsOptional, IsString, IsUrl } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsBoolean, IsObject, IsOptional, IsString, IsUrl } from 'class-validator';
 
 export class CreateAssociationRequestDto {
   @ApiProperty()
@@ -25,4 +25,12 @@ export class CreateAssociationRequestDto {
   @IsBoolean()
   @IsOptional()
   isActive?: boolean;
+
+  @ApiPropertyOptional({
+    description: 'Points awarded per round (round number as key). Example: {"1": 1, "2": 3, "3": 7}',
+    example: { '1': 1, '2': 3, '3': 7 },
+  })
+  @IsObject()
+  @IsOptional() 
+  pointsByRound?: Record<string, number>;
 }

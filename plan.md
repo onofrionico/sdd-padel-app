@@ -144,9 +144,9 @@ backend/
 ### Implementation for User Story 3
 - [x] T019 [P] [US3] TournamentRegistration entity exists
 - [x] T020 [P] [US3] TournamentTeam entity exists
-- [ ] T021 [P] [US3] Implement enrollment service
-- [ ] T022 [P] [US3] Add enrollment endpoints
-- [ ] T023 [P] [US3] Implement notification system
+- [x] T021 [P] [US3] Implement enrollment service
+- [x] T022 [P] [US3] Add enrollment endpoints
+- [x] T023 [P] [US3] Implement notification system
 
 ## Phase 7: User Story 4 - Tournament Execution (Priority: P2)
 
@@ -155,15 +155,15 @@ backend/
 **Independent Test**: Can create matches, record results, and update standings.
 
 ### Tests for User Story 4
-- [ ] T024 [P] [US4] Create tournament bracket
-- [ ] T025 [P] [US4] Record match results
-- [ ] T026 [P] [US4] Update tournament standings
+- [x] T024 [P] [US4] Create tournament bracket
+- [x] T025 [P] [US4] Record match results
+- [x] T026 [P] [US4] Update tournament standings
 
 ### Implementation for User Story 4
 - [x] T027 [P] [US4] TournamentMatch entity exists
-- [ ] T028 [P] [US4] Implement bracket generation
-- [ ] T029 [P] [US4] Add match management service
-- [ ] T030 [P] [US4] Implement scoring system
+- [x] T028 [P] [US4] Implement bracket generation
+- [x] T029 [P] [US4] Add match management service
+- [x] T030 [P] [US4] Implement scoring system (points configurable per association by round)
 
 ## Phase 8: User Story 5 - Rankings and Statistics (Priority: P2)
 

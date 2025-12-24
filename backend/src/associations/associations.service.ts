@@ -15,6 +15,7 @@ export interface CreateAssociationDto {
   logoUrl?: string;
   website?: string;
   isActive?: boolean;
+  pointsByRound?: Record<string, number>;
 }
 
 export interface UpdateAssociationDto extends Partial<CreateAssociationDto> {}

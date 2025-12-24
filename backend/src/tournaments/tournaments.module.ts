@@ -7,10 +7,13 @@ import { Association } from '../associations/entities/association.entity';
 import { TournamentTeam } from './entities/tournament-team.entity';
 import { TournamentPlayer } from './entities/tournament-player.entity';
 import { TournamentRegistration } from './entities/tournament-registration.entity';
+import { TournamentMatch } from './entities/tournament-match.entity';
 import { EnrollmentService } from './enrollment.service';
 import { EnrollmentController } from './enrollment.controller';
 import { AssociationsModule } from '../associations/associations.module';
 import { NotificationsModule } from '../notifications/notifications.module';
+import { TournamentMatchesController } from './tournament-matches.controller';
+import { TournamentMatchesService } from './tournament-matches.service';
 
 @Module({
   imports: [
@@ -20,12 +23,13 @@ import { NotificationsModule } from '../notifications/notifications.module';
       TournamentTeam,
       TournamentPlayer,
       TournamentRegistration,
+      TournamentMatch,
     ]),
     AssociationsModule,
     NotificationsModule,
   ],
-  controllers: [TournamentController, EnrollmentController],
-  providers: [TournamentService, EnrollmentService],
+  controllers: [TournamentController, EnrollmentController, TournamentMatchesController],
+  providers: [TournamentService, EnrollmentService, TournamentMatchesService],
   exports: [TournamentService],
 })
 export class TournamentsModule {}

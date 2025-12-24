@@ -2,6 +2,10 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { AssociationMembership } from './association-membership.entity';
 import { Tournament } from '../../tournaments/entities/tournament.entity';
 
+ export interface AssociationPointsByRound {
+   [round: string]: number;
+ }
+
 @Entity('associations')
 export class Association {
   @PrimaryGeneratedColumn('uuid')
@@ -21,6 +25,9 @@ export class Association {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @Column({ type: 'jsonb', default: {} })
+  pointsByRound: AssociationPointsByRound;
 
   @OneToMany(() => AssociationMembership, membership => membership.association)
   members: AssociationMembership[];
