@@ -172,14 +172,14 @@ backend/
 **Independent Test**: Can view player rankings and tournament statistics.
 
 ### Tests for User Story 5
-- [ ] T031 [P] [US5] Calculate player rankings
-- [ ] T032 [P] [US5] View category-specific rankings
-- [ ] T033 [P] [US5] Generate tournament statistics
+- [x] T031 [P] [US5] Calculate player rankings
+- [x] T032 [P] [US5] View category-specific rankings
+- [x] T033 [P] [US5] Generate tournament statistics
 
 ### Implementation for User Story 5
-- [ ] T034 [P] [US5] Implement ranking calculation
-- [ ] T035 [P] [US5] Add ranking endpoints
-- [ ] T036 [P] [US5] Create statistics service
+- [x] T034 [P] [US5] Implement ranking calculation
+- [x] T035 [P] [US5] Add ranking endpoints
+- [x] T036 [P] [US5] Create statistics service
 
 ## Phase 9: Polish & Cross-Cutting Concerns
 

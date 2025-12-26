@@ -64,6 +64,53 @@ This will start PostgreSQL on `localhost:5432`.
 $ npm run migration:run
 ```
 
+### 5. Seed the database with test data (Optional)
+
+To populate the database with sample data for testing:
+
+```bash
+$ psql -U <username> -d padel_tournament -f seed.sql
+```
+
+Or if you prefer to use Node.js (update the username in the command):
+
+```bash
+$ node generate-seed.js  # Generates password hash
+$ psql -U your_username -d padel_tournament -f seed.sql
+```
+
+This will create:
+- **8 users** (admin, organizers, and players)
+- **3 associations** (Asociación de Pádel de Buenos Aires, Club Náutico San Isidro, Federación Argentina de Pádel)
+- **8 memberships** in associations
+- **4 categories** (Primera, Segunda, Tercera, Cuarta)
+- **3 seasons** (2024, 2025, Verano 2024)
+- **3 tournaments** with different statuses (completed, in progress, registration open)
+- **6 teams** participating in tournaments
+- **12 tournament players**
+- **6 registration records**
+- **4 matches** (completed, in progress, and scheduled)
+- **6 notifications** of various types
+
+#### Test Credentials
+
+After seeding, you can login with:
+
+- **Email:** `admin@padel.com`
+- **Password:** `password123`
+- **Role:** Admin
+
+Other test users:
+- `juan.perez@email.com` (Organizer)
+- `maria.garcia@email.com` (Player)
+- `carlos.rodriguez@email.com` (Player)
+- `ana.martinez@email.com` (Player)
+- `pedro.lopez@email.com` (Player)
+- `laura.fernandez@email.com` (Player)
+- `diego.sanchez@email.com` (Player)
+
+All test users have the same password: `password123`
+
 ## Compile and run the project
 
 ```bash

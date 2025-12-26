@@ -19,9 +19,13 @@ import {
 import { CreateSeasonDto } from './dto/create-season.dto';
 import { GetRankingsQueryDto } from './dto/get-rankings-query.dto';
 import { RankingEntryDto } from './dto/ranking-entry.dto';
+import { TournamentStatisticsDto } from './dto/tournament-statistics.dto';
+import { PlayerStatisticsDto } from './dto/player-statistics.dto';
+import { CategoryStatisticsDto } from './dto/category-statistics.dto';
 import { Season } from './entities/season.entity';
 import { RankingsService } from './rankings.service';
 import { SeasonsService } from './seasons.service';
+import { StatisticsService } from './statistics.service';
 
 @ApiTags('Rankings')
 @ApiBearerAuth()
@@ -30,6 +34,7 @@ export class RankingsController {
   constructor(
     private readonly seasonsService: SeasonsService,
     private readonly rankingsService: RankingsService,
+    private readonly statisticsService: StatisticsService,
   ) {}
 
   @Post('seasons')
@@ -87,8 +92,11 @@ export class RankingsController {
       limit: query.limit,
     });
 
+    const startPosition = (result.page - 1) * result.pageSize;
+
     return {
-      items: result.items.map(i => ({
+      items: result.items.map((i, index) => ({
+        position: startPosition + index + 1,
         user: i.user,
         points: i.points,
         tournamentsCount: i.tournamentsCount,
@@ -98,5 +106,52 @@ export class RankingsController {
       pageSize: result.pageSize,
       season: result.season,
     };
+  }
+
+  @Get('statistics/tournaments')
+  @ApiOperation({ summary: 'Get tournament statistics for an association and season' })
+  @ApiParam({ name: 'associationId', format: 'uuid' })
+  @ApiResponse({ status: HttpStatus.OK, type: TournamentStatisticsDto })
+  async getTournamentStatistics(
+    @Param('associationId', ParseUUIDPipe) associationId: string,
+    @Query() query: GetRankingsQueryDto,
+  ): Promise<TournamentStatisticsDto> {
+    return this.statisticsService.getTournamentStatistics({
+      associationId,
+      seasonId: query.seasonId,
+      category: query.category,
+    });
+  }
+
+  @Get('statistics/players/:userId')
+  @ApiOperation({ summary: 'Get player statistics for a specific user' })
+  @ApiParam({ name: 'associationId', format: 'uuid' })
+  @ApiParam({ name: 'userId', format: 'uuid' })
+  @ApiResponse({ status: HttpStatus.OK, type: PlayerStatisticsDto })
+  async getPlayerStatistics(
+    @Param('associationId', ParseUUIDPipe) associationId: string,
+    @Param('userId', ParseUUIDPipe) userId: string,
+    @Query() query: GetRankingsQueryDto,
+  ): Promise<PlayerStatisticsDto> {
+    return this.statisticsService.getPlayerStatistics({
+      associationId,
+      userId,
+      seasonId: query.seasonId,
+      category: query.category,
+    });
+  }
+
+  @Get('statistics/categories')
+  @ApiOperation({ summary: 'Get statistics for all categories in an association' })
+  @ApiParam({ name: 'associationId', format: 'uuid' })
+  @ApiResponse({ status: HttpStatus.OK, type: [CategoryStatisticsDto] })
+  async getCategoryStatistics(
+    @Param('associationId', ParseUUIDPipe) associationId: string,
+    @Query() query: GetRankingsQueryDto,
+  ): Promise<CategoryStatisticsDto[]> {
+    return this.statisticsService.getCategoryStatistics({
+      associationId,
+      seasonId: query.seasonId,
+    });
   }
 }
