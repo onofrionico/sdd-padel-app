@@ -22,7 +22,8 @@
     "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:generate -d ./src/config/typeorm.config.ts",
     "migration:run": "node -r ts-node/register -r tsconfig-paths/register src/database/migrate.ts",
     "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert",
-    "migration:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create"
+    "migration:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create",
+    "seed": "ts-node -r tsconfig-paths/register src/database/run-seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.1.9",

@@ -17,6 +17,7 @@ const associations_module_1 = require("./associations/associations.module");
 const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
 const notifications_module_1 = require("./notifications/notifications.module");
+const rankings_module_1 = require("./rankings/rankings.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -47,6 +48,7 @@ exports.AppModule = AppModule = __decorate([
             users_module_1.UsersModule,
             auth_module_1.AuthModule,
             notifications_module_1.NotificationsModule,
+            rankings_module_1.RankingsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

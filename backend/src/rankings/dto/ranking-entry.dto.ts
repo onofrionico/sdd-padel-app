@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class RankingUserDto {
   @ApiProperty({ format: 'uuid' })
@@ -12,6 +12,9 @@ export class RankingUserDto {
 }
 
 export class RankingEntryDto {
+  @ApiPropertyOptional({ description: 'Ranking position (1-based)', example: 1 })
+  position?: number;
+
   @ApiProperty({ type: RankingUserDto })
   user: RankingUserDto;
 

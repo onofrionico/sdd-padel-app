@@ -44,6 +44,10 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Association.prototype, "isActive", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'jsonb', default: {} }),
+    __metadata("design:type", Object)
+], Association.prototype, "pointsByRound", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => association_membership_entity_1.AssociationMembership, membership => membership.association),
     __metadata("design:type", Array)
 ], Association.prototype, "members", void 0);
