@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '@/contexts/AuthContext'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Bell, User } from 'lucide-react'
+import { NotificationBell } from '@/components/notifications/NotificationBell'
+import { Menu, X, User } from 'lucide-react'
 import { useState } from 'react'
 
 export function Header() {
@@ -42,12 +43,9 @@ export function Header() {
         <div className="flex items-center gap-4">
           {isAuthenticated ? (
             <>
-              <Button variant="ghost" size="icon" className="hidden md:flex" asChild>
-                <Link to="/notifications">
-                  <Bell className="h-5 w-5" />
-                  <span className="sr-only">Notifications</span>
-                </Link>
-              </Button>
+              <div className="hidden md:flex">
+                <NotificationBell />
+              </div>
               <Button variant="ghost" size="icon" className="hidden md:flex" asChild>
                 <Link to="/profile">
                   <User className="h-5 w-5" />

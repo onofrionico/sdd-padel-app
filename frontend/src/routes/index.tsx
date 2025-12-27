@@ -8,8 +8,16 @@ import { RegisterPage } from '@/pages/public/RegisterPage'
 import { ProfileSetupPage } from '@/pages/player/ProfileSetupPage'
 import { DashboardPage } from '@/pages/player/DashboardPage'
 import { MyEnrollmentsPage } from '@/pages/player/MyEnrollmentsPage'
+import { NotificationsPage } from '@/pages/player/NotificationsPage'
+import { ProfilePage } from '@/pages/player/ProfilePage'
 import { TournamentsListPage } from '@/pages/shared/TournamentsListPage'
 import { TournamentDetailsPage } from '@/pages/shared/TournamentDetailsPage'
+import { RankingsPage } from '@/pages/shared/RankingsPage'
+import { OrganizerDashboardPage } from '@/pages/organizer/OrganizerDashboardPage'
+import { CreateTournamentPage } from '@/pages/organizer/CreateTournamentPage'
+import { EditTournamentPage } from '@/pages/organizer/EditTournamentPage'
+import { ManageTournamentPage } from '@/pages/organizer/ManageTournamentPage'
+import { ManageEnrollmentsPage } from '@/pages/organizer/ManageEnrollmentsPage'
 
 export function AppRoutes() {
   return (
@@ -65,7 +73,7 @@ export function AppRoutes() {
           path="/rankings"
           element={
             <ProtectedRoute>
-              <div className="container py-8">Rankings - Coming Soon</div>
+              <RankingsPage />
             </ProtectedRoute>
           }
         />
@@ -73,7 +81,7 @@ export function AppRoutes() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <div className="container py-8">Profile - Coming Soon</div>
+              <ProfilePage />
             </ProtectedRoute>
           }
         />
@@ -81,7 +89,7 @@ export function AppRoutes() {
           path="/notifications"
           element={
             <ProtectedRoute>
-              <div className="container py-8">Notifications - Coming Soon</div>
+              <NotificationsPage />
             </ProtectedRoute>
           }
         />
@@ -96,18 +104,42 @@ export function AppRoutes() {
 
         {/* Organizer routes */}
         <Route
-          path="/organizer/create"
+          path="/organizer/dashboard"
           element={
             <OrganizerRoute>
-              <div className="container py-8">Create Tournament - Coming Soon</div>
+              <OrganizerDashboardPage />
             </OrganizerRoute>
           }
         />
         <Route
-          path="/organizer/manage/:id"
+          path="/organizer/tournaments/create"
           element={
             <OrganizerRoute>
-              <div className="container py-8">Manage Tournament - Coming Soon</div>
+              <CreateTournamentPage />
+            </OrganizerRoute>
+          }
+        />
+        <Route
+          path="/organizer/tournaments/:id"
+          element={
+            <OrganizerRoute>
+              <ManageTournamentPage />
+            </OrganizerRoute>
+          }
+        />
+        <Route
+          path="/organizer/tournaments/:id/edit"
+          element={
+            <OrganizerRoute>
+              <EditTournamentPage />
+            </OrganizerRoute>
+          }
+        />
+        <Route
+          path="/organizer/tournaments/:id/enrollments"
+          element={
+            <OrganizerRoute>
+              <ManageEnrollmentsPage />
             </OrganizerRoute>
           }
         />

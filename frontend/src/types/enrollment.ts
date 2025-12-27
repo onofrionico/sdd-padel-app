@@ -24,10 +24,16 @@ export interface EnrollmentWithDetails extends Enrollment {
   }
   player1: {
     id: number
+    firstName: string
+    lastName: string
+    email: string
     fullName: string
   }
   player2: {
     id: number
+    firstName: string
+    lastName: string
+    email: string
     fullName: string
   }
 }

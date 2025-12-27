@@ -29,14 +29,36 @@ export const playerProfileSchema = z.object({
 
 export const tournamentSchema = z.object({
   name: z.string().min(3, 'Tournament name must be at least 3 characters'),
+  description: z.string().optional(),
   startDate: z.string(),
-  endDate: z.string(),
-  registrationDeadline: z.string(),
-  location: z.string().min(3, 'Location must be at least 3 characters'),
-  format: z.enum(['single_elimination', 'double_elimination', 'round_robin', 'groups_knockout']),
-  maxTeams: z.number().optional(),
-  categories: z.array(z.number().min(1).max(8)),
-  showCapacity: z.boolean(),
+  endDate: z.string().optional(),
+  type: z.enum(['single_elimination', 'double_elimination', 'round_robin', 'groups_knockout']),
+  isPublic: z.boolean().default(false),
+  associationId: z.string().uuid(),
+  settings: z.object({
+    maxTeams: z.number().min(2).optional(),
+    minTeams: z.number().min(2).optional(),
+    teamSize: z.number().min(1).max(4).default(2),
+    categoryRange: z.object({
+      min: z.number().min(1).max(8),
+      max: z.number().min(1).max(8),
+    }).optional(),
+    pointsDistribution: z.record(z.string(), z.number()).default({
+      '1': 100,
+      '2': 70,
+      '3': 50,
+      '4': 30,
+    }),
+    tiebreakers: z.array(z.string()).default(['head_to_head', 'point_difference', 'points_scored']),
+  }),
+}).refine((data) => {
+  if (data.endDate && data.startDate) {
+    return new Date(data.endDate) >= new Date(data.startDate)
+  }
+  return true
+}, {
+  message: 'End date must be after start date',
+  path: ['endDate'],
 })
 
 export const enrollmentSchema = z.object({
