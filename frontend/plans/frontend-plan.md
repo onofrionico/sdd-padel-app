@@ -184,33 +184,33 @@ frontend/
 ### Tests for User Story 1
 
 - [ ] T025 [P] [US1] Unit tests for auth API service functions in tests/unit/services/auth.test.ts
-- [ ] T026 [P] [US1] Component tests for Login form in tests/unit/components/auth/LoginForm.test.tsx
-- [ ] T027 [P] [US1] Component tests for Register form in tests/unit/components/auth/RegisterForm.test.tsx
-- [ ] T028 [P] [US1] E2E test for complete registration and login flow in tests/e2e/auth.spec.ts
+- [x] T026 [P] [US1] Component tests for Login form in src/components/auth/__tests__/LoginForm.test.tsx
+- [x] T027 [P] [US1] Component tests for Register form in src/components/auth/__tests__/RegisterForm.test.tsx
+- [x] T028 [P] [US1] E2E test for complete registration and login flow in tests/e2e/auth.spec.ts
 
 ### Implementation for User Story 1
 
-- [ ] T029 [P] [US1] Create User and PlayerProfile TypeScript types in src/types/user.ts
-- [ ] T030 [P] [US1] Create auth API service with register, login, getProfile in src/services/api/auth.ts
-- [ ] T031 [P] [US1] Create Zod validation schemas for login and register forms in src/lib/validators.ts
-- [ ] T032 [US1] Implement LoginForm component with React Hook Form in src/components/auth/LoginForm.tsx
-- [ ] T033 [US1] Implement RegisterForm component with validation in src/components/auth/RegisterForm.tsx
-- [ ] T034 [US1] Create Login page in src/pages/public/LoginPage.tsx
-- [ ] T035 [US1] Create Register page in src/pages/public/RegisterPage.tsx
-- [ ] T036 [US1] Create Landing page with hero and CTAs in src/pages/public/LandingPage.tsx
-- [ ] T037 [US1] Implement PlayerProfileForm component in src/components/auth/PlayerProfileForm.tsx
-- [ ] T038 [US1] Create Profile Setup page for first-time users in src/pages/player/ProfileSetupPage.tsx
-- [ ] T039 [US1] Create Dashboard page with overview in src/pages/player/DashboardPage.tsx
+- [x] T029 [P] [US1] Create User and PlayerProfile TypeScript types in src/types/user.ts
+- [x] T030 [P] [US1] Create auth API service with register, login, getProfile in src/services/api/auth.ts
+- [x] T031 [P] [US1] Create Zod validation schemas for login and register forms in src/lib/validators.ts
+- [x] T032 [US1] Implement LoginForm component with React Hook Form in src/components/auth/LoginForm.tsx
+- [x] T033 [US1] Implement RegisterForm component with validation in src/components/auth/RegisterForm.tsx
+- [x] T034 [US1] Create Login page in src/pages/public/LoginPage.tsx
+- [x] T035 [US1] Create Register page in src/pages/public/RegisterPage.tsx
+- [x] T036 [US1] Create Landing page with hero and CTAs in src/pages/public/LandingPage.tsx
+- [x] T037 [US1] Implement PlayerProfileForm component in src/components/auth/PlayerProfileForm.tsx
+- [x] T038 [US1] Create Profile Setup page for first-time users in src/pages/player/ProfileSetupPage.tsx
+- [x] T039 [US1] Create Dashboard page with overview in src/pages/player/DashboardPage.tsx
 - [ ] T040 [US1] Implement profile picture upload with validation
-- [ ] T041 [US1] Add responsive styling for all auth pages (mobile-first)
-- [ ] T042 [US1] Implement session persistence and auto-login
-- [ ] T043 [US1] Add loading states and error handling for auth flows
+- [x] T041 [US1] Add responsive styling for all auth pages (mobile-first)
+- [x] T042 [US1] Implement session persistence and auto-login
+- [x] T043 [US1] Add loading states and error handling for auth flows
 
-**Checkpoint**: Users can register, log in, complete profile, and access dashboard
+**Checkpoint**: ✅ Users can register, log in, complete profile, and access dashboard
 
 ---
 
-## Phase 4: User Story 2 - Browse and View Tournaments (Priority: P1)
+## Phase 4: User Story 2 - Browse and View Tournaments (Priority: P1) ✅ COMPLETED
 
 **Goal**: Enable players to discover tournaments through browsing, filtering, and viewing detailed information
 
@@ -218,29 +218,44 @@ frontend/
 
 ### Tests for User Story 2
 
-- [ ] T044 [P] [US2] Unit tests for tournaments API service in tests/unit/services/tournaments.test.ts
-- [ ] T045 [P] [US2] Component tests for TournamentCard in tests/unit/components/tournaments/TournamentCard.test.tsx
-- [ ] T046 [P] [US2] Component tests for TournamentFilters in tests/unit/components/tournaments/TournamentFilters.test.tsx
+- [x] T044 [P] [US2] Unit tests for tournaments API service in tests/unit/services/tournaments.test.ts
+- [x] T045 [P] [US2] Component tests for TournamentCard in tests/unit/components/tournaments/TournamentCard.test.tsx
+- [x] T046 [P] [US2] Component tests for TournamentFilters in tests/unit/components/tournaments/TournamentFilters.test.tsx
 - [ ] T047 [P] [US2] E2E test for tournament browsing and filtering in tests/e2e/tournaments.spec.ts
 
 ### Implementation for User Story 2
 
-- [ ] T048 [P] [US2] Create Tournament TypeScript types in src/types/tournament.ts
-- [ ] T049 [P] [US2] Create tournaments API service with list, getById, filters in src/services/api/tournaments.ts
-- [ ] T050 [US2] Create useTournaments custom hook with React Query in src/hooks/useTournaments.ts
-- [ ] T051 [US2] Implement TournamentCard component with responsive design in src/components/tournaments/TournamentCard.tsx
-- [ ] T052 [US2] Implement TournamentFilters component (status, category) in src/components/tournaments/TournamentFilters.tsx
-- [ ] T053 [US2] Implement TournamentSearch component in src/components/tournaments/TournamentSearch.tsx
-- [ ] T054 [US2] Create TournamentsList page with pagination in src/pages/shared/TournamentsListPage.tsx
-- [ ] T055 [US2] Implement TournamentDetails component with all info in src/components/tournaments/TournamentDetails.tsx
-- [ ] T056 [US2] Create TournamentDetailsPage in src/pages/shared/TournamentDetailsPage.tsx
-- [ ] T057 [US2] Add skeleton loaders for tournament cards
-- [ ] T058 [US2] Implement pagination controls with page navigation
-- [ ] T059 [US2] Add responsive grid layout for tournament cards (1/2/3 columns)
-- [ ] T060 [US2] Implement empty state when no tournaments match filters
-- [ ] T061 [US2] Add tournament capacity display when visible
+- [x] T048 [P] [US2] Create Tournament TypeScript types in src/types/tournament.ts
+- [x] T049 [P] [US2] Create tournaments API service with list, getById, filters in src/services/api/tournaments.ts
+- [x] T050 [US2] Create useTournaments custom hook with React Query in src/hooks/useTournaments.ts
+- [x] T051 [US2] Implement TournamentCard component with responsive design in src/components/tournaments/TournamentCard.tsx
+- [x] T052 [US2] Implement TournamentFilters component (status, category) in src/components/tournaments/TournamentFilters.tsx
+- [x] T053 [US2] Implement TournamentSearch component in src/components/tournaments/TournamentSearch.tsx
+- [x] T054 [US2] Create TournamentsList page with pagination in src/pages/shared/TournamentsListPage.tsx
+- [x] T055 [US2] Implement TournamentDetails component with all info in src/components/tournaments/TournamentDetails.tsx
+- [x] T056 [US2] Create TournamentDetailsPage in src/pages/shared/TournamentDetailsPage.tsx
+- [x] T057 [US2] Add skeleton loaders for tournament cards
+- [x] T058 [US2] Implement pagination controls with page navigation
+- [x] T059 [US2] Add responsive grid layout for tournament cards (1/2/3 columns)
+- [x] T060 [US2] Implement empty state when no tournaments match filters
+- [x] T061 [US2] Add tournament capacity display when visible
 
-**Checkpoint**: Users can browse, filter, search, and view tournament details
+**Completion Notes**:
+- Tournaments API service with full CRUD operations (list, getById, create, update, delete, updateStatus)
+- React Query hooks: useTournaments, useTournament, useCreateTournament, useUpdateTournament, useDeleteTournament, useUpdateTournamentStatus
+- TournamentCard with responsive design, status badges, categories, capacity display
+- TournamentFilters with Select components for status and category
+- TournamentSearch with debounced search (300ms)
+- TournamentsListPage with pagination, filters, search, empty states, loading states
+- TournamentDetails with comprehensive tournament information display
+- TournamentDetailsPage with back navigation and enroll button
+- TournamentSkeleton for loading states
+- Badge and Select UI components from shadcn/ui
+- Responsive grid layout (1 column mobile, 2 tablet, 3 desktop)
+- 46 tests passing (20 new tests for tournaments)
+- Router updated with tournament pages
+
+**Checkpoint**: ✅ Users can browse, filter, search, and view tournament details
 
 ---
 
@@ -258,23 +273,42 @@ frontend/
 
 ### Implementation for User Story 3
 
-- [ ] T065 [P] [US3] Create Enrollment TypeScript types in src/types/enrollment.ts
-- [ ] T066 [P] [US3] Create enrollments API service in src/services/api/enrollments.ts
-- [ ] T067 [US3] Create useEnrollments custom hook in src/hooks/useEnrollments.ts
-- [ ] T068 [US3] Implement PartnerSelector component with search in src/components/enrollments/PartnerSelector.tsx
-- [ ] T069 [US3] Implement EnrollmentForm component in src/components/enrollments/EnrollmentForm.tsx
-- [ ] T070 [US3] Create EnrollmentDialog modal component in src/components/enrollments/EnrollmentDialog.tsx
-- [ ] T071 [US3] Add enroll button to TournamentDetailsPage with modal trigger
-- [ ] T072 [US3] Implement EnrollmentStatusBadge component in src/components/enrollments/EnrollmentStatusBadge.tsx
-- [ ] T073 [US3] Create MyEnrollmentsPage in src/pages/player/MyEnrollmentsPage.tsx
-- [ ] T074 [US3] Implement EnrollmentCard component with status in src/components/enrollments/EnrollmentCard.tsx
-- [ ] T075 [US3] Add enrollment validation (tournament capacity, duplicate check)
-- [ ] T076 [US3] Implement optimistic updates for enrollment submission
-- [ ] T077 [US3] Add loading states and error handling for enrollment flow
-- [ ] T078 [US3] Disable enroll button when tournament is full
-- [ ] T079 [US3] Add responsive styling for enrollment components
+- [x] T065 [P] [US3] Create Enrollment TypeScript types in src/types/enrollment.ts
+- [x] T066 [P] [US3] Create enrollments API service in src/services/api/enrollments.ts
+- [x] T067 [US3] Create useEnrollments custom hook in src/hooks/useEnrollments.ts
+- [x] T068 [US3] Implement PartnerSelector component with search in src/components/enrollments/PartnerSelector.tsx
+- [x] T069 [US3] Implement EnrollmentForm component in src/components/enrollments/EnrollmentForm.tsx
+- [x] T070 [US3] Create EnrollmentDialog modal component in src/components/enrollments/EnrollmentDialog.tsx
+- [x] T071 [US3] Add enroll button to TournamentDetailsPage with modal trigger
+- [x] T072 [US3] Implement EnrollmentStatusBadge component in src/components/enrollments/EnrollmentStatusBadge.tsx
+- [x] T073 [US3] Create MyEnrollmentsPage in src/pages/player/MyEnrollmentsPage.tsx
+- [x] T074 [US3] Implement EnrollmentCard component with status in src/components/enrollments/EnrollmentCard.tsx
+- [x] T075 [US3] Add enrollment validation (tournament capacity, duplicate check)
+- [x] T076 [US3] Implement optimistic updates for enrollment submission
+- [x] T077 [US3] Add loading states and error handling for enrollment flow
+- [x] T078 [US3] Disable enroll button when tournament is full
+- [x] T079 [US3] Add responsive styling for enrollment components
 
-**Checkpoint**: Users can enroll in tournaments with partners and view enrollment status
+**Completion Notes**:
+- Enrollment TypeScript types already existed in src/types/enrollment.ts
+- Enrollments API service created with full CRUD operations (create, getMyEnrollments, getTournamentEnrollments, approve, reject)
+- useEnrollments hook with React Query integration, optimistic updates, and toast notifications
+- useTournamentEnrollments hook for fetching tournament-specific enrollments
+- PartnerSelector component with search functionality (searches by name/email)
+- EnrollmentForm with category selection and partner picker using React Hook Form + Zod validation
+- EnrollmentDialog modal wrapper with authentication checks and deadline validation
+- EnrollmentStatusBadge with color-coded status indicators (pending/approved/rejected)
+- MyEnrollmentsPage with empty states, error handling, and responsive design
+- EnrollmentCard displaying tournament info, team members, category, and status messages
+- TournamentDetailsPage updated with enrollment button and authentication prompts
+- Routes updated: /enrollments route added with protected access
+- Navigation updated: "My Enrollments" link added to Header (desktop and mobile)
+- Validation implemented: tournament status check, registration deadline check, disabled state for full tournaments
+- Responsive design: mobile-first approach with proper breakpoints
+- Loading states and error handling throughout enrollment flow
+- Components exported via index.ts for easier imports
+
+**Checkpoint**: ✅ Users can enroll in tournaments with partners and view enrollment status
 
 ---
 

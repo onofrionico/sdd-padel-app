@@ -2,20 +2,29 @@ import { z } from 'zod'
 
 export const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
 export const registerSchema = z.object({
   email: z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  fullName: z.string().min(2, 'Full name must be at least 2 characters'),
-  phoneNumber: z.string().min(10, 'Phone number must be at least 10 digits'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  firstName: z.string().min(2, 'First name must be at least 2 characters'),
+  lastName: z.string().min(2, 'Last name must be at least 2 characters'),
+  phoneNumber: z.string().optional(),
+  gender: z.enum(['male', 'female', 'other']).optional(),
+  dateOfBirth: z.string().optional(),
+  playingHand: z.enum(['right', 'left', 'ambidextrous']).optional(),
+  playingStyle: z.enum(['defensive', 'offensive', 'all_around']).optional(),
 })
 
 export const playerProfileSchema = z.object({
-  playingHand: z.enum(['right', 'left']),
-  skillLevel: z.number().min(1).max(10),
-  profilePicture: z.string().url().optional(),
+  firstName: z.string().min(2, 'First name must be at least 2 characters').optional(),
+  lastName: z.string().min(2, 'Last name must be at least 2 characters').optional(),
+  phoneNumber: z.string().optional(),
+  gender: z.enum(['male', 'female', 'other']).optional(),
+  dateOfBirth: z.string().optional(),
+  playingHand: z.enum(['right', 'left', 'ambidextrous']).optional(),
+  playingStyle: z.enum(['defensive', 'offensive', 'all_around']).optional(),
 })
 
 export const tournamentSchema = z.object({

@@ -1,8 +1,13 @@
 export interface User {
   id: number
   email: string
-  fullName: string
-  phoneNumber: string
+  firstName: string
+  lastName: string
+  phoneNumber?: string
+  gender?: 'male' | 'female' | 'other'
+  dateOfBirth?: string
+  playingHand?: 'right' | 'left' | 'ambidextrous'
+  playingStyle?: 'defensive' | 'offensive' | 'all_around'
   role: 'player' | 'organizer' | 'admin'
   createdAt: string
   updatedAt: string
@@ -11,8 +16,9 @@ export interface User {
 export interface PlayerProfile {
   id: number
   userId: number
-  playingHand: 'right' | 'left'
-  skillLevel: number
+  playingHand: 'right' | 'left' | 'ambidextrous'
+  playingStyle: 'defensive' | 'offensive' | 'all_around'
+  skillLevel?: number
   profilePicture?: string
   createdAt: string
   updatedAt: string
@@ -26,11 +32,26 @@ export interface LoginRequest {
 export interface RegisterRequest {
   email: string
   password: string
-  fullName: string
-  phoneNumber: string
+  firstName: string
+  lastName: string
+  phoneNumber?: string
+  gender?: 'male' | 'female' | 'other'
+  dateOfBirth?: string
+  playingHand?: 'right' | 'left' | 'ambidextrous'
+  playingStyle?: 'defensive' | 'offensive' | 'all_around'
 }
 
 export interface AuthResponse {
   user: User
-  token: string
+  access_token: string
+}
+
+export interface UpdateProfileRequest {
+  firstName?: string
+  lastName?: string
+  phoneNumber?: string
+  gender?: 'male' | 'female' | 'other'
+  dateOfBirth?: string
+  playingHand?: 'right' | 'left' | 'ambidextrous'
+  playingStyle?: 'defensive' | 'offensive' | 'all_around'
 }

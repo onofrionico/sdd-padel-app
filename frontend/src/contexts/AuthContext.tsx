@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { User, AuthResponse } from '@/types/user'
+import { User, AuthResponse, RegisterRequest } from '@/types/user'
 import { storage } from '@/services/storage'
 import { apiClient } from '@/services/api/client'
 
@@ -8,6 +8,7 @@ interface AuthContextType {
   isAuthenticated: boolean
   isLoading: boolean
   login: (email: string, password: string) => Promise<void>
+  register: (data: RegisterRequest) => Promise<void>
   logout: () => void
   updateUser: (user: User) => void
 }
@@ -37,9 +38,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string) => {
     const response = await apiClient.post<AuthResponse>('/auth/login', { email, password })
-    const { user: userData, token } = response.data
-    storage.setToken(token)
+    const { user: userData, access_token } = response.data
+    storage.setToken(access_token)
     setUser(userData)
+  }
+
+  const register = async (data: RegisterRequest) => {
+    const response = await apiClient.post<User>('/auth/register', data)
+    setUser(response.data)
   }
 
   const logout = () => {
@@ -59,6 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAuthenticated: !!user,
         isLoading,
         login,
+        register,
         logout,
         updateUser,
       }}

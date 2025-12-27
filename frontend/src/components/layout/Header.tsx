@@ -21,6 +21,9 @@ export function Header() {
               <Link to="/tournaments" className="text-sm font-medium transition-colors hover:text-primary">
                 Tournaments
               </Link>
+              <Link to="/enrollments" className="text-sm font-medium transition-colors hover:text-primary">
+                My Enrollments
+              </Link>
               <Link to="/rankings" className="text-sm font-medium transition-colors hover:text-primary">
                 Rankings
               </Link>
@@ -89,6 +92,13 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Tournaments
+                </Link>
+                <Link
+                  to="/enrollments"
+                  className="text-sm font-medium transition-colors hover:text-primary"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  My Enrollments
                 </Link>
                 <Link
                   to="/rankings"

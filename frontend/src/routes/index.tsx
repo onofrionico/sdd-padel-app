@@ -1,23 +1,39 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ProtectedRoute } from './ProtectedRoute'
 import { OrganizerRoute } from './OrganizerRoute'
+import { LandingPage } from '@/pages/public/LandingPage'
+import { LoginPage } from '@/pages/public/LoginPage'
+import { RegisterPage } from '@/pages/public/RegisterPage'
+import { ProfileSetupPage } from '@/pages/player/ProfileSetupPage'
+import { DashboardPage } from '@/pages/player/DashboardPage'
+import { MyEnrollmentsPage } from '@/pages/player/MyEnrollmentsPage'
+import { TournamentsListPage } from '@/pages/shared/TournamentsListPage'
+import { TournamentDetailsPage } from '@/pages/shared/TournamentDetailsPage'
 
 export function AppRoutes() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
         {/* Public routes */}
-        <Route path="/" element={<div className="container py-8">Landing Page - Coming Soon</div>} />
-        <Route path="/login" element={<div className="container py-8">Login Page - Coming Soon</div>} />
-        <Route path="/register" element={<div className="container py-8">Register Page - Coming Soon</div>} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         
         {/* Protected routes */}
+        <Route
+          path="/profile-setup"
+          element={
+            <ProtectedRoute>
+              <ProfileSetupPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <div className="container py-8">Dashboard - Coming Soon</div>
+              <DashboardPage />
             </ProtectedRoute>
           }
         />
@@ -25,7 +41,7 @@ export function AppRoutes() {
           path="/tournaments"
           element={
             <ProtectedRoute>
-              <div className="container py-8">Tournaments List - Coming Soon</div>
+              <TournamentsListPage />
             </ProtectedRoute>
           }
         />
@@ -33,7 +49,7 @@ export function AppRoutes() {
           path="/tournaments/:id"
           element={
             <ProtectedRoute>
-              <div className="container py-8">Tournament Details - Coming Soon</div>
+              <TournamentDetailsPage />
             </ProtectedRoute>
           }
         />
@@ -41,7 +57,7 @@ export function AppRoutes() {
           path="/enrollments"
           element={
             <ProtectedRoute>
-              <div className="container py-8">My Enrollments - Coming Soon</div>
+              <MyEnrollmentsPage />
             </ProtectedRoute>
           }
         />
