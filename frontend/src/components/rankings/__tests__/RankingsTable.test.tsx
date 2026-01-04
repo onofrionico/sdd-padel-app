@@ -9,30 +9,24 @@ vi.mock('@/contexts/AuthContext', () => ({
 
 const mockRankings: Ranking[] = [
   {
-    id: 1,
-    playerId: 1,
-    playerName: 'John Doe',
-    categoryId: 3,
-    points: 500,
     position: 1,
-    matchesPlayed: 50,
-    matchesWon: 35,
-    matchesLost: 15,
-    tournamentsPlayed: 10,
-    updatedAt: '2024-01-01',
+    user: {
+      id: '1',
+      firstName: 'John',
+      lastName: 'Doe',
+    },
+    points: 500,
+    tournamentsCount: 10,
   },
   {
-    id: 2,
-    playerId: 2,
-    playerName: 'Jane Smith',
-    categoryId: 3,
-    points: 450,
     position: 2,
-    matchesPlayed: 45,
-    matchesWon: 30,
-    matchesLost: 15,
-    tournamentsPlayed: 9,
-    updatedAt: '2024-01-01',
+    user: {
+      id: '2',
+      firstName: 'Jane',
+      lastName: 'Smith',
+    },
+    points: 450,
+    tournamentsCount: 9,
   },
 ]
 
@@ -40,11 +34,8 @@ describe('RankingsTable', () => {
   it('should render rankings table', () => {
     render(<RankingsTable rankings={mockRankings} />)
     
-    const johnDoe = screen.getAllByText('John Doe')
-    const janeSmith = screen.getAllByText('Jane Smith')
-    
-    expect(johnDoe.length).toBeGreaterThan(0)
-    expect(janeSmith.length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/John Doe/).length).toBeGreaterThan(0)
+    expect(screen.getAllByText(/Jane Smith/).length).toBeGreaterThan(0)
   })
 
   it('should display position badges correctly', () => {
@@ -67,16 +58,10 @@ describe('RankingsTable', () => {
     render(<RankingsTable rankings={mockRankings} />)
     
     const points = screen.getAllByText('500')
-    const wins = screen.getAllByText('35')
+    const tournaments = screen.getAllByText('10')
     
     expect(points.length).toBeGreaterThan(0)
-    expect(wins.length).toBeGreaterThan(0)
+    expect(tournaments.length).toBeGreaterThan(0)
   })
 
-  it('should calculate win rate correctly', () => {
-    render(<RankingsTable rankings={mockRankings} />)
-    
-    const winRates = screen.getAllByText(/70.0%/)
-    expect(winRates.length).toBeGreaterThan(0)
-  })
 })

@@ -2,14 +2,14 @@ import { apiClient } from './client'
 import { Ranking, RankingsFilters, RankingsResponse, PlayerStatistics } from '@/types/ranking'
 
 export const rankingsApi = {
-  async list(filters?: RankingsFilters): Promise<RankingsResponse> {
+  async list(associationId: string, filters?: RankingsFilters): Promise<RankingsResponse> {
     const params = new URLSearchParams()
     
-    if (filters?.categoryId) params.append('categoryId', filters.categoryId.toString())
+    if (filters?.categoryId) params.append('category', filters.categoryId.toString())
     if (filters?.page) params.append('page', filters.page.toString())
     if (filters?.limit) params.append('limit', filters.limit.toString())
     
-    const response = await apiClient.get<RankingsResponse>(`/rankings?${params}`)
+    const response = await apiClient.get<RankingsResponse>(`/associations/${associationId}/rankings?${params}`)
     return response.data
   },
 

@@ -2,10 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import { rankingsApi } from '@/services/api/rankings'
 import { RankingsFilters } from '@/types/ranking'
 
-export function useRankings(filters?: RankingsFilters) {
+export function useRankings(associationId: string | undefined, filters?: RankingsFilters) {
   return useQuery({
-    queryKey: ['rankings', filters],
-    queryFn: () => rankingsApi.list(filters),
+    queryKey: ['rankings', associationId, filters],
+    queryFn: () => rankingsApi.list(associationId!, filters),
+    enabled: !!associationId,
   })
 }
 

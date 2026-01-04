@@ -1,28 +1,49 @@
 import { useState } from 'react'
 import { useRankings } from '@/hooks/useRankings'
+import { useAssociations } from '@/hooks/useAssociations'
 import { RankingsTable } from '@/components/rankings/RankingsTable'
 import { CategoryFilter } from '@/components/rankings/CategoryFilter'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { Button } from '@/components/ui/button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export function RankingsPage() {
+  const { data: associations, isLoading: loadingAssociations } = useAssociations()
+  const [selectedAssociationId, setSelectedAssociationId] = useState<string | undefined>(undefined)
   const [categoryId, setCategoryId] = useState<number | undefined>(undefined)
   const [page, setPage] = useState(1)
   const limit = 20
 
-  const { data, isLoading, error } = useRankings({
+  // Auto-select first association when loaded
+  if (associations && associations.length > 0 && !selectedAssociationId) {
+    setSelectedAssociationId(associations[0].id)
+  }
+
+  const { data, isLoading, error } = useRankings(selectedAssociationId, {
     categoryId,
     page,
     limit,
   })
 
-  const totalPages = data ? Math.ceil(data.total / limit) : 0
+  const totalPages = data ? Math.ceil(data.count / limit) : 0
 
-  if (isLoading) {
+  if (loadingAssociations || isLoading) {
     return (
       <div className="container py-8">
         <LoadingSpinner size="lg" />
+      </div>
+    )
+  }
+
+  if (!associations || associations.length === 0) {
+    return (
+      <div className="container py-8">
+        <div className="rounded-lg border bg-muted/50 p-8 text-center">
+          <p className="text-muted-foreground">
+            You need to join an association to view rankings.
+          </p>
+        </div>
       </div>
     )
   }
@@ -37,7 +58,7 @@ export function RankingsPage() {
     )
   }
 
-  const rankings = data?.rankings || []
+  const rankings = data?.items || []
 
   return (
     <div className="container py-8">
@@ -48,17 +69,42 @@ export function RankingsPage() {
         </p>
       </div>
 
-      <div className="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-        <CategoryFilter value={categoryId} onChange={setCategoryId} />
-        
-        {data && (
-          <div className="text-sm text-muted-foreground">
-            Showing {rankings.length} of {data.total} players
+      <div className="mb-6 space-y-4">
+        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+          <div className="flex gap-4 items-center">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Association</label>
+              <Select value={selectedAssociationId} onValueChange={setSelectedAssociationId}>
+                <SelectTrigger className="w-[250px]">
+                  <SelectValue placeholder="Select association" />
+                </SelectTrigger>
+                <SelectContent>
+                  {associations.map((assoc) => (
+                    <SelectItem key={assoc.id} value={assoc.id}>
+                      {assoc.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <CategoryFilter value={categoryId} onChange={setCategoryId} />
           </div>
-        )}
+          
+          {data && (
+            <div className="text-sm text-muted-foreground">
+              Showing {rankings.length} of {data.count} players
+            </div>
+          )}
+        </div>
       </div>
 
-      {rankings.length === 0 ? (
+      {!data?.season ? (
+        <div className="rounded-lg border bg-muted/50 p-8 text-center">
+          <p className="text-muted-foreground">
+            No active season found for this association. Rankings will be available once a season is created.
+          </p>
+        </div>
+      ) : rankings.length === 0 ? (
         <div className="rounded-lg border bg-muted/50 p-8 text-center">
           <p className="text-muted-foreground">
             No rankings available for this category yet.

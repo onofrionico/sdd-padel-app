@@ -83,7 +83,7 @@ export class RankingsController {
   async getRankings(
     @Param('associationId', ParseUUIDPipe) associationId: string,
     @Query() query: GetRankingsQueryDto,
-  ): Promise<{ items: RankingEntryDto[]; count: number; page: number; pageSize: number; season: Season }> {
+  ): Promise<{ items: RankingEntryDto[]; count: number; page: number; pageSize: number; season: Season | null }> {
     const result = await this.rankingsService.getRankings({
       associationId,
       seasonId: query.seasonId,

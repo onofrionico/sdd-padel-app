@@ -31,16 +31,26 @@ export class RankingsService {
     private readonly playerRepository: Repository<TournamentPlayer>,
   ) {}
 
-  async getRankings(params: GetRankingsParams): Promise<{ items: RankingsResultItem[]; count: number; page: number; pageSize: number; season: Season }> {
+  async getRankings(params: GetRankingsParams): Promise<{ items: RankingsResultItem[]; count: number; page: number; pageSize: number; season: Season | null }> {
     const page = params.page ?? 1;
     const limit = params.limit ?? 20;
 
-    const season = params.seasonId
-      ? await this.seasonRepository.findOne({ where: { id: params.seasonId, associationId: params.associationId } })
-      : await this.getCurrentSeason(params.associationId);
+    let season: Season | null = null;
+    
+    try {
+      season = params.seasonId
+        ? await this.seasonRepository.findOne({ where: { id: params.seasonId, associationId: params.associationId } })
+        : await this.getCurrentSeason(params.associationId);
+    } catch (error) {
+      // If no season found, return empty rankings
+      if (error instanceof NotFoundException) {
+        return { items: [], count: 0, page, pageSize: limit, season: null };
+      }
+      throw error;
+    }
 
     if (!season) {
-      throw new NotFoundException('Season not found');
+      return { items: [], count: 0, page, pageSize: limit, season: null };
     }
 
     const tournaments = await this.tournamentRepository.find({

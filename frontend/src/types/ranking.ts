@@ -1,15 +1,14 @@
+export interface RankingUser {
+  id: string
+  firstName: string
+  lastName: string
+}
+
 export interface Ranking {
-  id: number
-  playerId: number
-  playerName: string
-  categoryId: number
-  points: number
   position: number
-  matchesPlayed: number
-  matchesWon: number
-  matchesLost: number
-  tournamentsPlayed: number
-  updatedAt: string
+  user: RankingUser
+  points: number
+  tournamentsCount: number
 }
 
 export interface PlayerStatistics {
@@ -47,8 +46,14 @@ export interface RankingsFilters {
 }
 
 export interface RankingsResponse {
-  rankings: Ranking[]
-  total: number
+  items: Ranking[]
+  count: number
   page: number
-  limit: number
+  pageSize: number
+  season: {
+    id: string
+    name: string
+    startDate: string
+    endDate: string
+  } | null
 }
