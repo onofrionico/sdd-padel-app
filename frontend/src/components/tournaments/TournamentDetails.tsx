@@ -15,10 +15,12 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
         <div className="flex items-start justify-between gap-4 mb-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">{tournament.name}</h1>
-            <p className="text-muted-foreground mt-2 flex items-center gap-2">
-              <MapPin className="h-4 w-4" />
-              {tournament.location}
-            </p>
+            {tournament.location && (
+              <p className="text-muted-foreground mt-2 flex items-center gap-2">
+                <MapPin className="h-4 w-4" />
+                {tournament.location}
+              </p>
+            )}
           </div>
           <Badge className="text-base px-4 py-2">
             {formatTournamentStatus(tournament.status)}
@@ -43,10 +45,12 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
               <p className="text-sm text-muted-foreground">End Date</p>
               <p className="font-medium">{formatDate(tournament.endDate)}</p>
             </div>
-            <div>
-              <p className="text-sm text-muted-foreground">Registration Deadline</p>
-              <p className="font-medium">{formatDate(tournament.registrationDeadline)}</p>
-            </div>
+            {tournament.registrationDeadline && (
+              <div>
+                <p className="text-sm text-muted-foreground">Registration Deadline</p>
+                <p className="font-medium">{formatDate(tournament.registrationDeadline)}</p>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -58,12 +62,14 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div>
-              <p className="text-sm text-muted-foreground">Format</p>
-              <p className="font-medium capitalize">
-                {tournament.format.replace(/_/g, ' ')}
-              </p>
-            </div>
+            {tournament.format && (
+              <div>
+                <p className="text-sm text-muted-foreground">Format</p>
+                <p className="font-medium capitalize">
+                  {tournament.format.replace(/_/g, ' ')}
+                </p>
+              </div>
+            )}
             {tournament.maxTeams && (
               <div>
                 <p className="text-sm text-muted-foreground">Maximum Teams</p>
@@ -84,13 +90,17 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
           <CardDescription>Available categories for this tournament</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-wrap gap-2">
-            {tournament.categories.map((category) => (
-              <Badge key={category} variant="outline" className="text-base px-4 py-2">
-                {formatCategory(category)}
-              </Badge>
-            ))}
-          </div>
+          {tournament.categories && tournament.categories.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {tournament.categories.map((category) => (
+                <Badge key={category} variant="outline" className="text-base px-4 py-2">
+                  {formatCategory(category)}
+                </Badge>
+              ))}
+            </div>
+          ) : (
+            <p className="text-muted-foreground">No categories defined</p>
+          )}
         </CardContent>
       </Card>
 
@@ -100,15 +110,19 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
           <CardDescription>Points awarded for each position</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {Object.entries(tournament.pointDistribution).map(([position, points]) => (
-              <div key={position} className="flex flex-col items-center p-4 border rounded-lg">
-                <p className="text-sm text-muted-foreground">{position}</p>
-                <p className="text-2xl font-bold">{points}</p>
-                <p className="text-xs text-muted-foreground">points</p>
-              </div>
-            ))}
-          </div>
+          {tournament.pointDistribution && Object.keys(tournament.pointDistribution).length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              {Object.entries(tournament.pointDistribution).map(([position, points]) => (
+                <div key={position} className="flex flex-col items-center p-4 border rounded-lg">
+                  <p className="text-sm text-muted-foreground">{position}</p>
+                  <p className="text-2xl font-bold">{points}</p>
+                  <p className="text-xs text-muted-foreground">points</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-muted-foreground">No point distribution defined</p>
+          )}
         </CardContent>
       </Card>
     </div>

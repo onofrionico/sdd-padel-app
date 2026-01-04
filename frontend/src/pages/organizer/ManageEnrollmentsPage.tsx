@@ -15,7 +15,7 @@ export function ManageEnrollmentsPage() {
 
   const { data: enrollments, isLoading, error } = useQuery<EnrollmentWithDetails[]>({
     queryKey: ['tournament-enrollments', id],
-    queryFn: () => enrollmentsApi.getTournamentEnrollments(Number(id)) as Promise<EnrollmentWithDetails[]>,
+    queryFn: () => enrollmentsApi.getTournamentEnrollments(id!) as Promise<EnrollmentWithDetails[]>,
     enabled: !!id,
   })
 

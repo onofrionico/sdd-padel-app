@@ -18,7 +18,7 @@ export const enrollmentsApi = {
     return response.data.data
   },
 
-  getTournamentEnrollments: async (tournamentId: number): Promise<Enrollment[]> => {
+  getTournamentEnrollments: async (tournamentId: string): Promise<Enrollment[]> => {
     const response = await apiClient.get<ApiResponse<Enrollment[]>>(
       `/tournaments/${tournamentId}/enrollments`
     )

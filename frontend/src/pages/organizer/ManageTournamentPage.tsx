@@ -23,18 +23,18 @@ export function ManageTournamentPage() {
 
   const { data: tournament, isLoading: tournamentLoading, error: tournamentError } = useQuery({
     queryKey: ['tournament', id],
-    queryFn: () => tournamentsApi.getById(Number(id)),
+    queryFn: () => tournamentsApi.getById(id!),
     enabled: !!id,
   })
 
   const { data: enrollments, isLoading: enrollmentsLoading } = useQuery<EnrollmentWithDetails[]>({
     queryKey: ['tournament-enrollments', id],
-    queryFn: () => enrollmentsApi.getTournamentEnrollments(Number(id)) as Promise<EnrollmentWithDetails[]>,
+    queryFn: () => enrollmentsApi.getTournamentEnrollments(id!) as Promise<EnrollmentWithDetails[]>,
     enabled: !!id,
   })
 
   const updateStatusMutation = useMutation({
-    mutationFn: (status: Tournament['status']) => tournamentsApi.updateStatus(Number(id), status),
+    mutationFn: (status: Tournament['status']) => tournamentsApi.updateStatus(id!, status),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament', id] })
       toast({
@@ -52,7 +52,7 @@ export function ManageTournamentPage() {
   })
 
   const deleteMutation = useMutation({
-    mutationFn: () => tournamentsApi.delete(Number(id)),
+    mutationFn: () => tournamentsApi.delete(id!),
     onSuccess: () => {
       toast({
         title: 'Success',

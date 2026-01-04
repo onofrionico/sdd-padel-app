@@ -33,17 +33,17 @@ import { ApiProperty } from '@nestjs/swagger';
 // Response DTOs for Swagger documentation
 class TournamentResponseDto extends Tournament {}
 class TournamentListResponseDto {
-  @ApiProperty({ type: [Tournament], description: 'Array of tournament items' })
-  items: Tournament[];
+  @ApiProperty({ type: [Tournament], description: 'Array of tournaments' })
+  tournaments: Tournament[];
   
-  @ApiProperty({ description: 'Total number of items across all pages' })
-  count: number;
+  @ApiProperty({ description: 'Total number of tournaments across all pages' })
+  total: number;
   
   @ApiProperty({ description: 'Current page number (1-based)' })
   page: number;
   
   @ApiProperty({ description: 'Number of items per page' })
-  pageSize: number;
+  limit: number;
 }
 
 @ApiTags('Tournaments')
@@ -160,10 +160,10 @@ export class TournamentController {
     });
 
     return {
-      items,
-      count: totalCount,
+      tournaments: items,
+      total: totalCount,
       page,
-      pageSize: limit,
+      limit,
     };
   }
 

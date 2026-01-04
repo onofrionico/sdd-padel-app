@@ -17,7 +17,7 @@ export const tournamentsApi = {
     return response.data
   },
 
-  getById: async (id: number): Promise<Tournament> => {
+  getById: async (id: string): Promise<Tournament> => {
     const response = await apiClient.get<Tournament>(`/tournaments/${id}`)
     return response.data
   },
@@ -27,16 +27,16 @@ export const tournamentsApi = {
     return response.data
   },
 
-  update: async (id: number, tournament: Partial<Tournament>): Promise<Tournament> => {
+  update: async (id: string, tournament: Partial<Tournament>): Promise<Tournament> => {
     const response = await apiClient.put<Tournament>(`/tournaments/${id}`, tournament)
     return response.data
   },
 
-  delete: async (id: number): Promise<void> => {
+  delete: async (id: string): Promise<void> => {
     await apiClient.delete(`/tournaments/${id}`)
   },
 
-  updateStatus: async (id: number, status: Tournament['status']): Promise<Tournament> => {
+  updateStatus: async (id: string, status: Tournament['status']): Promise<Tournament> => {
     const response = await apiClient.put<Tournament>(`/tournaments/${id}/status`, { status })
     return response.data
   },

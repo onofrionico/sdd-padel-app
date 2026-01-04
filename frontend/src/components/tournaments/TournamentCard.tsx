@@ -29,30 +29,36 @@ export function TournamentCard({ tournament, className }: TournamentCardProps) {
               {formatTournamentStatus(tournament.status)}
             </Badge>
           </div>
-          <CardDescription className="flex items-center gap-1 text-sm">
-            <MapPin className="h-4 w-4" />
-            {tournament.location}
-          </CardDescription>
+          {tournament.location && (
+            <CardDescription className="flex items-center gap-1 text-sm">
+              <MapPin className="h-4 w-4" />
+              {tournament.location}
+            </CardDescription>
+          )}
         </CardHeader>
         <CardContent className="space-y-3">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Calendar className="h-4 w-4" />
-            <span>{formatDate(tournament.startDate)}</span>
-            {tournament.startDate !== tournament.endDate && (
-              <>
-                <span>-</span>
-                <span>{formatDate(tournament.endDate)}</span>
-              </>
-            )}
-          </div>
+          {tournament.startDate && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Calendar className="h-4 w-4" />
+              <span>{formatDate(tournament.startDate)}</span>
+              {tournament.endDate && tournament.startDate !== tournament.endDate && (
+                <>
+                  <span>-</span>
+                  <span>{formatDate(tournament.endDate)}</span>
+                </>
+              )}
+            </div>
+          )}
 
-          <div className="flex flex-wrap gap-2">
-            {tournament.categories.map((category) => (
-              <Badge key={category} variant="outline">
-                {formatCategory(category)}
-              </Badge>
-            ))}
-          </div>
+          {tournament.categories && tournament.categories.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {tournament.categories.map((category) => (
+                <Badge key={category} variant="outline">
+                  {formatCategory(category)}
+                </Badge>
+              ))}
+            </div>
+          )}
 
           {tournament.showCapacity && tournament.maxTeams && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -63,9 +69,11 @@ export function TournamentCard({ tournament, className }: TournamentCardProps) {
             </div>
           )}
 
-          <div className="text-sm text-muted-foreground">
-            Format: <span className="font-medium">{tournament.format.replace('_', ' ')}</span>
-          </div>
+          {tournament.format && (
+            <div className="text-sm text-muted-foreground">
+              Format: <span className="font-medium">{tournament.format.replace('_', ' ')}</span>
+            </div>
+          )}
         </CardContent>
       </Card>
     </Link>

@@ -9,10 +9,9 @@ import { useAuth } from '@/contexts/AuthContext'
 
 export function TournamentDetailsPage() {
   const { id } = useParams<{ id: string }>()
-  const tournamentId = parseInt(id || '0')
   const { user } = useAuth()
   
-  const { data: tournament, isLoading, error } = useTournament(tournamentId)
+  const { data: tournament, isLoading, error } = useTournament(id || '')
 
   if (isLoading) {
     return (

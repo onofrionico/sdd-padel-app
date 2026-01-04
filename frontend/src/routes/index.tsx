@@ -13,6 +13,8 @@ import { ProfilePage } from '@/pages/player/ProfilePage'
 import { TournamentsListPage } from '@/pages/shared/TournamentsListPage'
 import { TournamentDetailsPage } from '@/pages/shared/TournamentDetailsPage'
 import { RankingsPage } from '@/pages/shared/RankingsPage'
+import { AssociationsListPage } from '@/pages/shared/AssociationsListPage'
+import { AssociationDetailsPage } from '@/pages/shared/AssociationDetailsPage'
 import { OrganizerDashboardPage } from '@/pages/organizer/OrganizerDashboardPage'
 import { CreateTournamentPage } from '@/pages/organizer/CreateTournamentPage'
 import { EditTournamentPage } from '@/pages/organizer/EditTournamentPage'
@@ -97,7 +99,15 @@ export function AppRoutes() {
           path="/associations"
           element={
             <ProtectedRoute>
-              <div className="container py-8">Associations - Coming Soon</div>
+              <AssociationsListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/associations/:id"
+          element={
+            <ProtectedRoute>
+              <AssociationDetailsPage />
             </ProtectedRoute>
           }
         />

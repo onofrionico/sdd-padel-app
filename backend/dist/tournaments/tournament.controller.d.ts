@@ -3,10 +3,10 @@ import { Tournament, TournamentStatus } from './entities/tournament.entity';
 declare class TournamentResponseDto extends Tournament {
 }
 declare class TournamentListResponseDto {
-    items: Tournament[];
-    count: number;
+    tournaments: Tournament[];
+    total: number;
     page: number;
-    pageSize: number;
+    limit: number;
 }
 export declare class TournamentController {
     private readonly tournamentService;

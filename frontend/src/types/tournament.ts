@@ -1,7 +1,7 @@
 export interface Tournament {
-  id: number
+  id: string
   name: string
-  associationId: number
+  associationId: string
   startDate: string
   endDate: string
   registrationDeadline: string

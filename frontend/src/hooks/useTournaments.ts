@@ -10,7 +10,7 @@ export function useTournaments(filters?: TournamentFilters) {
   })
 }
 
-export function useTournament(id: number) {
+export function useTournament(id: string) {
   return useQuery({
     queryKey: ['tournament', id],
     queryFn: () => tournamentsApi.getById(id),
@@ -44,7 +44,7 @@ export function useUpdateTournament() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: Partial<Tournament> }) =>
+    mutationFn: ({ id, data }: { id: string; data: Partial<Tournament> }) =>
       tournamentsApi.update(id, data),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['tournaments'] })
@@ -90,7 +90,7 @@ export function useUpdateTournamentStatus() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, status }: { id: number; status: Tournament['status'] }) =>
+    mutationFn: ({ id, status }: { id: string; status: Tournament['status'] }) =>
       tournamentsApi.updateStatus(id, status),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['tournaments'] })

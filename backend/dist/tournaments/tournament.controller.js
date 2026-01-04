@@ -25,13 +25,13 @@ class TournamentResponseDto extends tournament_entity_1.Tournament {
 class TournamentListResponseDto {
 }
 __decorate([
-    (0, swagger_2.ApiProperty)({ type: [tournament_entity_1.Tournament], description: 'Array of tournament items' }),
+    (0, swagger_2.ApiProperty)({ type: [tournament_entity_1.Tournament], description: 'Array of tournaments' }),
     __metadata("design:type", Array)
-], TournamentListResponseDto.prototype, "items", void 0);
+], TournamentListResponseDto.prototype, "tournaments", void 0);
 __decorate([
-    (0, swagger_2.ApiProperty)({ description: 'Total number of items across all pages' }),
+    (0, swagger_2.ApiProperty)({ description: 'Total number of tournaments across all pages' }),
     __metadata("design:type", Number)
-], TournamentListResponseDto.prototype, "count", void 0);
+], TournamentListResponseDto.prototype, "total", void 0);
 __decorate([
     (0, swagger_2.ApiProperty)({ description: 'Current page number (1-based)' }),
     __metadata("design:type", Number)
@@ -39,7 +39,7 @@ __decorate([
 __decorate([
     (0, swagger_2.ApiProperty)({ description: 'Number of items per page' }),
     __metadata("design:type", Number)
-], TournamentListResponseDto.prototype, "pageSize", void 0);
+], TournamentListResponseDto.prototype, "limit", void 0);
 let TournamentController = class TournamentController {
     constructor(tournamentService) {
         this.tournamentService = tournamentService;
@@ -62,10 +62,10 @@ let TournamentController = class TournamentController {
             where: status ? { status } : {},
         });
         return {
-            items,
-            count: totalCount,
+            tournaments: items,
+            total: totalCount,
             page,
-            pageSize: limit,
+            limit,
         };
     }
     async findOne(id) {

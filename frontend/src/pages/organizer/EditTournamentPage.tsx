@@ -14,13 +14,13 @@ export function EditTournamentPage() {
 
   const { data: tournament, isLoading, error } = useQuery({
     queryKey: ['tournament', id],
-    queryFn: () => tournamentsApi.getById(Number(id)),
+    queryFn: () => tournamentsApi.getById(id || ''),
     enabled: !!id,
   })
 
   const handleSubmit = async (data: TournamentFormData) => {
     try {
-      await tournamentsApi.update(Number(id), data as any)
+      await tournamentsApi.update(id || '', data as any)
       toast({
         title: 'Success',
         description: 'Tournament updated successfully',
