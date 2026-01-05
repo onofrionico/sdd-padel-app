@@ -19,7 +19,7 @@ export const rankingsApi = {
   },
 
   async getMyStatistics(): Promise<PlayerStatistics> {
-    const response = await apiClient.get<PlayerStatistics>('/players/me/statistics')
+    const response = await apiClient.get<PlayerStatistics>('/users/me/statistics')
     return response.data
   },
 

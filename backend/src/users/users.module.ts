@@ -5,9 +5,10 @@ import { User } from './entities/user.entity';
 import { UsersController } from './users.controller';
 import { PlayerService } from './player.service';
 import { AssociationsModule } from '../associations/associations.module';
+import { RankingsModule } from '../rankings/rankings.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), AssociationsModule],
+  imports: [TypeOrmModule.forFeature([User]), AssociationsModule, RankingsModule],
   controllers: [UsersController],
   providers: [UsersService, PlayerService],
   exports: [UsersService],

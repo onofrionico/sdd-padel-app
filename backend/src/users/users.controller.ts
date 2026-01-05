@@ -17,13 +17,17 @@ import { PlayerService } from './player.service';
 import { RegisterPlayerDto } from './dto/register-player.dto';
 import { SetMyCategoryDto } from './dto/set-my-category.dto';
 import { UpdatePlayerProfileDto } from './dto/update-player-profile.dto';
+import { StatisticsService } from '../rankings/statistics.service';
 
 @ApiTags('Users')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
-  constructor(private readonly playerService: PlayerService) {}
+  constructor(
+    private readonly playerService: PlayerService,
+    private readonly statisticsService: StatisticsService,
+  ) {}
 
   @Get('me/player-profile')
   @ApiOperation({ summary: 'View current player profile (includes association memberships)' })
@@ -65,5 +69,71 @@ export class UsersController {
     @Body() dto: SetMyCategoryDto,
   ) {
     return this.playerService.setCategory(req.user.id, associationId, dto.category);
+  }
+
+  @Get('me/statistics')
+  @ApiOperation({ summary: 'Get my player statistics across all associations' })
+  @ApiResponse({ status: HttpStatus.OK })
+  async getMyStatistics(@Req() req: { user: User }) {
+    const profile = await this.playerService.getProfile(req.user.id);
+    
+    if (!profile.associationMemberships || profile.associationMemberships.length === 0) {
+      return {
+        playerId: req.user.id,
+        totalPoints: 0,
+        totalTournaments: 0,
+        totalMatches: 0,
+        matchesWon: 0,
+        matchesLost: 0,
+        winRate: 0,
+        categoriesPlayed: [],
+        recentTournaments: [],
+        bestRanking: null,
+      };
+    }
+
+    let totalPoints = 0;
+    let totalTournaments = 0;
+    let totalMatches = 0;
+    let matchesWon = 0;
+    let matchesLost = 0;
+    const categoriesSet = new Set<number>();
+    const allTournaments: any[] = [];
+
+    for (const membership of profile.associationMemberships) {
+      try {
+        const stats = await this.statisticsService.getPlayerStatistics({
+          associationId: membership.associationId,
+          userId: req.user.id,
+        });
+
+        totalPoints += stats.totalPoints;
+        totalTournaments += stats.totalTournaments;
+        totalMatches += stats.totalMatches;
+        matchesWon += stats.matchesWon;
+        matchesLost += stats.matchesLost;
+
+        if (membership.category) {
+          categoriesSet.add(membership.category);
+        }
+      } catch (error) {
+        continue;
+      }
+    }
+
+    const winRate = totalMatches > 0 ? matchesWon / totalMatches : 0;
+
+    return {
+      playerId: req.user.id,
+      totalPoints,
+      totalTournaments,
+      totalMatches,
+      matchesWon,
+      matchesLost,
+      winRate,
+      categoriesPlayed: Array.from(categoriesSet),
+      recentTournaments: allTournaments.slice(0, 10),
+      bestRanking: null,
+    };
   }
 }
