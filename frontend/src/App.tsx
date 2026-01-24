@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AuthProvider } from './contexts/AuthContext'
 import { AppRoutes } from './routes'
 import { ErrorBoundary } from './components/common/ErrorBoundary'
+import { OfflineDetector } from './components/common/OfflineDetector'
+import { SEOHead } from './components/common/SEOHead'
 import { Toaster } from './components/ui/toaster'
 
 const queryClient = new QueryClient({
@@ -24,8 +26,10 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <AuthProvider>
+            <SEOHead />
             <AppRoutes />
             <Toaster />
+            <OfflineDetector />
           </AuthProvider>
         </BrowserRouter>
       </QueryClientProvider>

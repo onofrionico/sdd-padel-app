@@ -96,6 +96,15 @@ Preview the production build:
 npm run preview
 ```
 
+### Deployment
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions including:
+- Netlify deployment
+- Vercel deployment
+- Docker deployment
+- AWS S3 + CloudFront
+- CI/CD setup with GitHub Actions
+
 ## Available Scripts
 
 - `npm run dev` - Start development server

@@ -1,34 +1,45 @@
 import { Routes, Route } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { ProtectedRoute } from './ProtectedRoute'
 import { OrganizerRoute } from './OrganizerRoute'
-import { LandingPage } from '@/pages/public/LandingPage'
-import { LoginPage } from '@/pages/public/LoginPage'
-import { RegisterPage } from '@/pages/public/RegisterPage'
-import { ProfileSetupPage } from '@/pages/player/ProfileSetupPage'
-import { DashboardPage } from '@/pages/player/DashboardPage'
-import { MyEnrollmentsPage } from '@/pages/player/MyEnrollmentsPage'
-import { NotificationsPage } from '@/pages/player/NotificationsPage'
-import { ProfilePage } from '@/pages/player/ProfilePage'
-import { TournamentsListPage } from '@/pages/shared/TournamentsListPage'
-import { TournamentDetailsPage } from '@/pages/shared/TournamentDetailsPage'
-import { RankingsPage } from '@/pages/shared/RankingsPage'
-import { AssociationsListPage } from '@/pages/shared/AssociationsListPage'
-import { AssociationDetailsPage } from '@/pages/shared/AssociationDetailsPage'
-import { OrganizerDashboardPage } from '@/pages/organizer/OrganizerDashboardPage'
-import { CreateTournamentPage } from '@/pages/organizer/CreateTournamentPage'
-import { EditTournamentPage } from '@/pages/organizer/EditTournamentPage'
-import { ManageTournamentPage } from '@/pages/organizer/ManageTournamentPage'
-import { ManageEnrollmentsPage } from '@/pages/organizer/ManageEnrollmentsPage'
+import { LoadingSpinner } from '@/components/common/LoadingSpinner'
+
+const LandingPage = lazy(() => import('@/pages/public/LandingPage').then(m => ({ default: m.LandingPage })))
+const LoginPage = lazy(() => import('@/pages/public/LoginPage').then(m => ({ default: m.LoginPage })))
+const RegisterPage = lazy(() => import('@/pages/public/RegisterPage').then(m => ({ default: m.RegisterPage })))
+const ProfileSetupPage = lazy(() => import('@/pages/player/ProfileSetupPage').then(m => ({ default: m.ProfileSetupPage })))
+const DashboardPage = lazy(() => import('@/pages/player/DashboardPage').then(m => ({ default: m.DashboardPage })))
+const MyEnrollmentsPage = lazy(() => import('@/pages/player/MyEnrollmentsPage').then(m => ({ default: m.MyEnrollmentsPage })))
+const NotificationsPage = lazy(() => import('@/pages/player/NotificationsPage').then(m => ({ default: m.NotificationsPage })))
+const ProfilePage = lazy(() => import('@/pages/player/ProfilePage').then(m => ({ default: m.ProfilePage })))
+const TournamentsListPage = lazy(() => import('@/pages/shared/TournamentsListPage').then(m => ({ default: m.TournamentsListPage })))
+const TournamentDetailsPage = lazy(() => import('@/pages/shared/TournamentDetailsPage').then(m => ({ default: m.TournamentDetailsPage })))
+const RankingsPage = lazy(() => import('@/pages/shared/RankingsPage').then(m => ({ default: m.RankingsPage })))
+const AssociationsListPage = lazy(() => import('@/pages/shared/AssociationsListPage').then(m => ({ default: m.AssociationsListPage })))
+const AssociationDetailsPage = lazy(() => import('@/pages/shared/AssociationDetailsPage').then(m => ({ default: m.AssociationDetailsPage })))
+const OrganizerDashboardPage = lazy(() => import('@/pages/organizer/OrganizerDashboardPage').then(m => ({ default: m.OrganizerDashboardPage })))
+const CreateTournamentPage = lazy(() => import('@/pages/organizer/CreateTournamentPage').then(m => ({ default: m.CreateTournamentPage })))
+const EditTournamentPage = lazy(() => import('@/pages/organizer/EditTournamentPage').then(m => ({ default: m.EditTournamentPage })))
+const ManageTournamentPage = lazy(() => import('@/pages/organizer/ManageTournamentPage').then(m => ({ default: m.ManageTournamentPage })))
+const ManageEnrollmentsPage = lazy(() => import('@/pages/organizer/ManageEnrollmentsPage').then(m => ({ default: m.ManageEnrollmentsPage })))
+const NotFoundPage = lazy(() => import('@/pages/public/NotFoundPage').then(m => ({ default: m.NotFoundPage })))
+
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-[60vh]">
+    <LoadingSpinner size="lg" />
+  </div>
+)
 
 export function AppRoutes() {
   return (
-    <Routes>
-      <Route element={<MainLayout />}>
-        {/* Public routes */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
+        <Route element={<MainLayout />}>
+          {/* Public routes */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         
         {/* Protected routes */}
         <Route
@@ -155,8 +166,9 @@ export function AppRoutes() {
         />
 
         {/* 404 */}
-        <Route path="*" element={<div className="container py-8">404 - Page Not Found</div>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
+    </Suspense>
   )
 }

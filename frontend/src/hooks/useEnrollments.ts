@@ -82,7 +82,7 @@ export const useEnrollments = () => {
   }
 }
 
-export const useTournamentEnrollments = (tournamentId: number) => {
+export const useTournamentEnrollments = (tournamentId: string) => {
   const enrollmentsQuery = useQuery({
     queryKey: ['enrollments', 'tournament', tournamentId],
     queryFn: () => enrollmentsApi.getTournamentEnrollments(tournamentId),

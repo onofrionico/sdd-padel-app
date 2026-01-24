@@ -1,6 +1,6 @@
 export interface Enrollment {
   id: number
-  tournamentId: number
+  tournamentId: string
   player1Id: number
   player2Id: number
   category: number
@@ -10,14 +10,14 @@ export interface Enrollment {
 }
 
 export interface EnrollmentRequest {
-  tournamentId: number
+  tournamentId: string
   partnerId: number
   category: number
 }
 
 export interface EnrollmentWithDetails extends Enrollment {
   tournament: {
-    id: number
+    id: string
     name: string
     startDate: string
     location: string

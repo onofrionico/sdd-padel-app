@@ -21,4 +21,15 @@ export const authApi = {
     const response = await apiClient.put<User>('/auth/profile', data)
     return response.data
   },
+
+  async uploadProfilePicture(file: File): Promise<{ profilePictureUrl: string }> {
+    const formData = new FormData()
+    formData.append('file', file)
+    const response = await apiClient.post<{ profilePictureUrl: string }>('/users/me/profile-picture', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    return response.data
+  },
 }

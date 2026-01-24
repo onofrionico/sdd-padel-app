@@ -16,6 +16,6 @@ export const ROUTES = {
   PROFILE: '/profile',
   NOTIFICATIONS: '/notifications',
   ASSOCIATIONS: '/associations',
-  ORGANIZER_CREATE: '/organizer/create',
+  ORGANIZER_CREATE: '/organizer/tournaments/create',
   ORGANIZER_MANAGE: '/organizer/manage/:id',
 } as const

@@ -65,7 +65,7 @@ test.describe('Authentication Flow', () => {
     await expect(page.getByRole('heading', { name: /welcome back/i })).toBeVisible()
   })
 
-  test('should redirect authenticated users from public pages', async ({ page }) => {
+  test('should redirect authenticated users from public pages', async () => {
     // This test assumes a user is already logged in
     // You would need to set up authentication state first
     // For now, this is a placeholder test structure

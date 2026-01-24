@@ -25,9 +25,9 @@ describe('rankingsApi', () => {
       }
       vi.mocked(apiClient.get).mockResolvedValue(mockResponse)
 
-      const result = await rankingsApi.list()
+      const result = await rankingsApi.list('assoc-1')
 
-      expect(apiClient.get).toHaveBeenCalledWith('/rankings?')
+      expect(apiClient.get).toHaveBeenCalledWith('/associations/assoc-1/rankings?')
       expect(result).toEqual(mockResponse.data)
     })
 
@@ -42,13 +42,13 @@ describe('rankingsApi', () => {
       }
       vi.mocked(apiClient.get).mockResolvedValue(mockResponse)
 
-      await rankingsApi.list({
+      await rankingsApi.list('assoc-1', {
         categoryId: 3,
         page: 2,
         limit: 10,
       })
 
-      expect(apiClient.get).toHaveBeenCalledWith('/rankings?categoryId=3&page=2&limit=10')
+      expect(apiClient.get).toHaveBeenCalledWith('/associations/assoc-1/rankings?category=3&page=2&limit=10')
     })
   })
 

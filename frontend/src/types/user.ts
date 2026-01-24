@@ -8,6 +8,7 @@ export interface User {
   dateOfBirth?: string
   playingHand?: 'right' | 'left' | 'ambidextrous'
   playingStyle?: 'defensive' | 'offensive' | 'all_around'
+  profilePicture?: string
   role: 'player' | 'organizer' | 'admin'
   createdAt: string
   updatedAt: string

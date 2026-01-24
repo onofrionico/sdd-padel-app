@@ -62,7 +62,7 @@ export const tournamentSchema = z.object({
 })
 
 export const enrollmentSchema = z.object({
-  tournamentId: z.number(),
+  tournamentId: z.string(),
   partnerId: z.number(),
   category: z.number().min(1).max(8),
 })

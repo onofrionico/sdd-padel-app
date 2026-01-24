@@ -61,10 +61,10 @@ describe('tournamentsApi', () => {
 
   describe('getById', () => {
     it('should fetch tournament by id', async () => {
-      const mockTournament = { id: 1, name: 'Test Tournament' }
+      const mockTournament = { id: '1', name: 'Test Tournament' }
       vi.mocked(apiClient.get).mockResolvedValue({ data: mockTournament })
 
-      const result = await tournamentsApi.getById(1)
+      const result = await tournamentsApi.getById('1')
 
       expect(apiClient.get).toHaveBeenCalledWith('/tournaments/1')
       expect(result).toEqual(mockTournament)
@@ -75,7 +75,7 @@ describe('tournamentsApi', () => {
     it('should create a tournament', async () => {
       const newTournament = {
         name: 'New Tournament',
-        associationId: 1,
+        associationId: '1',
         startDate: '2024-07-01',
         endDate: '2024-07-03',
         registrationDeadline: '2024-06-25',
@@ -86,7 +86,7 @@ describe('tournamentsApi', () => {
         pointDistribution: {},
         showCapacity: true,
       }
-      const mockResponse = { data: { ...newTournament, id: 1 } }
+      const mockResponse = { data: { ...newTournament, id: '1' } }
       vi.mocked(apiClient.post).mockResolvedValue(mockResponse)
 
       const result = await tournamentsApi.create(newTournament)
@@ -99,10 +99,10 @@ describe('tournamentsApi', () => {
   describe('update', () => {
     it('should update a tournament', async () => {
       const updates = { name: 'Updated Name' }
-      const mockResponse = { data: { id: 1, ...updates } }
+      const mockResponse = { data: { id: '1', ...updates } }
       vi.mocked(apiClient.put).mockResolvedValue(mockResponse)
 
-      const result = await tournamentsApi.update(1, updates)
+      const result = await tournamentsApi.update('1', updates)
 
       expect(apiClient.put).toHaveBeenCalledWith('/tournaments/1', updates)
       expect(result).toEqual(mockResponse.data)
@@ -113,7 +113,7 @@ describe('tournamentsApi', () => {
     it('should delete a tournament', async () => {
       vi.mocked(apiClient.delete).mockResolvedValue({ data: undefined })
 
-      await tournamentsApi.delete(1)
+      await tournamentsApi.delete('1')
 
       expect(apiClient.delete).toHaveBeenCalledWith('/tournaments/1')
     })
@@ -121,10 +121,10 @@ describe('tournamentsApi', () => {
 
   describe('updateStatus', () => {
     it('should update tournament status', async () => {
-      const mockResponse = { data: { id: 1, status: 'in_progress' } }
+      const mockResponse = { data: { id: '1', status: 'in_progress' } }
       vi.mocked(apiClient.put).mockResolvedValue(mockResponse)
 
-      const result = await tournamentsApi.updateStatus(1, 'in_progress')
+      const result = await tournamentsApi.updateStatus('1', 'in_progress')
 
       expect(apiClient.put).toHaveBeenCalledWith('/tournaments/1/status', {
         status: 'in_progress',

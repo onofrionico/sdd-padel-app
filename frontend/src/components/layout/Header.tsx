@@ -13,26 +13,41 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-6">
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2" aria-label="Home">
             <span className="text-xl font-bold text-primary">Padel Tournament</span>
           </Link>
 
           {isAuthenticated && (
-            <nav className="hidden md:flex items-center gap-6">
-              <Link to="/tournaments" className="text-sm font-medium transition-colors hover:text-primary">
+            <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
+              <Link 
+                to="/tournaments" 
+                className="text-sm font-medium transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm px-1"
+              >
                 Tournaments
               </Link>
-              <Link to="/enrollments" className="text-sm font-medium transition-colors hover:text-primary">
+              <Link 
+                to="/enrollments" 
+                className="text-sm font-medium transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm px-1"
+              >
                 My Enrollments
               </Link>
-              <Link to="/rankings" className="text-sm font-medium transition-colors hover:text-primary">
+              <Link 
+                to="/rankings" 
+                className="text-sm font-medium transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm px-1"
+              >
                 Rankings
               </Link>
-              <Link to="/associations" className="text-sm font-medium transition-colors hover:text-primary">
+              <Link 
+                to="/associations" 
+                className="text-sm font-medium transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm px-1"
+              >
                 Associations
               </Link>
               {(user?.role === 'organizer' || user?.role === 'admin') && (
-                <Link to="/organizer/create" className="text-sm font-medium transition-colors hover:text-primary">
+                <Link 
+                  to="/organizer/tournaments/create" 
+                  className="text-sm font-medium transition-colors hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm px-1"
+                >
                   Create Tournament
                 </Link>
               )}
@@ -72,16 +87,19 @@ export function Header() {
             size="icon"
             className="md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            <span className="sr-only">Toggle menu</span>
+            <span className="sr-only">{mobileMenuOpen ? 'Close menu' : 'Open menu'}</span>
           </Button>
         </div>
       </div>
 
       {mobileMenuOpen && (
-        <div className="border-t md:hidden">
-          <nav className="container flex flex-col gap-4 py-4">
+        <div className="border-t md:hidden" id="mobile-menu">
+          <nav className="container flex flex-col gap-4 py-4" aria-label="Mobile navigation">
             {isAuthenticated ? (
               <>
                 <Link
@@ -128,7 +146,7 @@ export function Header() {
                 </Link>
                 {(user?.role === 'organizer' || user?.role === 'admin') && (
                   <Link
-                    to="/organizer/create"
+                    to="/organizer/tournaments/create"
                     className="text-sm font-medium transition-colors hover:text-primary"
                     onClick={() => setMobileMenuOpen(false)}
                   >

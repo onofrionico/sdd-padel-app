@@ -31,7 +31,7 @@ describe('TournamentForm', () => {
     const user = userEvent.setup()
     mockOnSubmit.mockResolvedValueOnce(undefined)
 
-    const { container } = render(<TournamentForm onSubmit={mockOnSubmit} />)
+    render(<TournamentForm onSubmit={mockOnSubmit} />)
 
     const nameInput = screen.getByLabelText(/tournament name/i)
     const startDateInput = screen.getByLabelText(/start date/i)
@@ -73,9 +73,9 @@ describe('TournamentForm', () => {
 
   it('populates form with tournament data when editing', () => {
     const tournament = {
-      id: 1,
+      id: '1',
       name: 'Existing Tournament',
-      associationId: 1,
+      associationId: '1',
       startDate: '2024-07-01',
       endDate: '2024-07-03',
       registrationDeadline: '2024-06-25',

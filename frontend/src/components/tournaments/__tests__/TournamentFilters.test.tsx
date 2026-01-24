@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@/test/test-utils'
 import { TournamentFilters } from '../TournamentFilters'
-import userEvent from '@testing-library/user-event'
 
 describe('TournamentFilters', () => {
   it('should render status filter', () => {

@@ -4,9 +4,9 @@ import { TournamentCard } from '../TournamentCard'
 import { Tournament } from '@/types/tournament'
 
 const mockTournament: Tournament = {
-  id: 1,
+  id: '1',
   name: 'Summer Championship 2024',
-  associationId: 1,
+  associationId: '1',
   startDate: '2024-07-01',
   endDate: '2024-07-03',
   registrationDeadline: '2024-06-25',

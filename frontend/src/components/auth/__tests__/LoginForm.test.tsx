@@ -3,7 +3,6 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { BrowserRouter } from 'react-router-dom'
 import { LoginForm } from '../LoginForm'
-import { AuthProvider } from '@/contexts/AuthContext'
 
 const mockNavigate = vi.fn()
 const mockLogin = vi.fn()
