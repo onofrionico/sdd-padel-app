@@ -1,14 +1,18 @@
 import { useAuth } from '@/contexts/AuthContext'
 import { useMyStatistics } from '@/hooks/useRankings'
+import { useProfilePicture } from '@/hooks/useProfilePicture'
 import { PlayerStatistics } from '@/components/rankings/PlayerStatistics'
 import { TournamentStatistics } from '@/components/rankings/TournamentStatistics'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { User, Mail, Phone, MapPin } from 'lucide-react'
+import { MyAssociations } from '@/components/associations/MyAssociations'
+import { ProfilePictureUpload } from '@/components/profile'
 
 export function ProfilePage() {
   const { user } = useAuth()
   const { data: statistics, isLoading, error } = useMyStatistics()
+  const { uploadProfilePicture, isUploading } = useProfilePicture()
 
   if (!user) {
     return (
@@ -25,8 +29,14 @@ export function ProfilePage() {
       <h1 className="text-3xl font-bold mb-8">My Profile</h1>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* Profile Info */}
-        <div className="lg:col-span-1">
+        {/* Profile Picture and Info */}
+        <div className="lg:col-span-1 space-y-6">
+          <ProfilePictureUpload
+            currentPictureUrl={user.profilePicture}
+            onUpload={uploadProfilePicture}
+            isUploading={isUploading}
+          />
+          
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -96,6 +106,11 @@ export function ProfilePage() {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Associations Section */}
+      <div className="mt-8">
+        <MyAssociations />
       </div>
     </div>
   )
