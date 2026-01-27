@@ -84,9 +84,9 @@ backend/
 **Independent Test**: Can create an association, add a player as a member, and store/read the player's category within that association.
 
 ### Tests for User Story 0
-- [ ] A001 [P] [US0] Create association with valid data
-- [ ] A002 [P] [US0] Add/remove player membership in an association
-- [ ] A003 [P] [US0] Set/get player category per association
+- [x] A001 [P] [US0] Create association with valid data
+- [x] A002 [P] [US0] Add/remove player membership in an association
+- [x] A003 [P] [US0] Set/get player category per association
 
 ### Implementation for User Story 0
 - [x] A004 [P] [US0] Create Association entity
@@ -102,9 +102,9 @@ backend/
 **Independent Test**: Can create a tournament with custom settings and verify all configurations are saved correctly.
 
 ### Tests for User Story 1
-- [ ] T001 [P] [US1] Create tournament with valid data
-- [ ] T002 [P] [US1] Update tournament settings
-- [ ] T003 [P] [US1] Validate tournament constraints
+- [x] T001 [P] [US1] Create tournament with valid data
+- [x] T002 [P] [US1] Update tournament settings
+- [x] T003 [P] [US1] Validate tournament constraints
 
 ### Implementation for User Story 1
 - [x] T004 [P] [US1] Create Tournament entity (exists)
@@ -120,9 +120,9 @@ backend/
 **Independent Test**: Can register a new player and update their profile with category information.
 
 ### Tests for User Story 2
-- [ ] T009 [P] [US2] Register new player
-- [ ] T010 [P] [US2] Update player category per association
-- [ ] T011 [P] [US2] View player profile
+- [x] T009 [P] [US2] Register new player
+- [x] T010 [P] [US2] Update player category per association
+- [x] T011 [P] [US2] View player profile
 
 ### Implementation for User Story 2
 - [x] T012 [P] [US2] User entity exists
@@ -137,9 +137,9 @@ backend/
 **Independent Test**: Can submit and manage tournament enrollment requests.
 
 ### Tests for User Story 3
-- [ ] T016 [P] [US3] Submit enrollment request
-- [ ] T017 [P] [US3] Approve/Reject enrollment
-- [ ] T018 [P] [US3] View tournament participants
+- [x] T016 [P] [US3] Submit enrollment request
+- [x] T017 [P] [US3] Approve/Reject enrollment
+- [x] T018 [P] [US3] View tournament participants
 
 ### Implementation for User Story 3
 - [x] T019 [P] [US3] TournamentRegistration entity exists
@@ -205,6 +205,12 @@ backend/
 - Database configuration is set up
 - Authentication system is partially implemented
 - Association System endpoints (associations + memberships + category per association) are implemented
+- **E2E Tests Created**: 64 tests across 4 test suites for User Stories 0-3
+  - US0 (Association System): 13/13 tests passing ✅
+  - US1 (Tournament Management): 13/13 tests passing ✅
+  - US2 (Player Registration): 11/13 tests passing (85%) ⚠️
+  - US3 (Tournament Enrollment): 13/25 tests passing (52%) ⚠️
+  - See TEST_RESULTS.md for detailed analysis and fixes needed
 
 ## Notes
 
