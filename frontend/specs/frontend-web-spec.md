@@ -79,17 +79,22 @@ As a player, I want to browse available tournaments, filter by category and stat
    - **When** I select "3rd Category" from the category filter
    - **Then** Only tournaments for 3rd category are displayed
 
-4. **Scenario**: View tournament details
+4. **Scenario**: Filter tournaments by association
+   - **Given** I am viewing the tournaments list
+   - **When** I select a specific association from the association filter
+   - **Then** Only tournaments from that association are displayed
+
+5. **Scenario**: View tournament details
    - **Given** I am viewing the tournaments list
    - **When** I click on a tournament card
    - **Then** I see full tournament details including format, dates, location, enrolled teams, and point distribution
 
-5. **Scenario**: Responsive tournament cards on mobile
+6. **Scenario**: Responsive tournament cards on mobile
    - **Given** I am browsing tournaments on a mobile device
    - **When** I scroll through the list
    - **Then** Tournament cards are properly formatted and readable on my screen
 
-6. **Scenario**: Search tournaments by name
+7. **Scenario**: Search tournaments by name
    - **Given** I am on the tournaments page
    - **When** I type "Summer" in the search box
    - **Then** Only tournaments with "Summer" in their name are displayed
@@ -135,35 +140,50 @@ As a player, I want to enroll in tournaments with a partner and track my enrollm
 
 ### User Story 4 - View Rankings and Statistics (Priority: P2)
 
-As a player, I want to view category-specific rankings, my personal statistics, and tournament history so that I can track my performance and progress.
+As a player, I want to view category-specific rankings, my personal statistics, and tournament history so that I can track my performance and progress. I also want to view historical rankings from previous seasons to compare my progress over time.
 
 **Why this priority**: Important for player engagement and competitive motivation, but not essential for basic tournament participation.
 
-**Independent Test**: Can be fully tested by viewing rankings, filtering by category, and viewing personal statistics. Delivers value by providing performance insights.
+**Independent Test**: Can be fully tested by viewing rankings, filtering by category and season, and viewing personal statistics. Delivers value by providing performance insights and historical tracking.
 
 **Acceptance Scenarios**:
 
-1. **Scenario**: View category rankings
+1. **Scenario**: View current season rankings
+   - **Given** I am on the rankings page
+   - **When** The page loads
+   - **Then** I see the current season's rankings by default for my selected association
+
+2. **Scenario**: View category rankings
    - **Given** I am on the rankings page
    - **When** I select "3rd Category" from the category filter
    - **Then** I see a ranked list of players in that category with their points and position
 
-2. **Scenario**: View my personal statistics
+3. **Scenario**: View historical rankings by season
+   - **Given** I am on the rankings page
+   - **When** I select "Temporada 2023" from the season filter
+   - **Then** I see the rankings from that specific season with historical data
+
+4. **Scenario**: Filter rankings by association and season
+   - **Given** I am on the rankings page
+   - **When** I select an association and then a season from that association
+   - **Then** I see only the rankings for that association's selected season
+
+5. **Scenario**: View my personal statistics
    - **Given** I am on my profile page
    - **When** I navigate to the "Statistics" tab
    - **Then** I see my win/loss record, total points, tournaments played, and win rate
 
-3. **Scenario**: View tournament statistics
+6. **Scenario**: View tournament statistics
    - **Given** I am viewing tournament statistics
    - **When** The page loads
    - **Then** I see total tournaments, matches played, completion rate, and average metrics
 
-4. **Scenario**: View my ranking position
+7. **Scenario**: View my ranking position
    - **Given** I am viewing my profile
    - **When** I check my category rankings
    - **Then** I see my current position in each category I participate in
 
-5. **Scenario**: Responsive statistics on mobile
+8. **Scenario**: Responsive statistics on mobile
    - **Given** I am viewing statistics on a mobile device
    - **When** I scroll through the data
    - **Then** Charts and tables are properly formatted for mobile viewing
@@ -302,60 +322,61 @@ As a player, I want to view associations, request membership, and manage my cate
 - **FR-007**: System MUST display a paginated list of all tournaments
 - **FR-008**: System MUST allow filtering tournaments by status (upcoming, in_progress, completed, cancelled)
 - **FR-009**: System MUST allow filtering tournaments by category (1st to 8th)
-- **FR-010**: System MUST provide search functionality for tournaments by name
-- **FR-011**: System MUST display tournament details including format, dates, location, enrolled teams, and point distribution
-- **FR-012**: System MUST show tournament capacity and available spots when configured as visible
+- **FR-010**: System MUST allow filtering tournaments by association
+- **FR-011**: System MUST provide search functionality for tournaments by name
+- **FR-012**: System MUST display tournament details including format, dates, location, enrolled teams, and point distribution
+- **FR-013**: System MUST show tournament capacity and available spots when configured as visible
 
 #### Tournament Enrollment
-- **FR-013**: System MUST allow players to enroll in tournaments with a partner
-- **FR-014**: System MUST support partner selection from frequent partners list
-- **FR-015**: System MUST support searching for new partners by name or email
-- **FR-016**: System MUST display enrollment status (pending, approved, rejected)
-- **FR-017**: System MUST prevent enrollment in full tournaments
-- **FR-018**: System MUST allow users to view all their tournament enrollments
+- **FR-014**: System MUST allow players to enroll in tournaments with a partner
+- **FR-015**: System MUST support partner selection from frequent partners list
+- **FR-016**: System MUST support searching for new partners by name or email
+- **FR-017**: System MUST display enrollment status (pending, approved, rejected)
+- **FR-018**: System MUST prevent enrollment in full tournaments
+- **FR-019**: System MUST allow users to view all their tournament enrollments
 
 #### Rankings & Statistics
-- **FR-019**: System MUST display category-specific player rankings with positions and points
-- **FR-020**: System MUST show player personal statistics including wins, losses, win rate, and total points
-- **FR-021**: System MUST display tournament statistics including total tournaments, matches, and completion rates
-- **FR-022**: System MUST show player's ranking position in each category they participate in
-- **FR-023**: System MUST support pagination for rankings lists
+- **FR-020**: System MUST display category-specific player rankings with positions and points
+- **FR-021**: System MUST show player personal statistics including wins, losses, win rate, and total points
+- **FR-022**: System MUST display tournament statistics including total tournaments, matches, and completion rates
+- **FR-023**: System MUST show player's ranking position in each category they participate in
+- **FR-024**: System MUST support pagination for rankings lists
 
 #### Tournament Management (Organizer)
-- **FR-024**: System MUST allow organizers to create tournaments with configurable settings
-- **FR-025**: System MUST allow organizers to review and approve/reject enrollment requests
-- **FR-026**: System MUST allow organizers to update tournament status
-- **FR-027**: System MUST allow organizers to view all tournament participants
-- **FR-028**: System MUST allow organizers to edit tournament details
-- **FR-029**: System MUST validate tournament data before creation/update
+- **FR-025**: System MUST allow organizers to create tournaments with configurable settings
+- **FR-026**: System MUST allow organizers to review and approve/reject enrollment requests
+- **FR-027**: System MUST allow organizers to update tournament status
+- **FR-028**: System MUST allow organizers to view all tournament participants
+- **FR-029**: System MUST allow organizers to edit tournament details
+- **FR-030**: System MUST validate tournament data before creation/update
 
 #### Notifications
-- **FR-030**: System MUST display notifications for enrollment status changes
-- **FR-031**: System MUST display notifications for tournament updates
-- **FR-032**: System MUST show unread notification count
-- **FR-033**: System MUST allow users to mark notifications as read
-- **FR-034**: System MUST display notification timestamps
+- **FR-031**: System MUST display notifications for enrollment status changes
+- **FR-032**: System MUST display notifications for tournament updates
+- **FR-033**: System MUST show unread notification count
+- **FR-034**: System MUST allow users to mark notifications as read
+- **FR-035**: System MUST display notification timestamps
 
 #### Association Management
-- **FR-035**: System MUST display a list of all associations
-- **FR-036**: System MUST allow players to request association membership
-- **FR-037**: System MUST display user's association memberships with categories
-- **FR-038**: System MUST allow users to update their category in each association
+- **FR-036**: System MUST display a list of all associations
+- **FR-037**: System MUST allow players to request association membership
+- **FR-038**: System MUST display user's association memberships with categories
+- **FR-039**: System MUST allow users to update their category in each association
 
 #### Responsive Design
-- **FR-039**: System MUST be fully responsive and usable on mobile devices (320px width minimum)
-- **FR-040**: System MUST be fully responsive and usable on tablet devices (768px width minimum)
-- **FR-041**: System MUST be fully responsive and usable on desktop devices (1024px width minimum)
-- **FR-042**: System MUST provide touch-friendly UI elements on mobile devices
-- **FR-043**: System MUST adapt navigation for different screen sizes
+- **FR-040**: System MUST be fully responsive and usable on mobile devices (320px width minimum)
+- **FR-041**: System MUST be fully responsive and usable on tablet devices (768px width minimum)
+- **FR-042**: System MUST be fully responsive and usable on desktop devices (1024px width minimum)
+- **FR-043**: System MUST provide touch-friendly UI elements on mobile devices
+- **FR-044**: System MUST adapt navigation for different screen sizes
 
 #### Error Handling & UX
-- **FR-044**: System MUST display user-friendly error messages for failed operations
-- **FR-045**: System MUST show loading states during API requests
-- **FR-046**: System MUST handle network failures gracefully with retry options
-- **FR-047**: System MUST validate form inputs before submission
-- **FR-048**: System MUST prevent duplicate form submissions
-- **FR-049**: System MUST handle session expiration with redirect to login
+- **FR-045**: System MUST display user-friendly error messages for failed operations
+- **FR-046**: System MUST show loading states during API requests
+- **FR-047**: System MUST handle network failures gracefully with retry options
+- **FR-048**: System MUST validate form inputs before submission
+- **FR-049**: System MUST prevent duplicate form submissions
+- **FR-050**: System MUST handle session expiration with redirect to login
 
 ### Non-Functional Requirements
 
@@ -610,7 +631,8 @@ graph LR
 - `PUT /users/me/associations/:associationId/category` - Update category
 
 ### Tournaments
-- `GET /tournaments` - List tournaments (with pagination and filters)
+- `GET /tournaments` - List tournaments (with pagination and filters: status, category, associationId, search)
+  - Query params: `page`, `limit`, `status`, `category`, `associationId`, `search`
 - `GET /tournaments/:id` - Get tournament details
 - `POST /tournaments` - Create tournament (organizer)
 - `PUT /tournaments/:id` - Update tournament (organizer)

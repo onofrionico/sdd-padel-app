@@ -47,7 +47,7 @@ let TournamentController = class TournamentController {
     async create(createTournamentDto) {
         return this.tournamentService.create(createTournamentDto);
     }
-    async findAll(page = 1, limit = 10, status) {
+    async findAll(page = 1, limit = 10, status, associationId, category, search) {
         if (page < 1) {
             throw new common_1.BadRequestException('Page must be greater than 0');
         }
@@ -56,10 +56,23 @@ let TournamentController = class TournamentController {
         }
         const skip = (page - 1) * limit;
         const take = limit;
+        const where = {};
+        if (status) {
+            where.status = status;
+        }
+        if (associationId) {
+            where.associationId = associationId;
+        }
+        if (category) {
+            where.category = parseInt(category, 10);
+        }
+        if (search) {
+            where.search = search;
+        }
         const [items, totalCount] = await this.tournamentService.findAll({
             skip: (page - 1) * limit,
             take: limit,
-            where: status ? { status } : {},
+            where,
         });
         return {
             tournaments: items,
@@ -163,6 +176,27 @@ __decorate([
         enum: Object.values(tournament_entity_1.TournamentStatus),
         example: 'upcoming',
     }),
+    (0, swagger_1.ApiQuery)({
+        name: 'associationId',
+        required: false,
+        description: 'Filter by association ID',
+        type: String,
+        example: '550e8400-e29b-41d4-a716-446655440000',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'category',
+        required: false,
+        description: 'Filter by category',
+        type: Number,
+        example: 5,
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'search',
+        required: false,
+        description: 'Search tournaments by name or description',
+        type: String,
+        example: 'Summer',
+    }),
     (0, swagger_1.ApiResponse)({
         status: common_1.HttpStatus.OK,
         description: 'List of tournaments',
@@ -175,8 +209,11 @@ __decorate([
     __param(0, (0, common_1.Query)('page', new common_1.DefaultValuePipe(1), common_1.ParseIntPipe)),
     __param(1, (0, common_1.Query)('limit', new common_1.DefaultValuePipe(10), common_1.ParseIntPipe)),
     __param(2, (0, common_1.Query)('status')),
+    __param(3, (0, common_1.Query)('associationId')),
+    __param(4, (0, common_1.Query)('category')),
+    __param(5, (0, common_1.Query)('search')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object, String]),
+    __metadata("design:paramtypes", [Object, Object, String, String, String, String]),
     __metadata("design:returntype", Promise)
 ], TournamentController.prototype, "findAll", null);
 __decorate([

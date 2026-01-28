@@ -1,7 +1,10 @@
+import { Association } from './association'
+
 export interface Tournament {
   id: string
   name: string
   associationId: string
+  association?: Association
   startDate: string
   endDate: string
   registrationDeadline: string
@@ -19,6 +22,7 @@ export interface Tournament {
 export interface TournamentFilters {
   status?: string
   category?: number
+  associationId?: string
   search?: string
   page?: number
   limit?: number

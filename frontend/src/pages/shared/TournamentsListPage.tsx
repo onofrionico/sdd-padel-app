@@ -11,6 +11,7 @@ export function TournamentsListPage() {
   const [filters, setFilters] = useState({
     status: undefined as string | undefined,
     category: undefined as number | undefined,
+    associationId: undefined as string | undefined,
     search: undefined as string | undefined,
     page: 1,
     limit: 12,
@@ -30,6 +31,14 @@ export function TournamentsListPage() {
     setFilters((prev) => ({
       ...prev,
       category: category === 'all' ? undefined : parseInt(category),
+      page: 1,
+    }))
+  }
+
+  const handleAssociationChange = (associationId: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      associationId: associationId === 'all' ? undefined : associationId,
       page: 1,
     }))
   }
@@ -63,8 +72,10 @@ export function TournamentsListPage() {
         <TournamentFilters
           status={filters.status}
           category={filters.category}
+          associationId={filters.associationId}
           onStatusChange={handleStatusChange}
           onCategoryChange={handleCategoryChange}
+          onAssociationChange={handleAssociationChange}
         />
       </div>
 

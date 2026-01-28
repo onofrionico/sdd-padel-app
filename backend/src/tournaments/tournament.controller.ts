@@ -129,6 +129,27 @@ export class TournamentController {
     enum: Object.values(TournamentStatus),
     example: 'upcoming',
   })
+  @ApiQuery({
+    name: 'associationId',
+    required: false,
+    description: 'Filter by association ID',
+    type: String,
+    example: '550e8400-e29b-41d4-a716-446655440000',
+  })
+  @ApiQuery({
+    name: 'category',
+    required: false,
+    description: 'Filter by category',
+    type: Number,
+    example: 5,
+  })
+  @ApiQuery({
+    name: 'search',
+    required: false,
+    description: 'Search tournaments by name or description',
+    type: String,
+    example: 'Summer',
+  })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'List of tournaments',
@@ -142,6 +163,9 @@ export class TournamentController {
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
     @Query('status') status?: TournamentStatus,
+    @Query('associationId') associationId?: string,
+    @Query('category') category?: string,
+    @Query('search') search?: string,
   ): Promise<TournamentListResponseDto> {
     if (page < 1) {
       throw new BadRequestException('Page must be greater than 0');
@@ -153,10 +177,24 @@ export class TournamentController {
     const skip = (page - 1) * limit;
     const take = limit;
 
+    const where: any = {};
+    if (status) {
+      where.status = status;
+    }
+    if (associationId) {
+      where.associationId = associationId;
+    }
+    if (category) {
+      where.category = parseInt(category, 10);
+    }
+    if (search) {
+      where.search = search;
+    }
+
     const [items, totalCount] = await this.tournamentService.findAll({
       skip: (page - 1) * limit,
       take: limit,
-      where: status ? { status } : {},
+      where,
     });
 
     return {

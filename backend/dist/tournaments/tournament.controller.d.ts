@@ -12,7 +12,7 @@ export declare class TournamentController {
     private readonly tournamentService;
     constructor(tournamentService: TournamentService);
     create(createTournamentDto: CreateTournamentDto): Promise<TournamentResponseDto>;
-    findAll(page?: number, limit?: number, status?: TournamentStatus): Promise<TournamentListResponseDto>;
+    findAll(page?: number, limit?: number, status?: TournamentStatus, associationId?: string, category?: string, search?: string): Promise<TournamentListResponseDto>;
     findOne(id: string): Promise<TournamentResponseDto>;
     update(id: string, updateTournamentDto: UpdateTournamentDto): Promise<TournamentResponseDto>;
     remove(id: string): Promise<{

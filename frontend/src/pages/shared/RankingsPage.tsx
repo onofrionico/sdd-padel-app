@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useRankings } from '@/hooks/useRankings'
 import { useAssociations } from '@/hooks/useAssociations'
+import { useSeasons } from '@/hooks/useSeasons'
 import { RankingsTable } from '@/components/rankings/RankingsTable'
 import { CategoryFilter } from '@/components/rankings/CategoryFilter'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
@@ -11,6 +12,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 export function RankingsPage() {
   const { data: associations, isLoading: loadingAssociations } = useAssociations()
   const [selectedAssociationId, setSelectedAssociationId] = useState<string | undefined>(undefined)
+  const [selectedSeasonId, setSelectedSeasonId] = useState<string | undefined>(undefined)
   const [categoryId, setCategoryId] = useState<number | undefined>(undefined)
   const [page, setPage] = useState(1)
   const limit = 20
@@ -20,10 +22,13 @@ export function RankingsPage() {
     setSelectedAssociationId(associations[0].id)
   }
 
+  const { data: seasons, isLoading: loadingSeasons } = useSeasons(selectedAssociationId)
+
   const { data, isLoading, error } = useRankings(selectedAssociationId, {
     categoryId,
     page,
     limit,
+    seasonId: selectedSeasonId,
   })
 
   const totalPages = data ? Math.ceil(data.count / limit) : 0
@@ -70,11 +75,17 @@ export function RankingsPage() {
       </div>
 
       <div className="mb-6 space-y-4">
-        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-          <div className="flex gap-4 items-center">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
             <div className="space-y-2">
               <label className="text-sm font-medium">Association</label>
-              <Select value={selectedAssociationId} onValueChange={setSelectedAssociationId}>
+              <Select 
+                value={selectedAssociationId} 
+                onValueChange={(value) => {
+                  setSelectedAssociationId(value)
+                  setSelectedSeasonId(undefined)
+                }}
+              >
                 <SelectTrigger className="w-[250px]">
                   <SelectValue placeholder="Select association" />
                 </SelectTrigger>
@@ -87,12 +98,38 @@ export function RankingsPage() {
                 </SelectContent>
               </Select>
             </div>
-            <CategoryFilter value={categoryId} onChange={setCategoryId} />
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Season</label>
+              <Select 
+                value={selectedSeasonId || 'current'} 
+                onValueChange={(value) => setSelectedSeasonId(value === 'current' ? undefined : value)}
+                disabled={!selectedAssociationId || loadingSeasons}
+              >
+                <SelectTrigger className="w-[250px]">
+                  <SelectValue placeholder="Select season" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="current">Current Season</SelectItem>
+                  {seasons?.map((season) => (
+                    <SelectItem key={season.id} value={season.id}>
+                      {season.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Category</label>
+              <CategoryFilter value={categoryId} onChange={setCategoryId} />
+            </div>
           </div>
           
           {data && (
             <div className="text-sm text-muted-foreground">
               Showing {rankings.length} of {data.count} players
+              {data.season && ` • ${data.season.name}`}
             </div>
           )}
         </div>

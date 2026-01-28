@@ -7,6 +7,7 @@ export const tournamentsApi = {
     
     if (filters?.status) params.append('status', filters.status)
     if (filters?.category) params.append('category', filters.category.toString())
+    if (filters?.associationId) params.append('associationId', filters.associationId)
     if (filters?.search) params.append('search', filters.search)
     if (filters?.page) params.append('page', filters.page.toString())
     if (filters?.limit) params.append('limit', filters.limit.toString())

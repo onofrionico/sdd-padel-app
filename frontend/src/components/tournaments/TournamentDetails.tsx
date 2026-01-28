@@ -1,7 +1,7 @@
 import { Tournament } from '@/types/tournament'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, MapPin, Trophy } from 'lucide-react'
+import { Calendar, MapPin, Trophy, Building2 } from 'lucide-react'
 import { formatDate, formatTournamentStatus, formatCategory } from '@/lib/utils'
 
 interface TournamentDetailsProps {
@@ -27,6 +27,44 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
           </Badge>
         </div>
       </div>
+
+      {tournament.association && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Building2 className="h-5 w-5" />
+              Association
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-2">
+              <div>
+                <p className="text-sm text-muted-foreground">Name</p>
+                <p className="font-medium text-lg">{tournament.association.name}</p>
+              </div>
+              {tournament.association.description && (
+                <div>
+                  <p className="text-sm text-muted-foreground">Description</p>
+                  <p className="text-muted-foreground">{tournament.association.description}</p>
+                </div>
+              )}
+              {tournament.association.website && (
+                <div>
+                  <p className="text-sm text-muted-foreground">Website</p>
+                  <a 
+                    href={tournament.association.website} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    {tournament.association.website}
+                  </a>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
