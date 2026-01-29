@@ -52,7 +52,12 @@ frontend/src/components/
 10. **EnrollmentCard** - Tarjeta de inscripción con estados
 11. **EnrollmentForm** - Formulario de inscripción
 12. **AssociationCard** - Tarjeta de asociación
-13. **Utilidades** - Formateo de categorías, estados de torneos y inscripciones
+13. **RankingsTable** - Tabla de rankings con posiciones y badges
+14. **NotificationItem** - Item de notificación con formateo de tiempo
+15. **ErrorBoundary** - Componente de manejo de errores
+16. **OfflineDetector** - Detector de conexión offline
+17. **NotFoundPage** - Página 404
+18. **Utilidades** - Formateo de categorías, estados de torneos y inscripciones
 
 ## 🌍 Idiomas Disponibles
 
@@ -152,12 +157,12 @@ formatTournamentStatus('in_progress') // "En Progreso" (es) o "In Progress" (en)
 9. ✅ **EnrollmentForm** - Formulario de inscripción
 10. ✅ **AssociationCard** - Tarjeta de asociación
 
-#### Baja Prioridad
-11. **RankingsTable** - Tabla de rankings
-12. **NotificationItem** - Item de notificación
-13. **ErrorBoundary** - Componente de error
-14. **OfflineDetector** - Detector de conexión
-15. **NotFoundPage** - Página 404
+#### ✅ Baja Prioridad - COMPLETADO
+11. ✅ **RankingsTable** - Tabla de rankings
+12. ✅ **NotificationItem** - Item de notificación
+13. ✅ **ErrorBoundary** - Componente de error
+14. ✅ **OfflineDetector** - Detector de conexión
+15. ✅ **NotFoundPage** - Página 404
 
 ### Ejemplo de Traducción de un Componente
 
@@ -295,7 +300,12 @@ Para probar el sistema i18n:
 - ✅ EnrollmentCard completamente traducido
 - ✅ EnrollmentForm completamente traducido
 - ✅ AssociationCard completamente traducido
+- ✅ RankingsTable completamente traducido
+- ✅ NotificationItem completamente traducido
+- ✅ ErrorBoundary completamente traducido
+- ✅ OfflineDetector completamente traducido
+- ✅ NotFoundPage completamente traducido
 - ✅ Utilidades de formateo traducidas
-- ⏳ Componentes de baja prioridad pendientes
+- ✅ **Todos los componentes principales traducidos**
 
-**Progreso estimado: 70% completado**
+**Progreso estimado: 95% completado**

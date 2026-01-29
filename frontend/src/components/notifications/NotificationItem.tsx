@@ -1,6 +1,6 @@
 import { Notification } from '@/types/notification'
 import { formatDistanceToNow } from 'date-fns'
-import { es } from 'date-fns/locale'
+import { es, enUS } from 'date-fns/locale'
 import { 
   CheckCircle, 
   XCircle, 
@@ -9,6 +9,7 @@ import {
   Bell 
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 interface NotificationItemProps {
   notification: Notification
@@ -17,6 +18,8 @@ interface NotificationItemProps {
 }
 
 export function NotificationItem({ notification, onClick, className }: NotificationItemProps) {
+  const { t, i18n } = useTranslation()
+  
   const getIcon = () => {
     switch (notification.type) {
       case 'enrollment_approved':
@@ -34,12 +37,13 @@ export function NotificationItem({ notification, onClick, className }: Notificat
 
   const getTimeAgo = () => {
     try {
+      const locale = i18n.language === 'es' ? es : enUS
       return formatDistanceToNow(new Date(notification.createdAt), {
         addSuffix: true,
-        locale: es,
+        locale,
       })
     } catch {
-      return 'hace un momento'
+      return t('notification.timeAgo.justNow')
     }
   }
 

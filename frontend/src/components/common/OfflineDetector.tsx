@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { WifiOff } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export function OfflineDetector() {
+  const { t } = useTranslation()
   const [isOnline, setIsOnline] = useState(navigator.onLine)
 
   useEffect(() => {
@@ -26,7 +28,7 @@ export function OfflineDetector() {
       aria-live="assertive"
     >
       <WifiOff className="h-5 w-5" />
-      <span className="text-sm font-medium">No internet connection</span>
+      <span className="text-sm font-medium">{t('offline.message')}</span>
     </div>
   )
 }

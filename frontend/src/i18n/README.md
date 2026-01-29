@@ -115,14 +115,21 @@ Los siguientes componentes ya están traducidos:
 - ✅ Footer (todos los enlaces y secciones)
 - ✅ LandingPage (página de inicio completa)
 - ✅ DashboardPage (dashboard de jugador completo)
+- ✅ TournamentForm (formulario de torneos)
+- ✅ TournamentCard (tarjeta de torneo)
+- ✅ EnrollmentCard (tarjeta de inscripción)
+- ✅ EnrollmentForm (formulario de inscripción)
+- ✅ AssociationCard (tarjeta de asociación)
+- ✅ RankingsTable (tabla de rankings)
+- ✅ NotificationItem (item de notificación)
+- ✅ ErrorBoundary (manejo de errores)
+- ✅ OfflineDetector (detector offline)
+- ✅ NotFoundPage (página 404)
 - ✅ Utilidades (formateo de categorías, estados)
 
 ## Próximos Pasos
 
-- [ ] Traducir TournamentForm
-- [ ] Traducir TournamentCard
-- [ ] Traducir EnrollmentCard y EnrollmentForm
-- [ ] Traducir componentes de associations
-- [ ] Traducir componentes de rankings
-- [ ] Traducir NotFoundPage
-- [ ] Traducir ErrorBoundary y OfflineDetector
+- ✅ Todos los componentes principales traducidos
+- [ ] Traducir componentes adicionales si se crean nuevos
+- [ ] Agregar más idiomas si es necesario (portugués, francés, etc.)
+- [ ] Mejorar traducciones existentes basándose en feedback de usuarios

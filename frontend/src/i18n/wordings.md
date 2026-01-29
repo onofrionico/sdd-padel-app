@@ -6,7 +6,7 @@ Este archivo contiene todos los textos hardcodeados encontrados en el frontend d
 
 | Clave | Texto Actual (ES) | Ubicación |
 |-------|------------------|-----------|
-| `header.appName` | "Padel Tournament" | Header.tsx |
+| `header.appName` | "Padel master" | Header.tsx |
 | `header.nav.tournaments` | "Tournaments" | Header.tsx |
 | `header.nav.myEnrollments` | "My Enrollments" | Header.tsx |
 | `header.nav.rankings` | "Rankings" | Header.tsx |
