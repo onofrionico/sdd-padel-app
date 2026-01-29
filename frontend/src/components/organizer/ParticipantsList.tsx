@@ -10,7 +10,10 @@ export function ParticipantsList({ enrollments }: ParticipantsListProps) {
   const approvedEnrollments = enrollments.filter((e) => e.status === 'approved')
   
   const categoryCounts = approvedEnrollments.reduce((acc, enrollment) => {
-    acc[enrollment.category] = (acc[enrollment.category] || 0) + 1
+    const category = enrollment.team?.players?.[0]?.category
+    if (category) {
+      acc[category] = (acc[category] || 0) + 1
+    }
     return acc
   }, {} as Record<number, number>)
 
@@ -69,7 +72,7 @@ export function ParticipantsList({ enrollments }: ParticipantsListProps) {
             .sort(([a], [b]) => Number(a) - Number(b))
             .map(([category, count]) => {
               const categoryEnrollments = approvedEnrollments.filter(
-                (e) => e.category === Number(category)
+                (e) => e.team?.players?.[0]?.category === Number(category)
               )
               return (
                 <Card key={category}>
@@ -86,26 +89,31 @@ export function ParticipantsList({ enrollments }: ParticipantsListProps) {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      {categoryEnrollments.map((enrollment, index) => (
-                        <div
-                          key={enrollment.id}
-                          className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className="font-semibold text-muted-foreground">
-                              #{index + 1}
-                            </span>
-                            <div>
-                              <p className="font-medium">
-                                {enrollment.player1.firstName} {enrollment.player1.lastName}
-                              </p>
-                              <p className="text-sm text-muted-foreground">
-                                {enrollment.player2.firstName} {enrollment.player2.lastName}
-                              </p>
+                      {categoryEnrollments.map((enrollment, index) => {
+                        const players = enrollment.team?.players || []
+                        const player1 = players[0]?.user
+                        const player2 = players[1]?.user
+                        return (
+                          <div
+                            key={enrollment.id}
+                            className="flex items-center justify-between p-3 rounded-lg bg-muted/50"
+                          >
+                            <div className="flex items-center gap-3">
+                              <span className="font-semibold text-muted-foreground">
+                                #{index + 1}
+                              </span>
+                              <div>
+                                <p className="font-medium">
+                                  {player1 ? `${player1.firstName} ${player1.lastName}` : 'Unknown'}
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {player2 ? `${player2.firstName} ${player2.lastName}` : 'Unknown'}
+                                </p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        )
+                      })}
                     </div>
                   </CardContent>
                 </Card>

@@ -12,10 +12,10 @@ export const enrollmentsApi = {
   },
 
   getMyEnrollments: async (): Promise<EnrollmentWithDetails[]> => {
-    const response = await apiClient.get<ApiResponse<EnrollmentWithDetails[]>>(
+    const response = await apiClient.get<EnrollmentWithDetails[]>(
       '/users/me/enrollments'
     )
-    return response.data.data
+    return response.data
   },
 
   getTournamentEnrollments: async (tournamentId: string): Promise<Enrollment[]> => {
@@ -25,14 +25,14 @@ export const enrollmentsApi = {
     return response.data.data
   },
 
-  approveEnrollment: async (enrollmentId: number): Promise<Enrollment> => {
+  approveEnrollment: async (enrollmentId: string): Promise<Enrollment> => {
     const response = await apiClient.put<ApiResponse<Enrollment>>(
       `/enrollments/${enrollmentId}/approve`
     )
     return response.data.data
   },
 
-  rejectEnrollment: async (enrollmentId: number): Promise<Enrollment> => {
+  rejectEnrollment: async (enrollmentId: string): Promise<Enrollment> => {
     const response = await apiClient.put<ApiResponse<Enrollment>>(
       `/enrollments/${enrollmentId}/reject`
     )

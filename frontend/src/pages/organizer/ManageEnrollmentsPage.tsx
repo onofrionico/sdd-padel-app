@@ -20,7 +20,7 @@ export function ManageEnrollmentsPage() {
   })
 
   const approveMutation = useMutation({
-    mutationFn: (enrollmentId: number) => enrollmentsApi.approveEnrollment(enrollmentId),
+    mutationFn: (enrollmentId: string) => enrollmentsApi.approveEnrollment(enrollmentId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament-enrollments', id] })
       toast({
@@ -38,7 +38,7 @@ export function ManageEnrollmentsPage() {
   })
 
   const rejectMutation = useMutation({
-    mutationFn: (enrollmentId: number) => enrollmentsApi.rejectEnrollment(enrollmentId),
+    mutationFn: (enrollmentId: string) => enrollmentsApi.rejectEnrollment(enrollmentId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament-enrollments', id] })
       toast({

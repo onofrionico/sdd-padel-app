@@ -18,6 +18,8 @@ import { RegisterPlayerDto } from './dto/register-player.dto';
 import { SetMyCategoryDto } from './dto/set-my-category.dto';
 import { UpdatePlayerProfileDto } from './dto/update-player-profile.dto';
 import { StatisticsService } from '../rankings/statistics.service';
+import { EnrollmentService } from '../tournaments/enrollment.service';
+import { TournamentRegistration } from '../tournaments/entities/tournament-registration.entity';
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -27,6 +29,7 @@ export class UsersController {
   constructor(
     private readonly playerService: PlayerService,
     private readonly statisticsService: StatisticsService,
+    private readonly enrollmentService: EnrollmentService,
   ) {}
 
   @Get('me/player-profile')
@@ -69,6 +72,13 @@ export class UsersController {
     @Body() dto: SetMyCategoryDto,
   ) {
     return this.playerService.setCategory(req.user.id, associationId, dto.category);
+  }
+
+  @Get('me/enrollments')
+  @ApiOperation({ summary: 'Get my tournament enrollments' })
+  @ApiResponse({ status: HttpStatus.OK, type: [TournamentRegistration] })
+  async getMyEnrollments(@Req() req: { user: User }) {
+    return this.enrollmentService.getUserEnrollments(req.user.id);
   }
 
   @Get('me/statistics')

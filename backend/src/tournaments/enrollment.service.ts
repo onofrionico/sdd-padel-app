@@ -226,6 +226,41 @@ export class EnrollmentService {
     return registrations.map(r => r.team).filter(Boolean);
   }
 
+  async getUserEnrollments(userId: string): Promise<TournamentRegistration[]> {
+    console.log('getUserEnrollments called for userId:', userId);
+    
+    // First, get the team IDs where the user is a player
+    const playerTeams = await this.playerRepository
+      .createQueryBuilder('player')
+      .select('player.teamId')
+      .where('player.userId = :userId', { userId })
+      .getMany();
+
+    console.log('Found player teams:', playerTeams.length, playerTeams);
+
+    if (playerTeams.length === 0) {
+      console.log('No player teams found, returning empty array');
+      return [];
+    }
+
+    const teamIds = playerTeams.map(pt => pt.teamId);
+    console.log('Team IDs:', teamIds);
+
+    // Then get the registrations for those teams with all relations
+    const registrations = await this.registrationRepository
+      .createQueryBuilder('registration')
+      .leftJoinAndSelect('registration.team', 'team')
+      .leftJoinAndSelect('team.players', 'players')
+      .leftJoinAndSelect('players.user', 'user')
+      .leftJoinAndSelect('registration.tournament', 'tournament')
+      .where('registration.teamId IN (:...teamIds)', { teamIds })
+      .orderBy('registration.registeredAt', 'DESC')
+      .getMany();
+
+    console.log('Found registrations:', registrations.length);
+    return registrations;
+  }
+
   private async getRegistrationById(id: string): Promise<TournamentRegistration> {
     const registration = await this.registrationRepository.findOne({
       where: { id },

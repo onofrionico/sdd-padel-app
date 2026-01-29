@@ -1,18 +1,17 @@
 export interface Enrollment {
-  id: number
+  id: string
   tournamentId: string
-  player1Id: number
-  player2Id: number
-  category: number
-  status: 'pending' | 'approved' | 'rejected'
-  createdAt: string
+  teamId: string
+  status: 'pending' | 'approved' | 'rejected' | 'withdrawn'
+  rejectionReason?: string | null
+  registeredAt: string
   updatedAt: string
 }
 
 export interface EnrollmentRequest {
   tournamentId: string
-  partnerId: number
-  category: number
+  partnerId: string
+  teamName?: string
 }
 
 export interface EnrollmentWithDetails extends Enrollment {
@@ -20,20 +19,24 @@ export interface EnrollmentWithDetails extends Enrollment {
     id: string
     name: string
     startDate: string
-    location: string
+    endDate: string
+    status: string
+    type: string
+    description?: string
   }
-  player1: {
-    id: number
-    firstName: string
-    lastName: string
-    email: string
-    fullName: string
-  }
-  player2: {
-    id: number
-    firstName: string
-    lastName: string
-    email: string
-    fullName: string
+  team: {
+    id: string
+    name: string
+    players: Array<{
+      id: string
+      userId: string
+      category: number
+      user: {
+        id: string
+        email: string
+        firstName: string
+        lastName: string
+      }
+    }>
   }
 }

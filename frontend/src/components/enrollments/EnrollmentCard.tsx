@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card'
 import { EnrollmentStatusBadge } from './EnrollmentStatusBadge'
 import { EnrollmentWithDetails } from '@/types/enrollment'
-import { Calendar, MapPin, Users } from 'lucide-react'
+import { Calendar, Users } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 
 interface EnrollmentCardProps {
@@ -9,22 +9,24 @@ interface EnrollmentCardProps {
 }
 
 export function EnrollmentCard({ enrollment }: EnrollmentCardProps) {
+  const players = enrollment.team?.players || []
+  const player1 = players[0]?.user
+  const player2 = players[1]?.user
+  const teamName = enrollment.team?.name || 'Team'
+  const category = players[0]?.category
+
   return (
     <Card className="overflow-hidden transition-shadow hover:shadow-md">
       <div className="p-4 sm:p-6">
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex-1">
             <h3 className="text-lg font-semibold text-foreground">
-              {enrollment.tournament.name}
+              {enrollment.tournament?.name || 'Tournament'}
             </h3>
             <div className="mt-2 flex flex-wrap gap-3 text-sm text-muted-foreground">
               <div className="flex items-center gap-1.5">
                 <Calendar className="h-4 w-4" />
-                <span>{formatDate(enrollment.tournament.startDate)}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <MapPin className="h-4 w-4" />
-                <span>{enrollment.tournament.location}</span>
+                <span>{enrollment.tournament?.startDate ? formatDate(enrollment.tournament.startDate) : 'TBD'}</span>
               </div>
             </div>
           </div>
@@ -36,13 +38,18 @@ export function EnrollmentCard({ enrollment }: EnrollmentCardProps) {
             <Users className="h-4 w-4 text-muted-foreground" />
             <span className="font-medium">Team:</span>
             <span className="text-muted-foreground">
-              {enrollment.player1.fullName} & {enrollment.player2.fullName}
+              {player1 && player2 
+                ? `${player1.firstName} ${player1.lastName} & ${player2.firstName} ${player2.lastName}`
+                : teamName
+              }
             </span>
           </div>
-          <div className="flex items-center gap-2 text-sm">
-            <span className="font-medium">Category:</span>
-            <span className="text-muted-foreground">{enrollment.category}° Category</span>
-          </div>
+          {category && (
+            <div className="flex items-center gap-2 text-sm">
+              <span className="font-medium">Category:</span>
+              <span className="text-muted-foreground">{category}° Category</span>
+            </div>
+          )}
         </div>
 
         {enrollment.status === 'pending' && (

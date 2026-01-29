@@ -15,12 +15,18 @@ const users_controller_1 = require("./users.controller");
 const player_service_1 = require("./player.service");
 const associations_module_1 = require("../associations/associations.module");
 const rankings_module_1 = require("../rankings/rankings.module");
+const tournaments_module_1 = require("../tournaments/tournaments.module");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]), associations_module_1.AssociationsModule, rankings_module_1.RankingsModule],
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]),
+            associations_module_1.AssociationsModule,
+            rankings_module_1.RankingsModule,
+            (0, common_1.forwardRef)(() => tournaments_module_1.TournamentsModule),
+        ],
         controllers: [users_controller_1.UsersController],
         providers: [users_service_1.UsersService, player_service_1.PlayerService],
         exports: [users_service_1.UsersService],

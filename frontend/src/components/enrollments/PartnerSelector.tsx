@@ -7,14 +7,14 @@ import { Search, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface Partner {
-  id: number
+  id: string
   fullName: string
   email: string
 }
 
 interface PartnerSelectorProps {
-  selectedPartnerId?: number
-  onSelectPartner: (partnerId: number) => void
+  selectedPartnerId?: string
+  onSelectPartner: (partnerId: string) => void
   className?: string
 }
 

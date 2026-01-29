@@ -6,8 +6,8 @@ import { Check, X, Users } from 'lucide-react'
 
 interface EnrollmentRequestCardProps {
   enrollment: EnrollmentWithDetails
-  onApprove: (enrollmentId: number) => void
-  onReject: (enrollmentId: number) => void
+  onApprove: (enrollmentId: string) => void
+  onReject: (enrollmentId: string) => void
   isLoading?: boolean
 }
 
@@ -18,6 +18,10 @@ export function EnrollmentRequestCard({
   isLoading = false,
 }: EnrollmentRequestCardProps) {
   const isPending = enrollment.status === 'pending'
+  const players = enrollment.team?.players || []
+  const player1 = players[0]?.user
+  const player2 = players[1]?.user
+  const category = players[0]?.category
 
   return (
     <Card>
@@ -27,10 +31,10 @@ export function EnrollmentRequestCard({
             <Users className="h-5 w-5 text-muted-foreground" />
             <div>
               <p className="font-semibold">
-                {enrollment.player1.firstName} {enrollment.player1.lastName}
+                {player1 ? `${player1.firstName} ${player1.lastName}` : 'Unknown Player'}
               </p>
               <p className="text-sm text-muted-foreground">
-                {enrollment.player1.email}
+                {player1?.email || 'N/A'}
               </p>
             </div>
           </div>
@@ -41,17 +45,19 @@ export function EnrollmentRequestCard({
         <div>
           <p className="text-sm font-medium">Partner:</p>
           <p className="text-sm text-muted-foreground">
-            {enrollment.player2.firstName} {enrollment.player2.lastName} ({enrollment.player2.email})
+            {player2 ? `${player2.firstName} ${player2.lastName} (${player2.email})` : 'N/A'}
           </p>
         </div>
-        <div>
-          <p className="text-sm font-medium">Category:</p>
-          <p className="text-sm text-muted-foreground">Category {enrollment.category}</p>
-        </div>
+        {category && (
+          <div>
+            <p className="text-sm font-medium">Category:</p>
+            <p className="text-sm text-muted-foreground">Category {category}</p>
+          </div>
+        )}
         <div>
           <p className="text-sm font-medium">Enrolled:</p>
           <p className="text-sm text-muted-foreground">
-            {new Date(enrollment.createdAt).toLocaleDateString()}
+            {new Date(enrollment.registeredAt).toLocaleDateString()}
           </p>
         </div>
       </CardContent>

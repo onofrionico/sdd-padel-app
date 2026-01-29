@@ -42,7 +42,7 @@ exports.TournamentsModule = TournamentsModule = __decorate([
         ],
         controllers: [tournament_controller_1.TournamentController, enrollment_controller_1.EnrollmentController, tournament_matches_controller_1.TournamentMatchesController],
         providers: [tournament_service_1.TournamentService, enrollment_service_1.EnrollmentService, tournament_matches_service_1.TournamentMatchesService],
-        exports: [tournament_service_1.TournamentService],
+        exports: [tournament_service_1.TournamentService, enrollment_service_1.EnrollmentService],
     })
 ], TournamentsModule);
 //# sourceMappingURL=tournaments.module.js.map

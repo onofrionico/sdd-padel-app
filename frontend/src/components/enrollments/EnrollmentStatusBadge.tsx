@@ -2,7 +2,7 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 
 interface EnrollmentStatusBadgeProps {
-  status: 'pending' | 'approved' | 'rejected'
+  status: 'pending' | 'approved' | 'rejected' | 'withdrawn'
   className?: string
 }
 
@@ -22,6 +22,11 @@ export function EnrollmentStatusBadge({ status, className }: EnrollmentStatusBad
       label: 'Rejected',
       variant: 'destructive' as const,
       className: 'bg-red-500 text-white hover:bg-red-600',
+    },
+    withdrawn: {
+      label: 'Withdrawn',
+      variant: 'outline' as const,
+      className: 'border-gray-500 text-gray-700 bg-gray-50',
     },
   }
 

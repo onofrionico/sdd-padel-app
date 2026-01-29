@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Tournament } from '@/types/tournament'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, MapPin, Users } from 'lucide-react'
+import { Calendar, MapPin, Users, Building2 } from 'lucide-react'
 import { formatDate, formatTournamentStatus, formatCategory } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 
@@ -37,6 +37,13 @@ export function TournamentCard({ tournament, className }: TournamentCardProps) {
           )}
         </CardHeader>
         <CardContent className="space-y-3">
+          {tournament.association && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Building2 className="h-4 w-4" />
+              <span className="font-medium">{tournament.association.name}</span>
+            </div>
+          )}
+
           {tournament.startDate && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Calendar className="h-4 w-4" />

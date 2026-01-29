@@ -30,6 +30,6 @@ import { TournamentMatchesService } from './tournament-matches.service';
   ],
   controllers: [TournamentController, EnrollmentController, TournamentMatchesController],
   providers: [TournamentService, EnrollmentService, TournamentMatchesService],
-  exports: [TournamentService],
+  exports: [TournamentService, EnrollmentService],
 })
 export class TournamentsModule {}

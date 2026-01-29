@@ -63,8 +63,8 @@ export const tournamentSchema = z.object({
 
 export const enrollmentSchema = z.object({
   tournamentId: z.string(),
-  partnerId: z.number(),
-  category: z.number().min(1).max(8),
+  partnerId: z.string().uuid('Invalid partner ID'),
+  teamName: z.string().optional(),
 })
 
 export type LoginFormData = z.infer<typeof loginSchema>
