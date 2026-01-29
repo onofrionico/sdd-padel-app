@@ -30,6 +30,7 @@ export function formatCategory(category: number): string {
 export function formatTournamentStatus(status: string): string {
   const statuses: Record<string, string> = {
     upcoming: 'Próximo',
+    registration_open: 'Inscripción Abierta',
     in_progress: 'En Progreso',
     completed: 'Completado',
     cancelled: 'Cancelado',

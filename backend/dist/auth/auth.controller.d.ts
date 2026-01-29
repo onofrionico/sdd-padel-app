@@ -9,13 +9,11 @@ export declare class AuthController {
         access_token: string;
         user: {
             id: string;
-            updatedAt: Date;
-            createdAt: Date;
-            role: import("../users/entities/user.entity").UserRole;
             email: string;
             firstName: string;
             lastName: string;
             phoneNumber?: string | undefined;
+            role: import("../users/entities/user.entity").UserRole;
             gender: import("../users/entities/user.entity").Gender | null;
             dateOfBirth?: Date | undefined;
             profilePicture?: string | undefined;
@@ -25,17 +23,17 @@ export declare class AuthController {
             associationMemberships: import("../associations/entities/association-membership.entity").AssociationMembership[];
             tournamentPlayers: import("../tournaments/entities/tournament-player.entity").TournamentPlayer[];
             notifications: import("../notifications/entities/notification.entity").Notification[];
+            createdAt: Date;
+            updatedAt: Date;
         };
     }>;
     register(registerDto: RegisterDto): Promise<{
         id: string;
-        updatedAt: Date;
-        createdAt: Date;
-        role: import("../users/entities/user.entity").UserRole;
         email: string;
         firstName: string;
         lastName: string;
         phoneNumber?: string | undefined;
+        role: import("../users/entities/user.entity").UserRole;
         gender: import("../users/entities/user.entity").Gender | null;
         dateOfBirth?: Date | undefined;
         profilePicture?: string | undefined;
@@ -45,6 +43,8 @@ export declare class AuthController {
         associationMemberships: import("../associations/entities/association-membership.entity").AssociationMembership[];
         tournamentPlayers: import("../tournaments/entities/tournament-player.entity").TournamentPlayer[];
         notifications: import("../notifications/entities/notification.entity").Notification[];
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     getProfile(req: {
         user: User;

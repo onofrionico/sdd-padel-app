@@ -35,6 +35,18 @@ let UsersService = class UsersService {
         const user = this.usersRepository.create(createUserDto);
         return this.usersRepository.save(user);
     }
+    async searchUsers(query) {
+        const qb = this.usersRepository.createQueryBuilder('user');
+        qb.where('LOWER(user.firstName) LIKE LOWER(:query) OR LOWER(user.lastName) LIKE LOWER(:query) OR LOWER(user.email) LIKE LOWER(:query)', { query: `%${query}%` })
+            .select([
+            'user.id',
+            'user.email',
+            'user.firstName',
+            'user.lastName',
+        ])
+            .limit(10);
+        return qb.getMany();
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([

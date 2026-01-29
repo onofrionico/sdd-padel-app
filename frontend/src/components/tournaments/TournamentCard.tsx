@@ -14,6 +14,7 @@ interface TournamentCardProps {
 export function TournamentCard({ tournament, className }: TournamentCardProps) {
   const statusColors = {
     upcoming: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+    registration_open: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300',
     in_progress: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
     completed: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
     cancelled: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',

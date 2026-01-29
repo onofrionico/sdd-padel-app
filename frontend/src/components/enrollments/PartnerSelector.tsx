@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Search, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { usersApi } from '@/services/api/users'
 
 interface Partner {
   id: string
@@ -32,16 +33,8 @@ export function PartnerSelector({
 
     setIsSearching(true)
     try {
-      const response = await fetch(
-        `/api/users/search?q=${encodeURIComponent(searchQuery)}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      )
-      const data = await response.json()
-      setSearchResults(data.data || [])
+      const results = await usersApi.searchUsers(searchQuery)
+      setSearchResults(results)
     } catch (error) {
       console.error('Failed to search partners:', error)
       setSearchResults([])

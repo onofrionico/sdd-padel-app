@@ -1,6 +1,6 @@
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api'
 
-export const TOURNAMENT_STATUSES = ['upcoming', 'in_progress', 'completed', 'cancelled'] as const
+export const TOURNAMENT_STATUSES = ['upcoming', 'registration_open', 'in_progress', 'completed', 'cancelled'] as const
 export const ENROLLMENT_STATUSES = ['pending', 'approved', 'rejected'] as const
 export const CATEGORIES = [1, 2, 3, 4, 5, 6, 7, 8] as const
 

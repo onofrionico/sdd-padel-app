@@ -7,12 +7,14 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from './entities/user.entity';
+import { UsersService } from './users.service';
 import { PlayerService } from './player.service';
 import { RegisterPlayerDto } from './dto/register-player.dto';
 import { SetMyCategoryDto } from './dto/set-my-category.dto';
@@ -27,10 +29,28 @@ import { TournamentRegistration } from '../tournaments/entities/tournament-regis
 @Controller('users')
 export class UsersController {
   constructor(
+    private readonly usersService: UsersService,
     private readonly playerService: PlayerService,
     private readonly statisticsService: StatisticsService,
     private readonly enrollmentService: EnrollmentService,
   ) {}
+
+  @Get('search')
+  @ApiOperation({ summary: 'Search users by name or email' })
+  @ApiResponse({ status: HttpStatus.OK })
+  async searchUsers(@Query('q') query: string) {
+    if (!query || query.trim().length === 0) {
+      return { data: [] };
+    }
+    const users = await this.usersService.searchUsers(query);
+    return {
+      data: users.map(user => ({
+        id: user.id,
+        email: user.email,
+        fullName: `${user.firstName} ${user.lastName}`,
+      })),
+    };
+  }
 
   @Get('me/player-profile')
   @ApiOperation({ summary: 'View current player profile (includes association memberships)' })

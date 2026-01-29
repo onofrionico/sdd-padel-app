@@ -12,7 +12,7 @@ export interface Tournament {
   format: 'single_elimination' | 'double_elimination' | 'round_robin' | 'groups_knockout'
   maxTeams?: number
   categories: number[]
-  status: 'upcoming' | 'in_progress' | 'completed' | 'cancelled'
+  status: 'upcoming' | 'registration_open' | 'in_progress' | 'completed' | 'cancelled'
   pointDistribution: Record<string, number>
   showCapacity: boolean
   createdAt: string
