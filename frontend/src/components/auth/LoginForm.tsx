@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { AlertCircle, Loader2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export function LoginForm() {
   const navigate = useNavigate()
@@ -16,6 +17,7 @@ export function LoginForm() {
   const { login } = useAuth()
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const { t } = useTranslation()
 
   const {
     register,
@@ -34,7 +36,7 @@ export function LoginForm() {
       const from = (location.state as any)?.from?.pathname || '/dashboard'
       navigate(from, { replace: true })
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Invalid email or password')
+      setError(err.response?.data?.message || t('auth.login.error.default'))
     } finally {
       setIsLoading(false)
     }
@@ -43,8 +45,8 @@ export function LoginForm() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle>Welcome Back</CardTitle>
-        <CardDescription>Sign in to your account to continue</CardDescription>
+        <CardTitle>{t('auth.login.title')}</CardTitle>
+        <CardDescription>{t('auth.login.description')}</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="space-y-4">
@@ -56,11 +58,11 @@ export function LoginForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('auth.login.email.label')}</Label>
             <Input
               id="email"
               type="email"
-              placeholder="your.email@example.com"
+              placeholder={t('auth.login.email.placeholder')}
               {...register('email')}
               disabled={isLoading}
             />
@@ -70,11 +72,11 @@ export function LoginForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t('auth.login.password.label')}</Label>
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder={t('auth.login.password.placeholder')}
               {...register('password')}
               disabled={isLoading}
             />
@@ -88,21 +90,21 @@ export function LoginForm() {
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Signing in...
+                {t('auth.login.button.submitting')}
               </>
             ) : (
-              'Sign In'
+              t('auth.login.button.submit')
             )}
           </Button>
           <p className="text-center text-sm text-muted-foreground">
-            Don't have an account?{' '}
+            {t('auth.login.noAccount')}{' '}
             <Button
               type="button"
               variant="link"
               className="p-0 h-auto"
               onClick={() => navigate('/register')}
             >
-              Sign up
+              {t('auth.login.signUp')}
             </Button>
           </p>
         </CardFooter>

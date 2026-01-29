@@ -9,12 +9,14 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { AlertCircle, Loader2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export function RegisterForm() {
   const navigate = useNavigate()
   const { register: registerUser } = useAuth()
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const { t } = useTranslation()
 
   const {
     register,
@@ -32,7 +34,7 @@ export function RegisterForm() {
       await registerUser(data)
       navigate('/profile-setup', { replace: true })
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.')
+      setError(err.response?.data?.message || t('auth.register.error.default'))
     } finally {
       setIsLoading(false)
     }
@@ -41,8 +43,8 @@ export function RegisterForm() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle>Create Account</CardTitle>
-        <CardDescription>Sign up to start playing padel tournaments</CardDescription>
+        <CardTitle>{t('auth.register.title')}</CardTitle>
+        <CardDescription>{t('auth.register.description')}</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="space-y-4">
@@ -55,10 +57,10 @@ export function RegisterForm() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="firstName">First Name</Label>
+              <Label htmlFor="firstName">{t('auth.register.firstName.label')}</Label>
               <Input
                 id="firstName"
-                placeholder="John"
+                placeholder={t('auth.register.firstName.placeholder')}
                 {...register('firstName')}
                 disabled={isLoading}
               />
@@ -68,10 +70,10 @@ export function RegisterForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="lastName">Last Name</Label>
+              <Label htmlFor="lastName">{t('auth.register.lastName.label')}</Label>
               <Input
                 id="lastName"
-                placeholder="Doe"
+                placeholder={t('auth.register.lastName.placeholder')}
                 {...register('lastName')}
                 disabled={isLoading}
               />
@@ -82,11 +84,11 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('auth.register.email.label')}</Label>
             <Input
               id="email"
               type="email"
-              placeholder="your.email@example.com"
+              placeholder={t('auth.register.email.placeholder')}
               {...register('email')}
               disabled={isLoading}
             />
@@ -96,11 +98,11 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t('auth.register.password.label')}</Label>
             <Input
               id="password"
               type="password"
-              placeholder="At least 8 characters"
+              placeholder={t('auth.register.password.placeholder')}
               {...register('password')}
               disabled={isLoading}
             />
@@ -110,11 +112,11 @@ export function RegisterForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="phoneNumber">Phone Number (Optional)</Label>
+            <Label htmlFor="phoneNumber">{t('auth.register.phoneNumber.label')}</Label>
             <Input
               id="phoneNumber"
               type="tel"
-              placeholder="+1234567890"
+              placeholder={t('auth.register.phoneNumber.placeholder')}
               {...register('phoneNumber')}
               disabled={isLoading}
             />
@@ -128,21 +130,21 @@ export function RegisterForm() {
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Creating account...
+                {t('auth.register.button.submitting')}
               </>
             ) : (
-              'Create Account'
+              t('auth.register.button.submit')
             )}
           </Button>
           <p className="text-center text-sm text-muted-foreground">
-            Already have an account?{' '}
+            {t('auth.register.hasAccount')}{' '}
             <Button
               type="button"
               variant="link"
               className="p-0 h-auto"
               onClick={() => navigate('/login')}
             >
-              Sign in
+              {t('auth.register.signIn')}
             </Button>
           </p>
         </CardFooter>

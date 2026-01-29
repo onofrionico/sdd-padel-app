@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { AlertCircle, Loader2 } from 'lucide-react'
 import { Tournament } from '@/types/tournament'
+import { useTranslation } from 'react-i18next'
 
 interface TournamentFormProps {
   tournament?: Tournament
@@ -17,6 +18,7 @@ interface TournamentFormProps {
 
 export function TournamentForm({ tournament, onSubmit, isLoading = false }: TournamentFormProps) {
   const [error, setError] = useState<string | null>(null)
+  const { t } = useTranslation()
 
   const {
     register,
@@ -85,7 +87,7 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
       }
       await onSubmit(submissionData)
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to save tournament. Please try again.')
+      setError(err.response?.data?.message || t('tournament.form.error.default'))
     }
   }
 
@@ -100,15 +102,15 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
 
       <Card>
         <CardHeader>
-          <CardTitle>Basic Information</CardTitle>
-          <CardDescription>General tournament details</CardDescription>
+          <CardTitle>{t('tournament.form.section.basic.title')}</CardTitle>
+          <CardDescription>{t('tournament.form.section.basic.description')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Tournament Name *</Label>
+            <Label htmlFor="name">{t('tournament.form.name.label')}</Label>
             <Input
               id="name"
-              placeholder="Summer Padel Championship 2024"
+              placeholder={t('tournament.form.name.placeholder')}
               {...register('name')}
               disabled={isLoading}
             />
@@ -118,11 +120,11 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">{t('tournament.form.description.label')}</Label>
             <textarea
               id="description"
               className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              placeholder="Tournament description..."
+              placeholder={t('tournament.form.description.placeholder')}
               {...register('description')}
               disabled={isLoading}
             />
@@ -133,7 +135,7 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="startDate">Start Date *</Label>
+              <Label htmlFor="startDate">{t('tournament.form.startDate.label')}</Label>
               <Input
                 id="startDate"
                 type="date"
@@ -146,7 +148,7 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="endDate">End Date</Label>
+              <Label htmlFor="endDate">{t('tournament.form.endDate.label')}</Label>
               <Input
                 id="endDate"
                 type="date"
@@ -160,18 +162,18 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="type">Tournament Type *</Label>
+            <Label htmlFor="type">{t('tournament.form.type.label')}</Label>
             <select
               id="type"
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               {...register('type')}
               disabled={isLoading}
             >
-              <option value="">Select tournament type</option>
-              <option value="single_elimination">Single Elimination</option>
-              <option value="double_elimination">Double Elimination</option>
-              <option value="round_robin">Round Robin</option>
-              <option value="groups_knockout">Groups + Knockout</option>
+              <option value="">{t('tournament.form.type.placeholder')}</option>
+              <option value="single_elimination">{t('tournament.form.type.singleElimination')}</option>
+              <option value="double_elimination">{t('tournament.form.type.doubleElimination')}</option>
+              <option value="round_robin">{t('tournament.form.type.roundRobin')}</option>
+              <option value="groups_knockout">{t('tournament.form.type.groupsKnockout')}</option>
             </select>
             {errors.type && (
               <p className="text-sm text-destructive">{errors.type.message}</p>
@@ -179,10 +181,10 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="associationId">Association ID *</Label>
+            <Label htmlFor="associationId">{t('tournament.form.associationId.label')}</Label>
             <Input
               id="associationId"
-              placeholder="UUID of the association"
+              placeholder={t('tournament.form.associationId.placeholder')}
               {...register('associationId')}
               disabled={isLoading}
             />
@@ -200,7 +202,7 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
               disabled={isLoading}
             />
             <Label htmlFor="isPublic" className="font-normal">
-              Make tournament public
+              {t('tournament.form.isPublic.label')}
             </Label>
           </div>
         </CardContent>
@@ -208,18 +210,18 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
 
       <Card>
         <CardHeader>
-          <CardTitle>Tournament Settings</CardTitle>
-          <CardDescription>Configure tournament parameters</CardDescription>
+          <CardTitle>{t('tournament.form.section.settings.title')}</CardTitle>
+          <CardDescription>{t('tournament.form.section.settings.description')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="settings.maxTeams">Max Teams</Label>
+              <Label htmlFor="settings.maxTeams">{t('tournament.form.maxTeams.label')}</Label>
               <Input
                 id="settings.maxTeams"
                 type="number"
                 min="2"
-                placeholder="32"
+                placeholder={t('tournament.form.maxTeams.placeholder')}
                 {...register('settings.maxTeams', { 
                   setValueAs: (v) => v === '' ? undefined : parseInt(v, 10)
                 })}
@@ -231,12 +233,12 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="settings.minTeams">Min Teams</Label>
+              <Label htmlFor="settings.minTeams">{t('tournament.form.minTeams.label')}</Label>
               <Input
                 id="settings.minTeams"
                 type="number"
                 min="2"
-                placeholder="4"
+                placeholder={t('tournament.form.minTeams.placeholder')}
                 {...register('settings.minTeams', { 
                   setValueAs: (v) => v === '' ? undefined : parseInt(v, 10)
                 })}
@@ -248,7 +250,7 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="settings.teamSize">Team Size *</Label>
+              <Label htmlFor="settings.teamSize">{t('tournament.form.teamSize.label')}</Label>
               <Input
                 id="settings.teamSize"
                 type="number"
@@ -265,10 +267,10 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
           </div>
 
           <div className="space-y-2">
-            <Label>Category Range</Label>
+            <Label>{t('tournament.form.categoryRange.label')}</Label>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="settings.categoryRange.min">Min Category</Label>
+                <Label htmlFor="settings.categoryRange.min">{t('tournament.form.categoryRange.min')}</Label>
                 <select
                   id="settings.categoryRange.min"
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -277,13 +279,13 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8].map((cat) => (
                     <option key={cat} value={cat}>
-                      Category {cat}
+                      {t('tournament.form.category.label', { number: cat })}
                     </option>
                   ))}
                 </select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="settings.categoryRange.max">Max Category</Label>
+                <Label htmlFor="settings.categoryRange.max">{t('tournament.form.categoryRange.max')}</Label>
                 <select
                   id="settings.categoryRange.max"
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -292,7 +294,7 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8].map((cat) => (
                     <option key={cat} value={cat}>
-                      Category {cat}
+                      {t('tournament.form.category.label', { number: cat })}
                     </option>
                   ))}
                 </select>
@@ -307,12 +309,12 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Saving...
+              {t('tournament.form.button.saving')}
             </>
           ) : tournament ? (
-            'Update Tournament'
+            t('tournament.form.button.update')
           ) : (
-            'Create Tournament'
+            t('tournament.form.button.create')
           )}
         </Button>
       </div>

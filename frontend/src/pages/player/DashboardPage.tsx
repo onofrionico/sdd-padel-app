@@ -3,34 +3,36 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
 import { Trophy, Calendar, TrendingUp, Bell } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export function DashboardPage() {
   const { user } = useAuth()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const quickActions = [
     {
       icon: Trophy,
-      title: 'Browse Tournaments',
-      description: 'Find and enroll in upcoming tournaments',
+      title: t('dashboard.quickActions.browseTournaments.title'),
+      description: t('dashboard.quickActions.browseTournaments.description'),
       action: () => navigate('/tournaments'),
     },
     {
       icon: Calendar,
-      title: 'My Enrollments',
-      description: 'View your tournament enrollments',
+      title: t('dashboard.quickActions.myEnrollments.title'),
+      description: t('dashboard.quickActions.myEnrollments.description'),
       action: () => navigate('/enrollments'),
     },
     {
       icon: TrendingUp,
-      title: 'Rankings',
-      description: 'Check your ranking and statistics',
+      title: t('dashboard.quickActions.rankings.title'),
+      description: t('dashboard.quickActions.rankings.description'),
       action: () => navigate('/rankings'),
     },
     {
       icon: Bell,
-      title: 'Notifications',
-      description: 'View your latest notifications',
+      title: t('dashboard.quickActions.notifications.title'),
+      description: t('dashboard.quickActions.notifications.description'),
       action: () => navigate('/notifications'),
     },
   ]
@@ -40,10 +42,10 @@ export function DashboardPage() {
       {/* Welcome Section */}
       <div>
         <h1 className="text-3xl md:text-4xl font-bold mb-2">
-          Welcome back, {user?.firstName}!
+          {t('dashboard.welcome', { firstName: user?.firstName })}
         </h1>
         <p className="text-muted-foreground">
-          Here's what's happening with your tournaments
+          {t('dashboard.subtitle')}
         </p>
       </div>
 
@@ -51,36 +53,36 @@ export function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card>
           <CardHeader className="pb-3">
-            <CardDescription>Active Enrollments</CardDescription>
+            <CardDescription>{t('dashboard.stats.activeEnrollments')}</CardDescription>
             <CardTitle className="text-3xl">0</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              No active enrollments yet
+              {t('dashboard.stats.activeEnrollmentsEmpty')}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-3">
-            <CardDescription>Upcoming Tournaments</CardDescription>
+            <CardDescription>{t('dashboard.stats.upcomingTournaments')}</CardDescription>
             <CardTitle className="text-3xl">0</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Browse tournaments to get started
+              {t('dashboard.stats.upcomingTournamentsEmpty')}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-3">
-            <CardDescription>Total Points</CardDescription>
+            <CardDescription>{t('dashboard.stats.totalPoints')}</CardDescription>
             <CardTitle className="text-3xl">0</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              Earn points by participating
+              {t('dashboard.stats.totalPointsEmpty')}
             </p>
           </CardContent>
         </Card>
@@ -88,7 +90,7 @@ export function DashboardPage() {
 
       {/* Quick Actions */}
       <div>
-        <h2 className="text-2xl font-bold mb-4">Quick Actions</h2>
+        <h2 className="text-2xl font-bold mb-4">{t('dashboard.quickActions.title')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {quickActions.map((action, index) => {
             const Icon = action.icon
@@ -107,7 +109,7 @@ export function DashboardPage() {
                 </CardHeader>
                 <CardContent>
                   <Button onClick={action.action} variant="outline" className="w-full">
-                    Go to {action.title}
+                    {t('dashboard.quickActions.goTo', { title: action.title })}
                   </Button>
                 </CardContent>
               </Card>
@@ -118,10 +120,10 @@ export function DashboardPage() {
 
       {/* Recent Activity */}
       <div>
-        <h2 className="text-2xl font-bold mb-4">Recent Activity</h2>
+        <h2 className="text-2xl font-bold mb-4">{t('dashboard.recentActivity.title')}</h2>
         <Card>
           <CardContent className="py-8 text-center text-muted-foreground">
-            No recent activity yet. Start by enrolling in a tournament!
+            {t('dashboard.recentActivity.empty')}
           </CardContent>
         </Card>
       </div>

@@ -10,12 +10,14 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { AlertCircle, Loader2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export function PlayerProfileForm() {
   const navigate = useNavigate()
   const { updateUser } = useAuth()
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const { t } = useTranslation()
 
   const {
     register,
@@ -34,7 +36,7 @@ export function PlayerProfileForm() {
       updateUser(updatedUser)
       navigate('/dashboard', { replace: true })
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to update profile. Please try again.')
+      setError(err.response?.data?.message || t('auth.profile.error.default'))
     } finally {
       setIsLoading(false)
     }
@@ -47,8 +49,8 @@ export function PlayerProfileForm() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle>Complete Your Profile</CardTitle>
-        <CardDescription>Tell us more about yourself to get started</CardDescription>
+        <CardTitle>{t('auth.profile.title')}</CardTitle>
+        <CardDescription>{t('auth.profile.description')}</CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="space-y-4">
@@ -60,11 +62,11 @@ export function PlayerProfileForm() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="phoneNumber">Phone Number (Optional)</Label>
+            <Label htmlFor="phoneNumber">{t('auth.profile.phoneNumber.label')}</Label>
             <Input
               id="phoneNumber"
               type="tel"
-              placeholder="+1234567890"
+              placeholder={t('auth.profile.phoneNumber.placeholder')}
               {...register('phoneNumber')}
               disabled={isLoading}
             />
@@ -74,17 +76,17 @@ export function PlayerProfileForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="gender">Gender (Optional)</Label>
+            <Label htmlFor="gender">{t('auth.profile.gender.label')}</Label>
             <select
               id="gender"
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               {...register('gender')}
               disabled={isLoading}
             >
-              <option value="">Select gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option value="">{t('auth.profile.gender.placeholder')}</option>
+              <option value="male">{t('auth.profile.gender.male')}</option>
+              <option value="female">{t('auth.profile.gender.female')}</option>
+              <option value="other">{t('auth.profile.gender.other')}</option>
             </select>
             {errors.gender && (
               <p className="text-sm text-destructive">{errors.gender.message}</p>
@@ -92,7 +94,7 @@ export function PlayerProfileForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="dateOfBirth">Date of Birth (Optional)</Label>
+            <Label htmlFor="dateOfBirth">{t('auth.profile.dateOfBirth.label')}</Label>
             <Input
               id="dateOfBirth"
               type="date"
@@ -105,17 +107,17 @@ export function PlayerProfileForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="playingHand">Playing Hand (Optional)</Label>
+            <Label htmlFor="playingHand">{t('auth.profile.playingHand.label')}</Label>
             <select
               id="playingHand"
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               {...register('playingHand')}
               disabled={isLoading}
             >
-              <option value="">Select playing hand</option>
-              <option value="right">Right</option>
-              <option value="left">Left</option>
-              <option value="ambidextrous">Ambidextrous</option>
+              <option value="">{t('auth.profile.playingHand.placeholder')}</option>
+              <option value="right">{t('auth.profile.playingHand.right')}</option>
+              <option value="left">{t('auth.profile.playingHand.left')}</option>
+              <option value="ambidextrous">{t('auth.profile.playingHand.ambidextrous')}</option>
             </select>
             {errors.playingHand && (
               <p className="text-sm text-destructive">{errors.playingHand.message}</p>
@@ -123,17 +125,17 @@ export function PlayerProfileForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="playingStyle">Playing Style (Optional)</Label>
+            <Label htmlFor="playingStyle">{t('auth.profile.playingStyle.label')}</Label>
             <select
               id="playingStyle"
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               {...register('playingStyle')}
               disabled={isLoading}
             >
-              <option value="">Select playing style</option>
-              <option value="defensive">Defensive</option>
-              <option value="offensive">Offensive</option>
-              <option value="all_around">All Around</option>
+              <option value="">{t('auth.profile.playingStyle.placeholder')}</option>
+              <option value="defensive">{t('auth.profile.playingStyle.defensive')}</option>
+              <option value="offensive">{t('auth.profile.playingStyle.offensive')}</option>
+              <option value="all_around">{t('auth.profile.playingStyle.allAround')}</option>
             </select>
             {errors.playingStyle && (
               <p className="text-sm text-destructive">{errors.playingStyle.message}</p>
@@ -145,10 +147,10 @@ export function PlayerProfileForm() {
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Saving profile...
+                {t('auth.profile.button.submitting')}
               </>
             ) : (
-              'Complete Profile'
+              t('auth.profile.button.submit')
             )}
           </Button>
           <Button
@@ -158,7 +160,7 @@ export function PlayerProfileForm() {
             onClick={handleSkip}
             disabled={isLoading}
           >
-            Skip for now
+            {t('auth.profile.button.skip')}
           </Button>
         </CardFooter>
       </form>

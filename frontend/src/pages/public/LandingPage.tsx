@@ -4,10 +4,12 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Trophy, Users, Calendar, TrendingUp } from 'lucide-react'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export function LandingPage() {
   const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -18,23 +20,23 @@ export function LandingPage() {
   const features = [
     {
       icon: Trophy,
-      title: 'Tournament Management',
-      description: 'Create and manage padel tournaments with customizable formats and scoring systems',
+      title: t('landing.features.tournamentManagement.title'),
+      description: t('landing.features.tournamentManagement.description'),
     },
     {
       icon: Users,
-      title: 'Team Enrollment',
-      description: 'Easily enroll with partners and track your tournament participation',
+      title: t('landing.features.teamEnrollment.title'),
+      description: t('landing.features.teamEnrollment.description'),
     },
     {
       icon: TrendingUp,
-      title: 'Rankings & Statistics',
-      description: 'View category-specific rankings and track your performance over time',
+      title: t('landing.features.rankings.title'),
+      description: t('landing.features.rankings.description'),
     },
     {
       icon: Calendar,
-      title: 'Schedule & Notifications',
-      description: 'Stay updated with match schedules and tournament announcements',
+      title: t('landing.features.schedule.title'),
+      description: t('landing.features.schedule.description'),
     },
   ]
 
@@ -44,14 +46,14 @@ export function LandingPage() {
       <section className="bg-gradient-to-b from-primary/10 to-background py-20 px-4">
         <div className="container mx-auto max-w-6xl text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Welcome to Padel Tournament Manager
+            {t('landing.hero.title')}
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            The complete platform for organizing, participating, and tracking padel tournaments
+            {t('landing.hero.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" onClick={() => navigate('/register')} className="text-lg px-8">
-              Get Started
+              {t('landing.hero.getStarted')}
             </Button>
             <Button
               size="lg"
@@ -59,7 +61,7 @@ export function LandingPage() {
               onClick={() => navigate('/login')}
               className="text-lg px-8"
             >
-              Sign In
+              {t('landing.hero.signIn')}
             </Button>
           </div>
         </div>
@@ -69,7 +71,7 @@ export function LandingPage() {
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Everything You Need
+            {t('landing.features.title')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {features.map((feature, index) => {
@@ -100,13 +102,13 @@ export function LandingPage() {
       <section className="bg-primary/5 py-20 px-4">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Start Playing?
+            {t('landing.cta.title')}
           </h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Join thousands of players and organizers using our platform
+            {t('landing.cta.subtitle')}
           </p>
           <Button size="lg" onClick={() => navigate('/register')} className="text-lg px-8">
-            Create Your Account
+            {t('landing.cta.button')}
           </Button>
         </div>
       </section>

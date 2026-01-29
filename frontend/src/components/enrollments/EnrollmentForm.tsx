@@ -4,6 +4,7 @@ import { enrollmentSchema, EnrollmentFormData } from '@/lib/validators'
 import { Button } from '@/components/ui/button'
 import { PartnerSelector } from './PartnerSelector'
 import { Tournament } from '@/types/tournament'
+import { useTranslation } from 'react-i18next'
 
 interface EnrollmentFormProps {
   tournament: Tournament
@@ -18,6 +19,7 @@ export function EnrollmentForm({
   isSubmitting = false,
   onCancel,
 }: EnrollmentFormProps) {
+  const { t } = useTranslation()
   const {
     register,
     handleSubmit,
@@ -52,7 +54,7 @@ export function EnrollmentForm({
       <div className="flex gap-3">
         {onCancel && (
           <Button type="button" variant="outline" onClick={onCancel} className="flex-1">
-            Cancel
+            {t('enrollment.form.button.cancel')}
           </Button>
         )}
         <Button
@@ -60,7 +62,7 @@ export function EnrollmentForm({
           disabled={isSubmitting || !selectedPartnerId}
           className="flex-1"
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Enrollment'}
+          {isSubmitting ? t('enrollment.form.button.submitting') : t('enrollment.form.button.submit')}
         </Button>
       </div>
     </form>

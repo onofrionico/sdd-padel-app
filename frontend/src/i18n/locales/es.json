@@ -1,0 +1,398 @@
+{
+  "header": {
+    "appName": "Padel Tournament",
+    "nav": {
+      "tournaments": "Torneos",
+      "myEnrollments": "Mis Inscripciones",
+      "rankings": "Rankings",
+      "associations": "Asociaciones",
+      "createTournament": "Crear Torneo",
+      "notifications": "Notificaciones",
+      "profile": "Perfil"
+    },
+    "button": {
+      "login": "Iniciar Sesión",
+      "logout": "Cerrar Sesión",
+      "register": "Registrarse"
+    },
+    "aria": {
+      "home": "Inicio",
+      "profile": "Perfil",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú"
+    }
+  },
+  "footer": {
+    "appName": "Padel Tournament",
+    "description": "Gestiona tus torneos de pádel, inscripciones y rankings en un solo lugar.",
+    "section": {
+      "platform": "Plataforma",
+      "support": "Soporte",
+      "legal": "Legal"
+    },
+    "link": {
+      "tournaments": "Torneos",
+      "rankings": "Rankings",
+      "associations": "Asociaciones",
+      "helpCenter": "Centro de Ayuda",
+      "contactUs": "Contáctanos",
+      "faq": "Preguntas Frecuentes",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio"
+    },
+    "copyright": "Padel Tournament Management. Todos los derechos reservados."
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido",
+      "description": "Inicia sesión en tu cuenta para continuar",
+      "email": {
+        "label": "Correo Electrónico",
+        "placeholder": "tu.email@ejemplo.com"
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Ingresa tu contraseña"
+      },
+      "button": {
+        "submit": "Iniciar Sesión",
+        "submitting": "Iniciando sesión..."
+      },
+      "noAccount": "¿No tienes una cuenta?",
+      "signUp": "Regístrate",
+      "error": {
+        "default": "Correo electrónico o contraseña inválidos"
+      }
+    },
+    "register": {
+      "title": "Crear Cuenta",
+      "description": "Regístrate para comenzar a jugar torneos de pádel",
+      "firstName": {
+        "label": "Nombre",
+        "placeholder": "Juan"
+      },
+      "lastName": {
+        "label": "Apellido",
+        "placeholder": "Pérez"
+      },
+      "email": {
+        "label": "Correo Electrónico",
+        "placeholder": "tu.email@ejemplo.com"
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Al menos 8 caracteres"
+      },
+      "phoneNumber": {
+        "label": "Número de Teléfono (Opcional)",
+        "placeholder": "+54 9 11 1234-5678"
+      },
+      "button": {
+        "submit": "Crear Cuenta",
+        "submitting": "Creando cuenta..."
+      },
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "signIn": "Inicia sesión",
+      "error": {
+        "default": "Registro fallido. Por favor, intenta nuevamente."
+      }
+    },
+    "profile": {
+      "title": "Completa tu Perfil",
+      "description": "Cuéntanos más sobre ti para comenzar",
+      "phoneNumber": {
+        "label": "Número de Teléfono (Opcional)",
+        "placeholder": "+54 9 11 1234-5678"
+      },
+      "gender": {
+        "label": "Género (Opcional)",
+        "placeholder": "Selecciona género",
+        "male": "Masculino",
+        "female": "Femenino",
+        "other": "Otro"
+      },
+      "dateOfBirth": {
+        "label": "Fecha de Nacimiento (Opcional)"
+      },
+      "playingHand": {
+        "label": "Mano de Juego (Opcional)",
+        "placeholder": "Selecciona mano de juego",
+        "right": "Derecha",
+        "left": "Izquierda",
+        "ambidextrous": "Ambidiestro"
+      },
+      "playingStyle": {
+        "label": "Estilo de Juego (Opcional)",
+        "placeholder": "Selecciona estilo de juego",
+        "defensive": "Defensivo",
+        "offensive": "Ofensivo",
+        "allAround": "Completo"
+      },
+      "button": {
+        "submit": "Completar Perfil",
+        "submitting": "Guardando perfil...",
+        "skip": "Omitir por ahora"
+      },
+      "error": {
+        "default": "Error al actualizar el perfil. Por favor, intenta nuevamente."
+      }
+    }
+  },
+  "tournament": {
+    "card": {
+      "capacity": "Capacidad: {{maxTeams}} equipos",
+      "format": "Formato:"
+    },
+    "form": {
+      "section": {
+        "basic": {
+          "title": "Información Básica",
+          "description": "Detalles generales del torneo"
+        },
+        "settings": {
+          "title": "Configuración del Torneo",
+          "description": "Configura los parámetros del torneo"
+        }
+      },
+      "name": {
+        "label": "Nombre del Torneo *",
+        "placeholder": "Campeonato de Pádel Verano 2024"
+      },
+      "description": {
+        "label": "Descripción",
+        "placeholder": "Descripción del torneo..."
+      },
+      "startDate": {
+        "label": "Fecha de Inicio *"
+      },
+      "endDate": {
+        "label": "Fecha de Fin"
+      },
+      "type": {
+        "label": "Tipo de Torneo *",
+        "placeholder": "Selecciona tipo de torneo",
+        "singleElimination": "Eliminación Simple",
+        "doubleElimination": "Eliminación Doble",
+        "roundRobin": "Todos contra Todos",
+        "groupsKnockout": "Grupos + Eliminación"
+      },
+      "associationId": {
+        "label": "ID de Asociación *",
+        "placeholder": "UUID de la asociación"
+      },
+      "isPublic": {
+        "label": "Hacer torneo público"
+      },
+      "maxTeams": {
+        "label": "Equipos Máximos",
+        "placeholder": "32"
+      },
+      "minTeams": {
+        "label": "Equipos Mínimos",
+        "placeholder": "4"
+      },
+      "teamSize": {
+        "label": "Tamaño del Equipo *"
+      },
+      "categoryRange": {
+        "label": "Rango de Categorías",
+        "min": "Categoría Mínima",
+        "max": "Categoría Máxima"
+      },
+      "category": {
+        "label": "Categoría {{number}}"
+      },
+      "button": {
+        "create": "Crear Torneo",
+        "update": "Actualizar Torneo",
+        "saving": "Guardando..."
+      },
+      "error": {
+        "default": "Error al guardar el torneo. Por favor, intenta nuevamente."
+      }
+    },
+    "status": {
+      "upcoming": "Próximo",
+      "registrationOpen": "Inscripción Abierta",
+      "inProgress": "En Progreso",
+      "completed": "Completado",
+      "cancelled": "Cancelado"
+    }
+  },
+  "enrollment": {
+    "card": {
+      "tournament": "Torneo",
+      "tbd": "Por Definir",
+      "team": "Equipo:",
+      "category": "Categoría:",
+      "categoryNumber": "{{number}}° Categoría",
+      "status": {
+        "pending": {
+          "message": "Tu inscripción está pendiente de aprobación del organizador del torneo."
+        },
+        "approved": {
+          "message": "¡Tu inscripción ha sido aprobada! Buena suerte en el torneo."
+        },
+        "rejected": {
+          "message": "Tu inscripción no fue aprobada. Por favor, contacta al organizador para más información."
+        }
+      }
+    },
+    "form": {
+      "button": {
+        "cancel": "Cancelar",
+        "submit": "Enviar Inscripción",
+        "submitting": "Enviando..."
+      }
+    },
+    "status": {
+      "pending": "Pendiente de Aprobación",
+      "approved": "Aprobado",
+      "rejected": "Rechazado",
+      "withdrawn": "Retirado"
+    }
+  },
+  "association": {
+    "card": {
+      "member": "Miembro",
+      "notMember": "No es miembro",
+      "active": "Activa",
+      "inactive": "Inactiva",
+      "pointsSystem": "Sistema de puntos configurado"
+    },
+    "my": {
+      "title": "Mis Asociaciones",
+      "description": "Asociaciones de las que eres miembro",
+      "empty": {
+        "title": "Mis Asociaciones",
+        "description": "Aún no eres miembro de ninguna asociación",
+        "message": "Explora las asociaciones disponibles y solicita membresía para comenzar"
+      },
+      "error": "Error al cargar las asociaciones"
+    }
+  },
+  "rankings": {
+    "table": {
+      "position": "Posición",
+      "player": "Jugador",
+      "points": "Puntos",
+      "tournaments": "Torneos",
+      "you": "Tú"
+    },
+    "position": {
+      "first": "🥇 1°",
+      "second": "🥈 2°",
+      "third": "🥉 3°"
+    }
+  },
+  "notification": {
+    "timeAgo": {
+      "default": "hace un momento"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Bienvenido a Padel Tournament Manager",
+      "subtitle": "La plataforma completa para organizar, participar y seguir torneos de pádel",
+      "getStarted": "Comenzar",
+      "signIn": "Iniciar Sesión"
+    },
+    "features": {
+      "title": "Todo lo que Necesitas",
+      "tournamentManagement": {
+        "title": "Gestión de Torneos",
+        "description": "Crea y gestiona torneos de pádel con formatos y sistemas de puntuación personalizables"
+      },
+      "teamEnrollment": {
+        "title": "Inscripción de Equipos",
+        "description": "Inscríbete fácilmente con compañeros y sigue tu participación en torneos"
+      },
+      "rankings": {
+        "title": "Rankings y Estadísticas",
+        "description": "Visualiza rankings específicos por categoría y sigue tu rendimiento a lo largo del tiempo"
+      },
+      "schedule": {
+        "title": "Calendario y Notificaciones",
+        "description": "Mantente actualizado con calendarios de partidos y anuncios de torneos"
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar a Jugar?",
+      "subtitle": "Únete a miles de jugadores y organizadores que usan nuestra plataforma",
+      "button": "Crea tu Cuenta"
+    }
+  },
+  "notFound": {
+    "title": "Página No Encontrada",
+    "code": "404",
+    "heading": "Página No Encontrada",
+    "message": "La página que buscas no existe o ha sido movida.",
+    "button": {
+      "home": "Ir al Inicio",
+      "back": "Volver"
+    }
+  },
+  "dashboard": {
+    "welcome": "¡Bienvenido de nuevo, {{firstName}}!",
+    "subtitle": "Esto es lo que está pasando con tus torneos",
+    "stats": {
+      "activeEnrollments": "Inscripciones Activas",
+      "activeEnrollmentsEmpty": "Aún no tienes inscripciones activas",
+      "upcomingTournaments": "Torneos Próximos",
+      "upcomingTournamentsEmpty": "Explora torneos para comenzar",
+      "totalPoints": "Puntos Totales",
+      "totalPointsEmpty": "Gana puntos participando"
+    },
+    "quickActions": {
+      "title": "Acciones Rápidas",
+      "browseTournaments": {
+        "title": "Explorar Torneos",
+        "description": "Encuentra e inscríbete en próximos torneos"
+      },
+      "myEnrollments": {
+        "title": "Mis Inscripciones",
+        "description": "Visualiza tus inscripciones a torneos"
+      },
+      "rankings": {
+        "title": "Rankings",
+        "description": "Consulta tu ranking y estadísticas"
+      },
+      "notifications": {
+        "title": "Notificaciones",
+        "description": "Visualiza tus últimas notificaciones"
+      },
+      "goTo": "Ir a {{title}}"
+    },
+    "recentActivity": {
+      "title": "Actividad Reciente",
+      "empty": "Aún no hay actividad reciente. ¡Comienza inscribiéndote en un torneo!"
+    }
+  },
+  "error": {
+    "boundary": {
+      "title": "Algo salió mal",
+      "description": "Ocurrió un error inesperado. Por favor, intenta actualizar la página.",
+      "button": {
+        "home": "Ir al Inicio",
+        "refresh": "Actualizar Página"
+      }
+    }
+  },
+  "offline": {
+    "message": "Sin conexión a internet"
+  },
+  "loading": {
+    "default": "Cargando..."
+  },
+  "category": {
+    "1": "1ra Categoría",
+    "2": "2da Categoría",
+    "3": "3ra Categoría",
+    "4": "4ta Categoría",
+    "5": "5ta Categoría",
+    "6": "6ta Categoría",
+    "7": "7ma Categoría",
+    "8": "8va Categoría",
+    "default": "Categoría {{number}}"
+  }
+}

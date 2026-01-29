@@ -1,0 +1,398 @@
+{
+  "header": {
+    "appName": "Padel Tournament",
+    "nav": {
+      "tournaments": "Tournaments",
+      "myEnrollments": "My Enrollments",
+      "rankings": "Rankings",
+      "associations": "Associations",
+      "createTournament": "Create Tournament",
+      "notifications": "Notifications",
+      "profile": "Profile"
+    },
+    "button": {
+      "login": "Login",
+      "logout": "Logout",
+      "register": "Register"
+    },
+    "aria": {
+      "home": "Home",
+      "profile": "Profile",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu"
+    }
+  },
+  "footer": {
+    "appName": "Padel Tournament",
+    "description": "Manage your padel tournaments, enrollments, and rankings all in one place.",
+    "section": {
+      "platform": "Platform",
+      "support": "Support",
+      "legal": "Legal"
+    },
+    "link": {
+      "tournaments": "Tournaments",
+      "rankings": "Rankings",
+      "associations": "Associations",
+      "helpCenter": "Help Center",
+      "contactUs": "Contact Us",
+      "faq": "FAQ",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    },
+    "copyright": "Padel Tournament Management. All rights reserved."
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "description": "Sign in to your account to continue",
+      "email": {
+        "label": "Email",
+        "placeholder": "your.email@example.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      },
+      "button": {
+        "submit": "Sign In",
+        "submitting": "Signing in..."
+      },
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "error": {
+        "default": "Invalid email or password"
+      }
+    },
+    "register": {
+      "title": "Create Account",
+      "description": "Sign up to start playing padel tournaments",
+      "firstName": {
+        "label": "First Name",
+        "placeholder": "John"
+      },
+      "lastName": {
+        "label": "Last Name",
+        "placeholder": "Doe"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "your.email@example.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "At least 8 characters"
+      },
+      "phoneNumber": {
+        "label": "Phone Number (Optional)",
+        "placeholder": "+1234567890"
+      },
+      "button": {
+        "submit": "Create Account",
+        "submitting": "Creating account..."
+      },
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "error": {
+        "default": "Registration failed. Please try again."
+      }
+    },
+    "profile": {
+      "title": "Complete Your Profile",
+      "description": "Tell us more about yourself to get started",
+      "phoneNumber": {
+        "label": "Phone Number (Optional)",
+        "placeholder": "+1234567890"
+      },
+      "gender": {
+        "label": "Gender (Optional)",
+        "placeholder": "Select gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "dateOfBirth": {
+        "label": "Date of Birth (Optional)"
+      },
+      "playingHand": {
+        "label": "Playing Hand (Optional)",
+        "placeholder": "Select playing hand",
+        "right": "Right",
+        "left": "Left",
+        "ambidextrous": "Ambidextrous"
+      },
+      "playingStyle": {
+        "label": "Playing Style (Optional)",
+        "placeholder": "Select playing style",
+        "defensive": "Defensive",
+        "offensive": "Offensive",
+        "allAround": "All Around"
+      },
+      "button": {
+        "submit": "Complete Profile",
+        "submitting": "Saving profile...",
+        "skip": "Skip for now"
+      },
+      "error": {
+        "default": "Failed to update profile. Please try again."
+      }
+    }
+  },
+  "tournament": {
+    "card": {
+      "capacity": "Capacity: {{maxTeams}} teams",
+      "format": "Format:"
+    },
+    "form": {
+      "section": {
+        "basic": {
+          "title": "Basic Information",
+          "description": "General tournament details"
+        },
+        "settings": {
+          "title": "Tournament Settings",
+          "description": "Configure tournament parameters"
+        }
+      },
+      "name": {
+        "label": "Tournament Name *",
+        "placeholder": "Summer Padel Championship 2024"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Tournament description..."
+      },
+      "startDate": {
+        "label": "Start Date *"
+      },
+      "endDate": {
+        "label": "End Date"
+      },
+      "type": {
+        "label": "Tournament Type *",
+        "placeholder": "Select tournament type",
+        "singleElimination": "Single Elimination",
+        "doubleElimination": "Double Elimination",
+        "roundRobin": "Round Robin",
+        "groupsKnockout": "Groups + Knockout"
+      },
+      "associationId": {
+        "label": "Association ID *",
+        "placeholder": "UUID of the association"
+      },
+      "isPublic": {
+        "label": "Make tournament public"
+      },
+      "maxTeams": {
+        "label": "Max Teams",
+        "placeholder": "32"
+      },
+      "minTeams": {
+        "label": "Min Teams",
+        "placeholder": "4"
+      },
+      "teamSize": {
+        "label": "Team Size *"
+      },
+      "categoryRange": {
+        "label": "Category Range",
+        "min": "Min Category",
+        "max": "Max Category"
+      },
+      "category": {
+        "label": "Category {{number}}"
+      },
+      "button": {
+        "create": "Create Tournament",
+        "update": "Update Tournament",
+        "saving": "Saving..."
+      },
+      "error": {
+        "default": "Failed to save tournament. Please try again."
+      }
+    },
+    "status": {
+      "upcoming": "Upcoming",
+      "registrationOpen": "Registration Open",
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "enrollment": {
+    "card": {
+      "tournament": "Tournament",
+      "tbd": "TBD",
+      "team": "Team:",
+      "category": "Category:",
+      "categoryNumber": "{{number}}° Category",
+      "status": {
+        "pending": {
+          "message": "Your enrollment is pending approval from the tournament organizer."
+        },
+        "approved": {
+          "message": "Your enrollment has been approved! Good luck in the tournament."
+        },
+        "rejected": {
+          "message": "Your enrollment was not approved. Please contact the organizer for more information."
+        }
+      }
+    },
+    "form": {
+      "button": {
+        "cancel": "Cancel",
+        "submit": "Submit Enrollment",
+        "submitting": "Submitting..."
+      }
+    },
+    "status": {
+      "pending": "Pending Approval",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "withdrawn": "Withdrawn"
+    }
+  },
+  "association": {
+    "card": {
+      "member": "Member",
+      "notMember": "Not a member",
+      "active": "Active",
+      "inactive": "Inactive",
+      "pointsSystem": "Points system configured"
+    },
+    "my": {
+      "title": "My Associations",
+      "description": "Associations you are a member of",
+      "empty": {
+        "title": "My Associations",
+        "description": "You are not a member of any associations yet",
+        "message": "Browse available associations and request membership to get started"
+      },
+      "error": "Failed to load associations"
+    }
+  },
+  "rankings": {
+    "table": {
+      "position": "Position",
+      "player": "Player",
+      "points": "Points",
+      "tournaments": "Tournaments",
+      "you": "You"
+    },
+    "position": {
+      "first": "🥇 1st",
+      "second": "🥈 2nd",
+      "third": "🥉 3rd"
+    }
+  },
+  "notification": {
+    "timeAgo": {
+      "default": "a moment ago"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Welcome to Padel Tournament Manager",
+      "subtitle": "The complete platform for organizing, participating, and tracking padel tournaments",
+      "getStarted": "Get Started",
+      "signIn": "Sign In"
+    },
+    "features": {
+      "title": "Everything You Need",
+      "tournamentManagement": {
+        "title": "Tournament Management",
+        "description": "Create and manage padel tournaments with customizable formats and scoring systems"
+      },
+      "teamEnrollment": {
+        "title": "Team Enrollment",
+        "description": "Easily enroll with partners and track your tournament participation"
+      },
+      "rankings": {
+        "title": "Rankings & Statistics",
+        "description": "View category-specific rankings and track your performance over time"
+      },
+      "schedule": {
+        "title": "Schedule & Notifications",
+        "description": "Stay updated with match schedules and tournament announcements"
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Playing?",
+      "subtitle": "Join thousands of players and organizers using our platform",
+      "button": "Create Your Account"
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "code": "404",
+    "heading": "Page Not Found",
+    "message": "The page you are looking for doesn't exist or has been moved.",
+    "button": {
+      "home": "Go Home",
+      "back": "Go Back"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back, {{firstName}}!",
+    "subtitle": "Here's what's happening with your tournaments",
+    "stats": {
+      "activeEnrollments": "Active Enrollments",
+      "activeEnrollmentsEmpty": "No active enrollments yet",
+      "upcomingTournaments": "Upcoming Tournaments",
+      "upcomingTournamentsEmpty": "Browse tournaments to get started",
+      "totalPoints": "Total Points",
+      "totalPointsEmpty": "Earn points by participating"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "browseTournaments": {
+        "title": "Browse Tournaments",
+        "description": "Find and enroll in upcoming tournaments"
+      },
+      "myEnrollments": {
+        "title": "My Enrollments",
+        "description": "View your tournament enrollments"
+      },
+      "rankings": {
+        "title": "Rankings",
+        "description": "Check your ranking and statistics"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "description": "View your latest notifications"
+      },
+      "goTo": "Go to {{title}}"
+    },
+    "recentActivity": {
+      "title": "Recent Activity",
+      "empty": "No recent activity yet. Start by enrolling in a tournament!"
+    }
+  },
+  "error": {
+    "boundary": {
+      "title": "Something went wrong",
+      "description": "An unexpected error occurred. Please try refreshing the page.",
+      "button": {
+        "home": "Go to Home",
+        "refresh": "Refresh Page"
+      }
+    }
+  },
+  "offline": {
+    "message": "No internet connection"
+  },
+  "loading": {
+    "default": "Loading..."
+  },
+  "category": {
+    "1": "1st Category",
+    "2": "2nd Category",
+    "3": "3rd Category",
+    "4": "4th Category",
+    "5": "5th Category",
+    "6": "6th Category",
+    "7": "7th Category",
+    "8": "8th Category",
+    "default": "Category {{number}}"
+  }
+}

@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Building2, Globe, Users } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 interface AssociationCardProps {
   association: Association
@@ -18,6 +19,8 @@ export function AssociationCard({
   showMembershipStatus = false,
   isMember = false
 }: AssociationCardProps) {
+  const { t } = useTranslation()
+  
   return (
     <Link to={`/associations/${association.id}`}>
       <Card className={cn('hover:shadow-lg transition-shadow cursor-pointer', className)}>
@@ -42,17 +45,17 @@ export function AssociationCard({
                     variant={isMember ? "default" : "outline"}
                     className="mt-1"
                   >
-                    {isMember ? 'Member' : 'Not a member'}
+                    {isMember ? t('association.card.member') : t('association.card.notMember')}
                   </Badge>
                 )}
               </div>
             </div>
             {association.isActive ? (
               <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
-                Active
+                {t('association.card.active')}
               </Badge>
             ) : (
-              <Badge variant="outline">Inactive</Badge>
+              <Badge variant="outline">{t('association.card.inactive')}</Badge>
             )}
           </div>
           {association.description && (
@@ -72,7 +75,7 @@ export function AssociationCard({
           {Object.keys(association.pointsByRound).length > 0 && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Users className="h-4 w-4" />
-              <span>Points system configured</span>
+              <span>{t('association.card.pointsSystem')}</span>
             </div>
           )}
         </CardContent>

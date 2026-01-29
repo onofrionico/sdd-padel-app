@@ -3,8 +3,10 @@ import { Tournament } from '@/types/tournament'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Calendar, MapPin, Users, Building2 } from 'lucide-react'
-import { formatDate, formatTournamentStatus, formatCategory } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
+import { formatTournamentStatus, formatCategory } from '@/lib/i18nUtils'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 interface TournamentCardProps {
   tournament: Tournament
@@ -12,6 +14,8 @@ interface TournamentCardProps {
 }
 
 export function TournamentCard({ tournament, className }: TournamentCardProps) {
+  const { t } = useTranslation()
+  
   const statusColors = {
     upcoming: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
     registration_open: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300',
@@ -72,14 +76,14 @@ export function TournamentCard({ tournament, className }: TournamentCardProps) {
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Users className="h-4 w-4" />
               <span>
-                Capacity: {tournament.maxTeams} teams
+                {t('tournament.card.capacity', { maxTeams: tournament.maxTeams })}
               </span>
             </div>
           )}
 
           {tournament.format && (
             <div className="text-sm text-muted-foreground">
-              Format: <span className="font-medium">{tournament.format.replace('_', ' ')}</span>
+              {t('tournament.card.format')} <span className="font-medium">{tournament.format.replace('_', ' ')}</span>
             </div>
           )}
         </CardContent>
