@@ -6,11 +6,13 @@ describe('TournamentFilters', () => {
   it('should render status filter', () => {
     const onStatusChange = vi.fn()
     const onCategoryChange = vi.fn()
+    const onAssociationChange = vi.fn()
     
     render(
       <TournamentFilters
         onStatusChange={onStatusChange}
         onCategoryChange={onCategoryChange}
+        onAssociationChange={onAssociationChange}
       />
     )
     
@@ -20,11 +22,13 @@ describe('TournamentFilters', () => {
   it('should render category filter', () => {
     const onStatusChange = vi.fn()
     const onCategoryChange = vi.fn()
+    const onAssociationChange = vi.fn()
     
     render(
       <TournamentFilters
         onStatusChange={onStatusChange}
         onCategoryChange={onCategoryChange}
+        onAssociationChange={onAssociationChange}
       />
     )
     
@@ -34,11 +38,13 @@ describe('TournamentFilters', () => {
   it('should have status and category filters', () => {
     const onStatusChange = vi.fn()
     const onCategoryChange = vi.fn()
+    const onAssociationChange = vi.fn()
     
     render(
       <TournamentFilters
         onStatusChange={onStatusChange}
         onCategoryChange={onCategoryChange}
+        onAssociationChange={onAssociationChange}
       />
     )
     
@@ -49,12 +55,14 @@ describe('TournamentFilters', () => {
   it('should display selected status', () => {
     const onStatusChange = vi.fn()
     const onCategoryChange = vi.fn()
+    const onAssociationChange = vi.fn()
     
     render(
       <TournamentFilters
         status="upcoming"
         onStatusChange={onStatusChange}
         onCategoryChange={onCategoryChange}
+        onAssociationChange={onAssociationChange}
       />
     )
     
@@ -64,12 +72,14 @@ describe('TournamentFilters', () => {
   it('should display selected category', () => {
     const onStatusChange = vi.fn()
     const onCategoryChange = vi.fn()
+    const onAssociationChange = vi.fn()
     
     render(
       <TournamentFilters
         category={3}
         onStatusChange={onStatusChange}
         onCategoryChange={onCategoryChange}
+        onAssociationChange={onAssociationChange}
       />
     )
     
