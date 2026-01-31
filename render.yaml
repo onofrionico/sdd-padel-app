@@ -1,0 +1,72 @@
+services:
+  # PostgreSQL Database
+  - type: pserv
+    name: padel-tournament-db
+    env: docker
+    plan: free
+    region: oregon
+    ipAllowList: []
+
+  # Backend API (NestJS)
+  - type: web
+    name: padel-tournament-backend
+    env: docker
+    region: oregon
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DATABASE_HOST
+        fromDatabase:
+          name: padel-tournament-db
+          property: host
+      - key: DATABASE_PORT
+        fromDatabase:
+          name: padel-tournament-db
+          property: port
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: padel-tournament-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: padel-tournament-db
+          property: password
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: padel-tournament-db
+          property: database
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION
+        value: 1d
+    healthCheckPath: /api/ping
+
+  # Frontend (React + Vite)
+  - type: web
+    name: padel-tournament-frontend
+    env: static
+    region: oregon
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: padel-tournament-backend
+          envVarKey: RENDER_EXTERNAL_URL
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+databases:
+  - name: padel-tournament-db
+    databaseName: padel_tournament
+    user: padel_user
+    plan: free
