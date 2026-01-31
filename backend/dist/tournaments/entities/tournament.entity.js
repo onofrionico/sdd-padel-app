@@ -69,6 +69,10 @@ __decorate([
     __metadata("design:type", Object)
 ], Tournament.prototype, "settings", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'jsonb', default: {} }),
+    __metadata("design:type", Object)
+], Tournament.prototype, "paymentSettings", void 0);
+__decorate([
     (0, typeorm_1.Column)({ default: false }),
     __metadata("design:type", Boolean)
 ], Tournament.prototype, "isPublic", void 0);

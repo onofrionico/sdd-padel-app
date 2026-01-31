@@ -57,6 +57,14 @@ let AuthService = class AuthService {
         const { password, ...result } = newUser;
         return result;
     }
+    async getProfile(userId) {
+        const user = await this.usersService.findById(userId);
+        if (!user) {
+            throw new common_1.UnauthorizedException('User not found');
+        }
+        const { password, ...result } = user;
+        return result;
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Tournament } from './entities/tournament.entity';
 import { TournamentController } from './tournament.controller';
@@ -12,6 +12,7 @@ import { EnrollmentService } from './enrollment.service';
 import { EnrollmentController } from './enrollment.controller';
 import { AssociationsModule } from '../associations/associations.module';
 import { NotificationsModule } from '../notifications/notifications.module';
+import { PaymentsModule } from '../payments/payments.module';
 import { TournamentMatchesController } from './tournament-matches.controller';
 import { TournamentMatchesService } from './tournament-matches.service';
 
@@ -27,6 +28,7 @@ import { TournamentMatchesService } from './tournament-matches.service';
     ]),
     AssociationsModule,
     NotificationsModule,
+    forwardRef(() => PaymentsModule),
   ],
   controllers: [TournamentController, EnrollmentController, TournamentMatchesController],
   providers: [TournamentService, EnrollmentService, TournamentMatchesService],

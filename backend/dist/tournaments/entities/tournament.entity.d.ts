@@ -26,6 +26,22 @@ export interface TournamentSettings {
     pointsDistribution: Record<string, number>;
     tiebreakers: string[];
 }
+export interface PaymentSettings {
+    requiresDeposit: boolean;
+    depositAmount?: number;
+    depositCurrency?: string;
+    totalFee?: number;
+    paymentDeadlineHours?: number;
+    allowTeamPayment?: boolean;
+    allowSplitPayment?: boolean;
+    platformFeePercentage?: number;
+    refundPolicy?: {
+        fullRefundDeadlineHours?: number;
+        partialRefundPercentage?: number;
+        noRefundDeadlineHours?: number;
+        refundPlatformFee?: boolean;
+    };
+}
 export declare class Tournament {
     id: string;
     name: string;
@@ -35,6 +51,7 @@ export declare class Tournament {
     status: TournamentStatus;
     type: TournamentType;
     settings: TournamentSettings;
+    paymentSettings: PaymentSettings;
     isPublic: boolean;
     associationId: string;
     association: Association;

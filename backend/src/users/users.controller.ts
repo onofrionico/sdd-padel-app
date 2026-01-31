@@ -10,8 +10,12 @@ import {
   Query,
   Req,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
@@ -22,6 +26,7 @@ import { UpdatePlayerProfileDto } from './dto/update-player-profile.dto';
 import { StatisticsService } from '../rankings/statistics.service';
 import { EnrollmentService } from '../tournaments/enrollment.service';
 import { TournamentRegistration } from '../tournaments/entities/tournament-registration.entity';
+import { multerConfig } from '../config/multer.config';
 
 @ApiTags('Users')
 @ApiBearerAuth()
@@ -68,6 +73,39 @@ export class UsersController {
     @Body() dto: UpdatePlayerProfileDto,
   ) {
     return this.playerService.updateProfile(req.user.id, dto);
+  }
+
+  @Post('me/profile-picture')
+  @ApiOperation({ summary: 'Upload profile picture' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @ApiResponse({ status: HttpStatus.OK, schema: { properties: { profilePictureUrl: { type: 'string' } } } })
+  @UseInterceptors(FileInterceptor('file', multerConfig))
+  async uploadProfilePicture(
+    @Req() req: { user: User },
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
+    }
+
+    const profilePictureUrl = `/uploads/profile-pictures/${file.filename}`;
+    
+    await this.playerService.updateProfile(req.user.id, {
+      profilePicture: profilePictureUrl,
+    });
+
+    return { profilePictureUrl };
   }
 
   @Post('me/player-registration')

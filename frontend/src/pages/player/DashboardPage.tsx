@@ -2,7 +2,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom'
-import { Trophy, Calendar, TrendingUp, Bell } from 'lucide-react'
+import { Trophy, Calendar, TrendingUp, Bell, DollarSign, Clock } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 export function DashboardPage() {
@@ -116,6 +116,38 @@ export function DashboardPage() {
             )
           })}
         </div>
+      </div>
+
+      {/* Pending Payments */}
+      <div>
+        <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+          <DollarSign className="h-6 w-6" />
+          Pending Payments
+        </h2>
+        <Card className="border-yellow-200 bg-yellow-50/50 dark:bg-yellow-900/10">
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <Clock className="h-5 w-5 text-yellow-600" />
+              <CardTitle className="text-lg">Payment Required</CardTitle>
+            </div>
+            <CardDescription>
+              You have approved enrollments that require payment to confirm your participation
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-center py-4 text-muted-foreground">
+              <p className="text-sm">No pending payments at the moment</p>
+              <p className="text-xs mt-1">Payments will appear here when your enrollments are approved</p>
+            </div>
+            <Button 
+              onClick={() => navigate('/enrollments')} 
+              variant="outline" 
+              className="w-full mt-4"
+            >
+              View My Enrollments
+            </Button>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Recent Activity */}

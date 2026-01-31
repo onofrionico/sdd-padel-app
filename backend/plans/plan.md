@@ -129,6 +129,9 @@ backend/
 - [x] T013 [P] [US2] Extend User with player profile
 - [x] T014 [P] [US2] Implement PlayerService
 - [x] T015 [P] [US2] Add player endpoints to UserController
+- [x] T015.1 [P] [US2] Implement profile picture upload endpoint
+- [x] T015.2 [P] [US2] Configure multer for file uploads
+- [x] T015.3 [P] [US2] Set up static file serving for uploads
 
 ## Phase 6: User Story 3 - Tournament Enrollment (Priority: P1)
 
@@ -205,6 +208,11 @@ backend/
 - Database configuration is set up
 - Authentication system is partially implemented
 - Association System endpoints (associations + memberships + category per association) are implemented
+- **Profile Picture Upload**: Fully implemented with multer, file validation, and static file serving ✅
+  - Endpoint: `POST /api/users/me/profile-picture`
+  - Supports: JPG, JPEG, PNG, WEBP (max 5MB)
+  - Storage: `./uploads/profile-pictures/`
+  - Static serving: `/uploads/profile-pictures/[filename]`
 - **E2E Tests Created**: 64 tests across 4 test suites for User Stories 0-3
   - US0 (Association System): 13/13 tests passing ✅
   - US1 (Tournament Management): 13/13 tests passing ✅

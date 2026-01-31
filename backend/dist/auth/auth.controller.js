@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const login_dto_1 = require("./dto/login.dto");
 const register_dto_1 = require("./dto/register.dto");
+const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
 const public_decorator_1 = require("./decorators/public.decorator");
 const swagger_1 = require("@nestjs/swagger");
 const user_entity_1 = require("../users/entities/user.entity");
@@ -30,8 +31,8 @@ let AuthController = class AuthController {
     async register(registerDto) {
         return this.authService.register(registerDto);
     }
-    getProfile(req) {
-        return req.user;
+    async getProfile(req) {
+        return this.authService.getProfile(req.user.id);
     }
 };
 exports.AuthController = AuthController;
@@ -76,6 +77,7 @@ __decorate([
 ], AuthController.prototype, "register", null);
 __decorate([
     (0, common_1.Get)('profile'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiOperation)({ summary: 'Get current user profile' }),
     (0, swagger_1.ApiResponse)({
@@ -87,7 +89,7 @@ __decorate([
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "getProfile", null);
 exports.AuthController = AuthController = __decorate([
     (0, swagger_1.ApiTags)('Authentication'),

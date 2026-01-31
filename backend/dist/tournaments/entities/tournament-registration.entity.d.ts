@@ -1,6 +1,6 @@
 import { Tournament } from './tournament.entity';
 import { TournamentTeam } from './tournament-team.entity';
-export type RegistrationStatus = 'pending' | 'approved' | 'rejected' | 'withdrawn';
+export type RegistrationStatus = 'pending' | 'approved' | 'payment_pending' | 'confirmed' | 'rejected' | 'withdrawn' | 'cancelled';
 export declare class TournamentRegistration {
     id: string;
     tournamentId: string;

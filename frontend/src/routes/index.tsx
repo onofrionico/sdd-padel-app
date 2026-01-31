@@ -23,6 +23,8 @@ const CreateTournamentPage = lazy(() => import('@/pages/organizer/CreateTourname
 const EditTournamentPage = lazy(() => import('@/pages/organizer/EditTournamentPage').then(m => ({ default: m.EditTournamentPage })))
 const ManageTournamentPage = lazy(() => import('@/pages/organizer/ManageTournamentPage').then(m => ({ default: m.ManageTournamentPage })))
 const ManageEnrollmentsPage = lazy(() => import('@/pages/organizer/ManageEnrollmentsPage').then(m => ({ default: m.ManageEnrollmentsPage })))
+const PaymentPage = lazy(() => import('@/pages/payments/PaymentPage').then(m => ({ default: m.PaymentPage })))
+const TournamentPaymentsPage = lazy(() => import('@/pages/payments/TournamentPaymentsPage').then(m => ({ default: m.TournamentPaymentsPage })))
 const NotFoundPage = lazy(() => import('@/pages/public/NotFoundPage').then(m => ({ default: m.NotFoundPage })))
 
 const PageLoader = () => (
@@ -123,6 +125,16 @@ export function AppRoutes() {
           }
         />
 
+        {/* Payment routes */}
+        <Route
+          path="/payments/enrollments/:enrollmentId"
+          element={
+            <ProtectedRoute>
+              <PaymentPage />
+            </ProtectedRoute>
+          }
+        />
+
         {/* Organizer routes */}
         <Route
           path="/organizer/dashboard"
@@ -161,6 +173,14 @@ export function AppRoutes() {
           element={
             <OrganizerRoute>
               <ManageEnrollmentsPage />
+            </OrganizerRoute>
+          }
+        />
+        <Route
+          path="/organizer/tournaments/:id/payments"
+          element={
+            <OrganizerRoute>
+              <TournamentPaymentsPage />
             </OrganizerRoute>
           }
         />

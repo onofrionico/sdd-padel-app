@@ -3,6 +3,8 @@ import {
   ForbiddenException,
   Injectable,
   NotFoundException,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -14,6 +16,7 @@ import { Tournament, TournamentStatus } from './entities/tournament.entity';
 import { TournamentPlayer } from './entities/tournament-player.entity';
 import { TournamentRegistration, RegistrationStatus } from './entities/tournament-registration.entity';
 import { TournamentTeam } from './entities/tournament-team.entity';
+import { PaymentsService } from '../payments/services/payments.service';
 
 @Injectable()
 export class EnrollmentService {
@@ -28,6 +31,8 @@ export class EnrollmentService {
     private readonly registrationRepository: Repository<TournamentRegistration>,
     private readonly associationsService: AssociationsService,
     private readonly notificationsService: NotificationsService,
+    @Inject(forwardRef(() => PaymentsService))
+    private readonly paymentsService: PaymentsService,
   ) {}
 
   async submitEnrollmentRequest(params: {
@@ -191,21 +196,69 @@ export class EnrollmentService {
     });
 
     const players = registration.team?.players ?? [];
-    for (const p of players) {
-      await this.notificationsService.create({
-        userId: p.userId,
-        type: NotificationType.TOURNAMENT_UPDATE,
-        message:
-          params.decision === 'approved'
-            ? `Your enrollment request was approved for tournament "${tournament?.name ?? ''}".`
-            : `Your enrollment request was rejected for tournament "${tournament?.name ?? ''}".`,
-        metadata: {
-          tournamentId: params.tournamentId,
-          registrationId: registration.id,
-          decision: params.decision,
-          rejectionReason: registration.rejectionReason,
-        },
-      });
+    
+    // Create payment if enrollment is approved and tournament requires payment
+    if (params.decision === 'approved' && tournament?.paymentSettings?.requiresDeposit) {
+      try {
+        // Update registration status to payment_pending
+        registration.status = 'payment_pending' as RegistrationStatus;
+        await this.registrationRepository.save(registration);
+
+        // Create payment with default type (can be changed by user later)
+        const firstPlayer = players[0];
+        await this.paymentsService.createPaymentForEnrollment(
+          registration.id,
+          firstPlayer.userId,
+          tournament.paymentSettings.allowTeamPayment ? 'full_team' : 'split',
+        );
+
+        // Notify players about payment requirement
+        for (const p of players) {
+          await this.notificationsService.create({
+            userId: p.userId,
+            type: NotificationType.PAYMENT_CONFIRMED,
+            message: `Your enrollment was approved for "${tournament?.name ?? ''}". Payment is required to confirm your participation.`,
+            metadata: {
+              tournamentId: params.tournamentId,
+              registrationId: registration.id,
+              requiresPayment: true,
+            },
+          });
+        }
+      } catch (error) {
+        console.error('Error creating payment:', error);
+        // If payment creation fails, still notify about approval
+        for (const p of players) {
+          await this.notificationsService.create({
+            userId: p.userId,
+            type: NotificationType.TOURNAMENT_UPDATE,
+            message: `Your enrollment request was approved for tournament "${tournament?.name ?? ''}".`,
+            metadata: {
+              tournamentId: params.tournamentId,
+              registrationId: registration.id,
+              decision: params.decision,
+            },
+          });
+        }
+      }
+    } else {
+      // No payment required, send standard notifications
+      for (const p of players) {
+        await this.notificationsService.create({
+          userId: p.userId,
+          type: NotificationType.TOURNAMENT_UPDATE,
+          message:
+            params.decision === 'approved'
+              ? `Your enrollment request was approved for tournament "${tournament?.name ?? ''}".`
+              : `Your enrollment request was rejected for tournament "${tournament?.name ?? ''}".`,
+          metadata: {
+            tournamentId: params.tournamentId,
+            registrationId: registration.id,
+            decision: params.decision,
+            rejectionReason: registration.rejectionReason,
+          },
+        });
+      }
     }
 
     return this.getRegistrationById(registration.id);

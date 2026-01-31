@@ -394,5 +394,83 @@
     "7": "7th Category",
     "8": "8th Category",
     "default": "Category {{number}}"
+  },
+  "payments": {
+    "paymentFor": "Payment for",
+    "tournament": "Tournament",
+    "player": "Player",
+    "amount": "Amount",
+    "platformFee": "Platform fee",
+    "timeRemaining": "Time remaining",
+    "expired": "Payment expired",
+    "paidOn": "Paid on",
+    "payNow": "Pay Now",
+    "viewDetails": "View Details",
+    "perPlayer": "per player",
+    "expires": "Expires in",
+    "selectPaymentType": "Select payment type",
+    "selectPaymentTypeDescription": "Choose how you want to pay for the registration",
+    "teamPaymentInfo": "One player will pay the full amount for the team. Your partner will be notified.",
+    "splitPaymentInfo": "Each player will pay their share. Both must complete payment before the deadline.",
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "failed": "Failed",
+      "refunded": "Refunded",
+      "partiallyRefunded": "Partially Refunded"
+    },
+    "type": {
+      "fullTeam": "Team Payment",
+      "fullTeamDescription": "One player pays the full amount for the team",
+      "split": "Split Payment",
+      "splitDescription": "Each player pays their share"
+    },
+    "dashboard": {
+      "totalRevenue": "Total Revenue",
+      "netRevenue": "Net Revenue",
+      "completedPayments": "Completed Payments",
+      "pendingPayments": "Pending Payments",
+      "outOf": "of",
+      "awaitingPayment": "Awaiting payment",
+      "averagePayment": "Average Payment",
+      "paymentsList": "Payments List",
+      "paymentsListDescription": "All tournament payments",
+      "all": "All",
+      "noPayments": "No payments in this category"
+    },
+    "settings": {
+      "basicSettings": "Basic Settings",
+      "basicSettingsDescription": "Configure payment requirements for the tournament",
+      "requireDeposit": "Require Payment",
+      "requireDepositDescription": "Players must pay to confirm their registration",
+      "depositAmount": "Deposit Amount",
+      "totalFee": "Total Fee",
+      "totalFeeDescription": "Total amount players must pay (optional)",
+      "paymentDeadline": "Payment Deadline (hours)",
+      "paymentDeadlineDescription": "Time players have to complete payment after approval",
+      "paymentOptions": "Payment Options",
+      "paymentOptionsDescription": "Configure how players can pay",
+      "allowTeamPayment": "Allow Team Payment",
+      "allowTeamPaymentDescription": "One player can pay for the entire team",
+      "allowSplitPayment": "Allow Split Payment",
+      "allowSplitPaymentDescription": "Each player pays their share",
+      "atLeastOnePaymentOption": "You must allow at least one payment option",
+      "refundPolicy": "Refund Policy",
+      "refundPolicyDescription": "Configure refund rules for cancellations",
+      "fullRefundDeadline": "Full Refund Deadline (hours)",
+      "fullRefundDeadlineDescription": "Time before tournament to receive full refund",
+      "partialRefundPercentage": "Partial Refund Percentage",
+      "partialRefundPercentageDescription": "Percentage to refund after full deadline",
+      "noRefundDeadline": "No Refund Deadline (hours)",
+      "noRefundDeadlineDescription": "Time before tournament where no refund is given"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "required": "This field is required"
   }
 }

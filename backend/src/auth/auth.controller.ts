@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Public } from './decorators/public.decorator';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { User } from '../users/entities/user.entity';
@@ -48,6 +49,7 @@ export class AuthController {
   }
 
   @Get('profile')
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get current user profile' })
   @ApiResponse({ 
@@ -56,7 +58,7 @@ export class AuthController {
     type: User
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  getProfile(@Req() req: { user: User }) {
-    return req.user;
+  async getProfile(@Req() req: { user: User }) {
+    return this.authService.getProfile(req.user.id);
   }
 }

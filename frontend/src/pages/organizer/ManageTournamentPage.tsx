@@ -12,14 +12,14 @@ import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useToast } from '@/hooks/use-toast'
-import { AlertCircle, Edit, Trash2, Users, Calendar, MapPin } from 'lucide-react'
+import { AlertCircle, Edit, Trash2, Users, Calendar, MapPin, DollarSign } from 'lucide-react'
 
 export function ManageTournamentPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { toast } = useToast()
   const queryClient = useQueryClient()
-  const [activeTab, setActiveTab] = useState<'overview' | 'enrollments' | 'participants'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'enrollments' | 'participants' | 'payments'>('overview')
 
   const { data: tournament, isLoading: tournamentLoading, error: tournamentError } = useQuery({
     queryKey: ['tournament', id],
@@ -208,6 +208,17 @@ export function ManageTournamentPage() {
           >
             Participants
           </button>
+          <button
+            onClick={() => setActiveTab('payments')}
+            className={`pb-2 px-1 border-b-2 transition-colors ${
+              activeTab === 'payments'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            <DollarSign className="h-4 w-4 inline mr-1" />
+            Payments
+          </button>
         </div>
       </div>
 
@@ -326,6 +337,26 @@ export function ManageTournamentPage() {
           ) : (
             <ParticipantsList enrollments={enrollments || []} />
           )}
+        </div>
+      )}
+
+      {activeTab === 'payments' && (
+        <div>
+          <Button
+            variant="outline"
+            onClick={() => navigate(`/organizer/tournaments/${id}/payments`)}
+            className="mb-4"
+          >
+            <DollarSign className="h-4 w-4 mr-2" />
+            View Full Payment Dashboard
+          </Button>
+          <Card>
+            <CardContent className="py-8 text-center text-muted-foreground">
+              <DollarSign className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p className="mb-2">Payment management for this tournament</p>
+              <p className="text-sm">Click the button above to view the full payment dashboard with statistics and payment list.</p>
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>

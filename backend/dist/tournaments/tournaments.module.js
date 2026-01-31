@@ -21,6 +21,7 @@ const enrollment_service_1 = require("./enrollment.service");
 const enrollment_controller_1 = require("./enrollment.controller");
 const associations_module_1 = require("../associations/associations.module");
 const notifications_module_1 = require("../notifications/notifications.module");
+const payments_module_1 = require("../payments/payments.module");
 const tournament_matches_controller_1 = require("./tournament-matches.controller");
 const tournament_matches_service_1 = require("./tournament-matches.service");
 let TournamentsModule = class TournamentsModule {
@@ -39,6 +40,7 @@ exports.TournamentsModule = TournamentsModule = __decorate([
             ]),
             associations_module_1.AssociationsModule,
             notifications_module_1.NotificationsModule,
+            (0, common_1.forwardRef)(() => payments_module_1.PaymentsModule),
         ],
         controllers: [tournament_controller_1.TournamentController, enrollment_controller_1.EnrollmentController, tournament_matches_controller_1.TournamentMatchesController],
         providers: [tournament_service_1.TournamentService, enrollment_service_1.EnrollmentService, tournament_matches_service_1.TournamentMatchesService],

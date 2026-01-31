@@ -394,5 +394,83 @@
     "7": "7ma Categoría",
     "8": "8va Categoría",
     "default": "Categoría {{number}}"
+  },
+  "payments": {
+    "paymentFor": "Pago para",
+    "tournament": "Torneo",
+    "player": "Jugador",
+    "amount": "Monto",
+    "platformFee": "Comisión de plataforma",
+    "timeRemaining": "Tiempo restante",
+    "expired": "Pago vencido",
+    "paidOn": "Pagado el",
+    "payNow": "Pagar Ahora",
+    "viewDetails": "Ver Detalles",
+    "perPlayer": "por jugador",
+    "expires": "Vence en",
+    "selectPaymentType": "Selecciona el tipo de pago",
+    "selectPaymentTypeDescription": "Elige cómo deseas realizar el pago de la inscripción",
+    "teamPaymentInfo": "Un jugador pagará el monto completo por el equipo. El compañero será notificado.",
+    "splitPaymentInfo": "Cada jugador pagará su parte. Ambos deben completar el pago antes del plazo.",
+    "status": {
+      "pending": "Pendiente",
+      "processing": "Procesando",
+      "completed": "Completado",
+      "failed": "Fallido",
+      "refunded": "Reembolsado",
+      "partiallyRefunded": "Parcialmente Reembolsado"
+    },
+    "type": {
+      "fullTeam": "Pago por Equipo",
+      "fullTeamDescription": "Un jugador paga el monto completo por el equipo",
+      "split": "Pago Dividido",
+      "splitDescription": "Cada jugador paga su parte"
+    },
+    "dashboard": {
+      "totalRevenue": "Ingresos Totales",
+      "netRevenue": "Ingresos Netos",
+      "completedPayments": "Pagos Completados",
+      "pendingPayments": "Pagos Pendientes",
+      "outOf": "de",
+      "awaitingPayment": "Esperando pago",
+      "averagePayment": "Pago Promedio",
+      "paymentsList": "Lista de Pagos",
+      "paymentsListDescription": "Todos los pagos del torneo",
+      "all": "Todos",
+      "noPayments": "No hay pagos en esta categoría"
+    },
+    "settings": {
+      "basicSettings": "Configuración Básica",
+      "basicSettingsDescription": "Configura los requisitos de pago para el torneo",
+      "requireDeposit": "Requerir Pago",
+      "requireDepositDescription": "Los jugadores deben pagar para confirmar su inscripción",
+      "depositAmount": "Monto del Depósito",
+      "totalFee": "Cuota Total",
+      "totalFeeDescription": "Monto total que los jugadores deben pagar (opcional)",
+      "paymentDeadline": "Plazo de Pago (horas)",
+      "paymentDeadlineDescription": "Tiempo que tienen los jugadores para completar el pago después de la aprobación",
+      "paymentOptions": "Opciones de Pago",
+      "paymentOptionsDescription": "Configura cómo los jugadores pueden pagar",
+      "allowTeamPayment": "Permitir Pago por Equipo",
+      "allowTeamPaymentDescription": "Un jugador puede pagar por todo el equipo",
+      "allowSplitPayment": "Permitir Pago Dividido",
+      "allowSplitPaymentDescription": "Cada jugador paga su parte",
+      "atLeastOnePaymentOption": "Debes permitir al menos una opción de pago",
+      "refundPolicy": "Política de Reembolsos",
+      "refundPolicyDescription": "Configura las reglas de reembolso para cancelaciones",
+      "fullRefundDeadline": "Plazo para Reembolso Completo (horas)",
+      "fullRefundDeadlineDescription": "Tiempo antes del torneo para recibir reembolso completo",
+      "partialRefundPercentage": "Porcentaje de Reembolso Parcial",
+      "partialRefundPercentageDescription": "Porcentaje a reembolsar después del plazo completo",
+      "noRefundDeadline": "Plazo Sin Reembolso (horas)",
+      "noRefundDeadlineDescription": "Tiempo antes del torneo donde no hay reembolso"
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "saving": "Guardando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "required": "Este campo es requerido"
   }
 }

@@ -1,9 +1,11 @@
 import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { EnrollmentStatusBadge } from './EnrollmentStatusBadge'
 import { EnrollmentWithDetails } from '@/types/enrollment'
-import { Calendar, Users } from 'lucide-react'
+import { Calendar, Users, DollarSign } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 interface EnrollmentCardProps {
   enrollment: EnrollmentWithDetails
@@ -11,6 +13,7 @@ interface EnrollmentCardProps {
 
 export function EnrollmentCard({ enrollment }: EnrollmentCardProps) {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const players = enrollment.team?.players || []
   const player1 = players[0]?.user
   const player2 = players[1]?.user
@@ -61,8 +64,18 @@ export function EnrollmentCard({ enrollment }: EnrollmentCardProps) {
         )}
 
         {enrollment.status === 'approved' && (
-          <div className="mt-4 rounded-md bg-green-50 p-3 text-sm text-green-800">
-            {t('enrollment.card.status.approved.message')}
+          <div className="mt-4 space-y-2">
+            <div className="rounded-md bg-green-50 p-3 text-sm text-green-800">
+              {t('enrollment.card.status.approved.message')}
+            </div>
+            <Button
+              onClick={() => navigate(`/payments/enrollments/${enrollment.id}`)}
+              className="w-full"
+              variant="default"
+            >
+              <DollarSign className="h-4 w-4 mr-2" />
+              {t('payments.payNow')}
+            </Button>
           </div>
         )}
 

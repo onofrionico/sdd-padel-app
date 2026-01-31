@@ -10,18 +10,27 @@ export function useProfilePicture() {
 
   const uploadMutation = useMutation({
     mutationFn: (file: File) => authApi.uploadProfilePicture(file),
-    onSuccess: async () => {
+    onSuccess: async (data) => {
+      console.log('Upload successful, response:', data)
       await queryClient.invalidateQueries({ queryKey: ['auth', 'profile'] })
       
-      const updatedUser = await authApi.getProfile()
-      updateUser(updatedUser)
+      try {
+        console.log('Fetching updated profile...')
+        const updatedUser = await authApi.getProfile()
+        console.log('Updated user:', updatedUser)
+        updateUser(updatedUser)
 
-      toast({
-        title: 'Success',
-        description: 'Profile picture updated successfully',
-      })
+        toast({
+          title: 'Success',
+          description: 'Profile picture updated successfully',
+        })
+      } catch (error) {
+        console.error('Error fetching updated profile:', error)
+        throw error
+      }
     },
     onError: (error: Error) => {
+      console.error('Upload error:', error)
       toast({
         title: 'Upload failed',
         description: error.message || 'Failed to upload profile picture',

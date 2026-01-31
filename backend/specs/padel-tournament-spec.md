@@ -93,6 +93,12 @@ As a player, I want to register in the system and manage my profile so that I ca
    - **When** I update my profile picture or playing details
    - **Then** The changes are saved and visible in my profile
 
+3. **Scenario**: Upload profile picture
+   - **Given** I am logged in as a player
+   - **When** I upload a profile picture (JPG, PNG, or WEBP, max 5MB)
+   - **Then** The image is stored and displayed in my profile
+   - **And** The image URL is accessible via the static files endpoint
+
 ---
 
 ### User Story 3 - Tournament Enrollment and Approval (Priority: P1)
@@ -185,6 +191,7 @@ As a player, I want to enroll in tournaments with different partners so that I c
 
 - **FR-001**: System MUST allow creation of multiple tournaments with configurable settings
 - **FR-002**: System MUST support player profiles with personal information and category assignment (1st to 8th)
+- **FR-002.1**: System MUST support profile picture uploads with validation (max 5MB, JPG/PNG/WEBP formats)
 - **FR-003**: Players MUST be able to enroll in multiple tournaments with different partners
 - **FR-004**: System MUST track tournament history and points for each player by category
 - **FR-005**: System MUST support customizable tournament formats (single elimination, round-robin, etc.)

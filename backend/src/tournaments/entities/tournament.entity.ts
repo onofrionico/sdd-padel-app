@@ -31,6 +31,23 @@ export interface TournamentSettings {
   tiebreakers: string[]; // e.g., ['head_to_head', 'points_difference']
 }
 
+export interface PaymentSettings {
+  requiresDeposit: boolean;
+  depositAmount?: number;
+  depositCurrency?: string;
+  totalFee?: number;
+  paymentDeadlineHours?: number;
+  allowTeamPayment?: boolean;
+  allowSplitPayment?: boolean;
+  platformFeePercentage?: number;
+  refundPolicy?: {
+    fullRefundDeadlineHours?: number;
+    partialRefundPercentage?: number;
+    noRefundDeadlineHours?: number;
+    refundPlatformFee?: boolean;
+  };
+}
+
 @Entity('tournaments')
 export class Tournament {
   @PrimaryGeneratedColumn('uuid')
@@ -56,6 +73,9 @@ export class Tournament {
 
   @Column({ type: 'jsonb', default: {} })
   settings: TournamentSettings;
+
+  @Column({ type: 'jsonb', default: {} })
+  paymentSettings: PaymentSettings;
 
   @Column({ default: false })
   isPublic: boolean;

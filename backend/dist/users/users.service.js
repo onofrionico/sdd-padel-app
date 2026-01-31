@@ -25,7 +25,14 @@ let UsersService = class UsersService {
         return this.usersRepository.findOne({ where: { email } });
     }
     async findById(id) {
-        const user = await this.usersRepository.findOne({ where: { id } });
+        const user = await this.usersRepository.findOne({
+            where: { id },
+            relations: {
+                associationMemberships: {
+                    association: true,
+                },
+            },
+        });
         if (!user) {
             throw new common_1.NotFoundException(`User with ID ${id} not found`);
         }

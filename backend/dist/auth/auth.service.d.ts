@@ -14,5 +14,6 @@ export declare class AuthService {
         user: UserWithoutPassword;
     }>;
     register(registerDto: RegisterDto): Promise<UserWithoutPassword>;
+    getProfile(userId: string): Promise<UserWithoutPassword>;
 }
 export {};

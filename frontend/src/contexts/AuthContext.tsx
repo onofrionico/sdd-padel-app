@@ -24,8 +24,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const token = storage.getToken()
       if (token) {
         try {
-          const response = await apiClient.get<AuthResponse>('/auth/profile')
-          setUser(response.data.user)
+          const response = await apiClient.get<User>('/auth/profile')
+          setUser(response.data)
         } catch (error) {
           storage.removeToken()
         }
