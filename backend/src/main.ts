@@ -18,7 +18,12 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   
   // Enable CORS
-  app.enableCors();
+  app.enableCors({
+    origin: process.env.FRONTEND_URL || 'https://padel-tournament-frontend-h0pv.onrender.com',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
   
   // Enable global validation pipe
   app.useGlobalPipes(new ValidationPipe({
