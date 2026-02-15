@@ -17,8 +17,7 @@ RUN npm install --only=production && \
     npm install tsconfig-paths ts-node
 
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/src/database ./src/database
-COPY --from=builder /app/src/config ./src/config
+COPY --from=builder /app/src ./src
 COPY --from=builder /app/tsconfig.json ./tsconfig.json
 COPY start.sh ./start.sh
 
