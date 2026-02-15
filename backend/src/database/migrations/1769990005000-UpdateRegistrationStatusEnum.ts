@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class UpdateRegistrationStatusEnum1738166800000 implements MigrationInterface {
+export class UpdateRegistrationStatusEnum1769990005000 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     // First, add the new status values to the existing check constraint
     // We need to drop and recreate the constraint to include new values
