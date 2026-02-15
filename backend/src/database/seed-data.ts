@@ -4,19 +4,14 @@ import * as bcrypt from 'bcrypt';
 export async function seedDatabase(dataSource: DataSource) {
   console.log('🌱 Iniciando seed de la base de datos...');
 
-  // Limpiar datos existentes (en orden inverso por las relaciones)
-  console.log('🗑️  Limpiando datos existentes...');
-  await dataSource.query('TRUNCATE TABLE notifications CASCADE');
-  await dataSource.query('TRUNCATE TABLE tournament_matches CASCADE');
-  await dataSource.query('TRUNCATE TABLE tournament_registrations CASCADE');
-  await dataSource.query('TRUNCATE TABLE tournament_players CASCADE');
-  await dataSource.query('TRUNCATE TABLE tournament_teams CASCADE');
-  await dataSource.query('TRUNCATE TABLE tournaments CASCADE');
-  await dataSource.query('TRUNCATE TABLE seasons CASCADE');
-  await dataSource.query('TRUNCATE TABLE categories CASCADE');
-  await dataSource.query('TRUNCATE TABLE association_memberships CASCADE');
-  await dataSource.query('TRUNCATE TABLE associations CASCADE');
-  await dataSource.query('TRUNCATE TABLE users CASCADE');
+  // Verificar si ya existen usuarios
+  const userCount = await dataSource.query('SELECT COUNT(*) as count FROM users');
+  if (parseInt(userCount[0].count) > 0) {
+    console.log('⚠️  La base de datos ya contiene datos. Saltando seed...');
+    return;
+  }
+
+  console.log('📝 Base de datos vacía, procediendo con el seed...');
 
   // 1. Crear Usuarios
   console.log('👥 Creando usuarios...');
