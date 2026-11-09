@@ -98,7 +98,7 @@ describe('StatisticsService', () => {
         { id: 't1', status: TournamentStatus.COMPLETED, teams: [], matches: [] },
         { id: 't2', status: TournamentStatus.IN_PROGRESS, teams: [], matches: [] },
         { id: 't3', status: TournamentStatus.UPCOMING, teams: [], matches: [] },
-      ] as Tournament[];
+      ] as unknown as Tournament[];
 
       jest.spyOn(tournamentRepository, 'find').mockResolvedValue(mockTournaments);
 
@@ -250,6 +250,7 @@ describe('StatisticsService', () => {
         select: jest.fn().mockReturnThis(),
         addSelect: jest.fn().mockReturnThis(),
         groupBy: jest.fn().mockReturnThis(),
+        addGroupBy: jest.fn().mockReturnThis(),
         orderBy: jest.fn().mockReturnThis(),
         limit: jest.fn().mockReturnThis(),
         getRawOne: jest.fn()

@@ -270,7 +270,19 @@ export class TournamentMatchesService {
       }
     }
 
-    if ((nextMatch.homeTeamId && !nextMatch.awayTeamId) || (!nextMatch.homeTeamId && nextMatch.awayTeamId)) {
+    const hasSingleTeam =
+      (nextMatch.homeTeamId && !nextMatch.awayTeamId) || (!nextMatch.homeTeamId && nextMatch.awayTeamId);
+
+    if (!hasSingleTeam) return;
+
+    // Solo es un bye si no existe el partido "hermano" que alimenta el otro lugar.
+    // Si existe, hay que esperar a que se juegue en vez de dar W.O. automático.
+    const siblingMatchNumber = isHomeSlot ? (match.matchNumber ?? 1) + 1 : (match.matchNumber ?? 1) - 1;
+    const siblingMatch = await this.matchRepository.findOne({
+      where: { tournamentId, round: match.round ?? 1, matchNumber: siblingMatchNumber },
+    });
+
+    if (!siblingMatch) {
       const winnerSide: 'home' | 'away' = nextMatch.homeTeamId ? 'home' : 'away';
       nextMatch.score = { sets: [], winner: winnerSide, walkover: true };
       nextMatch.status = 'walkover';

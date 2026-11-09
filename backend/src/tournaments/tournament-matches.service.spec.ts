@@ -137,6 +137,27 @@ describe('TournamentMatchesService', () => {
         homeTeamId: null,
         awayTeamId: null,
         status: 'scheduled',
+      })
+      // partido hermano (ronda 1, partido 2) todavía sin jugar: no hay W.O.
+      .mockResolvedValueOnce({
+        id: 'm2',
+        tournamentId: 't1',
+        round: 1,
+        matchNumber: 2,
+        homeTeamId: 'team3',
+        awayTeamId: 'team4',
+        status: 'scheduled',
+      })
+      // getMatch() final que devuelve el partido ya registrado
+      .mockResolvedValueOnce({
+        id: 'm1',
+        tournamentId: 't1',
+        round: 1,
+        matchNumber: 1,
+        homeTeamId: 'team1',
+        awayTeamId: 'team2',
+        winnerTeamId: 'team1',
+        status: 'completed',
       });
 
     (teamRepository.findOne as any)

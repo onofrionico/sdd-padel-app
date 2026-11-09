@@ -36,6 +36,18 @@ export class NotificationsService {
     });
   }
 
+  async countUnread(userId: string): Promise<number> {
+    return this.notificationRepository.count({ where: { userId, isRead: false } });
+  }
+
+  async markAllAsRead(userId: string): Promise<number> {
+    const result = await this.notificationRepository.update(
+      { userId, isRead: false },
+      { isRead: true, status: NotificationStatus.READ, readAt: new Date() },
+    );
+    return result.affected ?? 0;
+  }
+
   async markAsRead(userId: string, notificationId: string): Promise<Notification> {
     const notification = await this.notificationRepository.findOne({
       where: { id: notificationId, userId },

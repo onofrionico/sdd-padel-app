@@ -1,4 +1,6 @@
 import {
+  Inject,
+  forwardRef,
   Controller,
   Get,
   Post,
@@ -25,6 +27,31 @@ import { CreateRefundDto } from './dto/create-refund.dto';
 import { Payment } from './entities/payment.entity';
 import { Refund } from './entities/refund.entity';
 import { User } from '../users/entities/user.entity';
+import { EnrollmentService } from '../tournaments/enrollment.service';
+
+@ApiTags('Payments')
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@Controller('tournaments/:tournamentId/payments')
+export class TournamentPaymentsController {
+  constructor(
+    private readonly paymentsService: PaymentsService,
+    @Inject(forwardRef(() => EnrollmentService))
+    private readonly enrollmentService: EnrollmentService,
+  ) {}
+
+  @Get()
+  @ApiOperation({ summary: 'List payments of a tournament (organizer)' })
+  @ApiParam({ name: 'tournamentId', format: 'uuid' })
+  @ApiResponse({ status: 200, type: [Payment] })
+  async listTournamentPayments(
+    @Req() req: { user: User },
+    @Param('tournamentId', ParseUUIDPipe) tournamentId: string,
+  ): Promise<Payment[]> {
+    await this.enrollmentService.assertOrganizer(tournamentId, req.user);
+    return this.paymentsService.getPaymentsByTournament(tournamentId);
+  }
+}
 
 @ApiTags('Payments')
 @ApiBearerAuth()

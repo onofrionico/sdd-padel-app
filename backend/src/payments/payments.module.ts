@@ -6,7 +6,7 @@ import { PaymentEvent } from './entities/payment-event.entity';
 import { Refund } from './entities/refund.entity';
 import { PaymentsService } from './services/payments.service';
 import { RefundsService } from './services/refunds.service';
-import { PaymentsController } from './payments.controller';
+import { PaymentsController, TournamentPaymentsController } from './payments.controller';
 import { PaymentExpirationJob } from './jobs/payment-expiration.job';
 import { PaymentReminderJob } from './jobs/payment-reminder.job';
 import { TournamentsModule } from '../tournaments/tournaments.module';
@@ -21,7 +21,7 @@ import { Tournament } from '../tournaments/entities/tournament.entity';
     forwardRef(() => TournamentsModule),
     NotificationsModule,
   ],
-  controllers: [PaymentsController],
+  controllers: [PaymentsController, TournamentPaymentsController],
   providers: [
     PaymentsService, 
     RefundsService,

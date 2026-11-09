@@ -29,6 +29,14 @@ export class PaymentsService {
     private readonly tournamentRepository: Repository<Tournament>,
   ) {}
 
+  async getPaymentsByTournament(tournamentId: string): Promise<Payment[]> {
+    return this.paymentRepository.find({
+      where: { enrollment: { tournamentId } },
+      relations: { enrollment: { team: true }, payer: true },
+      order: { createdAt: 'DESC' },
+    });
+  }
+
   async createPaymentForEnrollment(
     enrollmentId: string,
     payerId: string,

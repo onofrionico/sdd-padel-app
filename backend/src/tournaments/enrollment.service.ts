@@ -333,7 +333,7 @@ export class EnrollmentService {
     return registration;
   }
 
-  private async assertOrganizer(tournamentId: string, user: User): Promise<void> {
+  async assertOrganizer(tournamentId: string, user: User): Promise<void> {
     const tournament = await this.tournamentRepository.findOne({ where: { id: tournamentId } });
     if (!tournament) {
       throw new NotFoundException('Tournament not found');
