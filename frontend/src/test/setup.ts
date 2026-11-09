@@ -7,3 +7,7 @@ expect.extend(matchers)
 afterEach(() => {
   cleanup()
 })
+
+// Los tests verifican los textos en inglés
+import i18n from '@/i18n/config'
+i18n.changeLanguage('en')

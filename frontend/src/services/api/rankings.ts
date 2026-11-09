@@ -1,5 +1,5 @@
 import { apiClient } from './client'
-import { Ranking, RankingsFilters, RankingsResponse, PlayerStatistics } from '@/types/ranking'
+import { RankingsFilters, RankingsResponse, PlayerStatistics } from '@/types/ranking'
 
 export const rankingsApi = {
   async list(associationId: string, filters?: RankingsFilters & { seasonId?: string }): Promise<RankingsResponse> {
@@ -14,19 +14,8 @@ export const rankingsApi = {
     return response.data
   },
 
-  async getPlayerStatistics(playerId: number): Promise<PlayerStatistics> {
-    const response = await apiClient.get<PlayerStatistics>(`/players/${playerId}/statistics`)
-    return response.data
-  },
-
   async getMyStatistics(): Promise<PlayerStatistics> {
     const response = await apiClient.get<PlayerStatistics>('/users/me/statistics')
-    return response.data
-  },
-
-  async getPlayerRanking(playerId: number, categoryId?: number): Promise<Ranking | null> {
-    const params = categoryId ? `?categoryId=${categoryId}` : ''
-    const response = await apiClient.get<Ranking | null>(`/players/${playerId}/ranking${params}`)
     return response.data
   },
 }

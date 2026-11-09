@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { apiClient } from './api/client';
 import {
   Payment,
   Refund,
@@ -7,40 +7,26 @@ import {
   PaymentDashboardStats,
 } from '../types/payment.types';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-
 class PaymentsService {
-  private getAuthHeaders() {
-    const token = localStorage.getItem('token');
-    return {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-  }
-
   async createPayment(data: CreatePaymentRequest): Promise<Payment> {
-    const response = await axios.post(
-      `${API_URL}/payments/enrollments/${data.enrollmentId}`,
-      { paymentType: data.paymentType },
-      this.getAuthHeaders()
+    const response = await apiClient.post(
+      `/payments/enrollments/${data.enrollmentId}`,
+      { paymentType: data.paymentType }
     );
     return response.data;
   }
 
   async getPaymentById(paymentId: string): Promise<Payment> {
-    const response = await axios.get(
-      `${API_URL}/payments/${paymentId}`,
-      this.getAuthHeaders()
+    const response = await apiClient.get(
+      `/payments/${paymentId}`
     );
     return response.data;
   }
 
   async getPaymentByEnrollment(enrollmentId: string): Promise<Payment | null> {
     try {
-      const response = await axios.get(
-        `${API_URL}/payments/enrollments/${enrollmentId}`,
-        this.getAuthHeaders()
+      const response = await apiClient.get(
+        `/payments/enrollments/${enrollmentId}`
       );
       return response.data;
     } catch (error: any) {
@@ -55,35 +41,31 @@ class PaymentsService {
     paymentId: string,
     data: CreateRefundRequest
   ): Promise<Refund> {
-    const response = await axios.post(
-      `${API_URL}/payments/${paymentId}/refund`,
-      data,
-      this.getAuthHeaders()
+    const response = await apiClient.post(
+      `/payments/${paymentId}/refund`,
+      data
     );
     return response.data;
   }
 
   async processRefund(refundId: string): Promise<Refund> {
-    const response = await axios.post(
-      `${API_URL}/payments/refunds/${refundId}/process`,
-      {},
-      this.getAuthHeaders()
+    const response = await apiClient.post(
+      `/payments/refunds/${refundId}/process`,
+      {}
     );
     return response.data;
   }
 
   async getRefundsByPayment(paymentId: string): Promise<Refund[]> {
-    const response = await axios.get(
-      `${API_URL}/payments/${paymentId}/refunds`,
-      this.getAuthHeaders()
+    const response = await apiClient.get(
+      `/payments/${paymentId}/refunds`
     );
     return response.data;
   }
 
   async getTournamentPayments(tournamentId: string): Promise<Payment[]> {
-    const response = await axios.get(
-      `${API_URL}/tournaments/${tournamentId}/payments`,
-      this.getAuthHeaders()
+    const response = await apiClient.get(
+      `/tournaments/${tournamentId}/payments`
     );
     return response.data;
   }

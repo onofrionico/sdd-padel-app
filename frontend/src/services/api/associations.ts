@@ -48,9 +48,15 @@ export const associationsApi = {
     associationId: string,
     userId: string
   ): Promise<{ category: number | null }> => {
-    const response = await apiClient.get<{ category: number | null }>(
-      `/associations/${associationId}/members/${userId}/category`
-    )
-    return response.data
+    try {
+      const response = await apiClient.get<{ category: number | null }>(
+        `/associations/${associationId}/members/${userId}/category`
+      )
+      return response.data
+    } catch (error: any) {
+      // 404 = el usuario todavía no es socio de la asociación
+      if (error?.response?.status === 404) return { category: null }
+      throw error
+    }
   },
 }

@@ -288,6 +288,23 @@
   "notification": {
     "timeAgo": {
       "default": "a moment ago"
+    },
+    "type": {
+      "tournament_invitation": "Tournament invitation",
+      "team_invitation": "Team invitation",
+      "match_scheduled": "Match scheduled",
+      "match_result": "Match result",
+      "tournament_update": "Tournament update",
+      "association_invitation": "Association invitation",
+      "payment_required": "Payment required",
+      "payment_confirmed": "Payment confirmed",
+      "payment_failed": "Payment failed",
+      "payment_deadline_reminder_24h": "Payment reminder (24 h)",
+      "payment_deadline_reminder_12h": "Payment reminder (12 h)",
+      "payment_deadline_reminder_2h": "Payment reminder (2 h)",
+      "team_payment_completed": "Team payment completed",
+      "refund_processed": "Refund processed",
+      "general": "Notification"
     }
   },
   "landing": {

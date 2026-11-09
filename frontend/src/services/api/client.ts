@@ -11,7 +11,6 @@ export const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = storage.getToken()
-    console.log('API Request:', config.method?.toUpperCase(), config.url, 'FormData:', config.data instanceof FormData)
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -27,13 +26,10 @@ apiClient.interceptors.request.use(
 
 apiClient.interceptors.response.use(
   (response) => {
-    console.log('API Response:', response.config.url, response.status, response.data)
     return response
   },
   (error: AxiosError) => {
-    console.error('API Error:', error.config?.url, error.response?.status, error.response?.data)
     if (error.response?.status === 401) {
-      console.error('401 Unauthorized - Logging out')
       storage.removeToken()
       if (window.location.pathname !== '/login') {
         window.location.href = '/login'

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { enrollmentsApi } from '@/services/api/enrollments'
+import { enrollmentsApi, EnrollmentDecisionParams } from '@/services/api/enrollments'
 import { Enrollment, EnrollmentRequest } from '@/types/enrollment'
 import { useToast } from './useToast'
 
@@ -31,7 +31,7 @@ export const useEnrollments = () => {
     },
   })
 
-  const approveEnrollmentMutation = useMutation<Enrollment, any, string>({
+  const approveEnrollmentMutation = useMutation<Enrollment, any, EnrollmentDecisionParams>({
     mutationFn: enrollmentsApi.approveEnrollment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['enrollments'] })
@@ -50,7 +50,7 @@ export const useEnrollments = () => {
     },
   })
 
-  const rejectEnrollmentMutation = useMutation<Enrollment, any, string>({
+  const rejectEnrollmentMutation = useMutation<Enrollment, any, EnrollmentDecisionParams>({
     mutationFn: enrollmentsApi.rejectEnrollment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['enrollments'] })
@@ -75,9 +75,9 @@ export const useEnrollments = () => {
     enrollmentsError: myEnrollmentsQuery.error,
     createEnrollment: (data: EnrollmentRequest) => createEnrollmentMutation.mutate(data),
     isCreatingEnrollment: createEnrollmentMutation.isPending,
-    approveEnrollment: (enrollmentId: string) => approveEnrollmentMutation.mutate(enrollmentId),
+    approveEnrollment: (params: EnrollmentDecisionParams) => approveEnrollmentMutation.mutate(params),
     isApprovingEnrollment: approveEnrollmentMutation.isPending,
-    rejectEnrollment: (enrollmentId: string) => rejectEnrollmentMutation.mutate(enrollmentId),
+    rejectEnrollment: (params: EnrollmentDecisionParams) => rejectEnrollmentMutation.mutate(params),
     isRejectingEnrollment: rejectEnrollmentMutation.isPending,
   }
 }

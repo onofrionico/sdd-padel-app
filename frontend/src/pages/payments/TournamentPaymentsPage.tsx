@@ -6,7 +6,7 @@ import { PaymentDashboard } from '../../components/payments';
 import { ArrowLeft } from 'lucide-react';
 
 export const TournamentPaymentsPage: React.FC = () => {
-  const { tournamentId } = useParams<{ tournamentId: string }>();
+  const { id: tournamentId } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
 

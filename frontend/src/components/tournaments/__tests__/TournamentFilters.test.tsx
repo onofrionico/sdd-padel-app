@@ -35,7 +35,7 @@ describe('TournamentFilters', () => {
     expect(screen.getByText('All Categories')).toBeInTheDocument()
   })
 
-  it('should have status and category filters', () => {
+  it('should have status, category and association filters', () => {
     const onStatusChange = vi.fn()
     const onCategoryChange = vi.fn()
     const onAssociationChange = vi.fn()
@@ -49,7 +49,7 @@ describe('TournamentFilters', () => {
     )
     
     const comboboxes = screen.getAllByRole('combobox')
-    expect(comboboxes).toHaveLength(2)
+    expect(comboboxes).toHaveLength(3)
   })
 
   it('should display selected status', () => {

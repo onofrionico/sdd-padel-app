@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { tournamentsApi } from '@/services/api/tournaments'
+import { getTournamentCategories, formatTournamentType } from '@/types/tournament'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
@@ -145,16 +146,12 @@ export function OrganizerDashboardPage() {
                 <CardContent>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Location:</span>
-                      <span>{tournament.location}</span>
-                    </div>
-                    <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Format:</span>
-                      <span className="capitalize">{tournament.format.replace('_', ' ')}</span>
+                      <span className="capitalize">{formatTournamentType(tournament.type)}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Categories:</span>
-                      <span>{tournament.categories.length}</span>
+                      <span>{getTournamentCategories(tournament).join(', ') || '-'}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -183,10 +180,6 @@ export function OrganizerDashboardPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2 text-sm">
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Location:</span>
-                      <span>{tournament.location}</span>
-                    </div>
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Status:</span>
                       <span className="text-primary font-medium">In Progress</span>

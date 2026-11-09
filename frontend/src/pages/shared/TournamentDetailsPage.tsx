@@ -55,8 +55,7 @@ export function TournamentDetailsPage() {
           <EnrollmentDialog
             tournament={tournament}
             disabled={
-              (tournament.status !== 'upcoming' && tournament.status !== 'registration_open') ||
-              new Date(tournament.registrationDeadline) < new Date()
+              tournament.status !== 'upcoming' && tournament.status !== 'registration_open'
             }
           />
         </div>

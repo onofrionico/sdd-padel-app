@@ -22,13 +22,20 @@ export function NotificationItem({ notification, onClick, className }: Notificat
   
   const getIcon = () => {
     switch (notification.type) {
-      case 'enrollment_approved':
+      case 'payment_confirmed':
+      case 'team_payment_completed':
+      case 'refund_processed':
         return <CheckCircle className="h-5 w-5 text-green-500" />
-      case 'enrollment_rejected':
+      case 'payment_failed':
         return <XCircle className="h-5 w-5 text-red-500" />
       case 'tournament_update':
+      case 'match_result':
         return <Info className="h-5 w-5 text-blue-500" />
-      case 'tournament_reminder':
+      case 'match_scheduled':
+      case 'payment_required':
+      case 'payment_deadline_reminder_24h':
+      case 'payment_deadline_reminder_12h':
+      case 'payment_deadline_reminder_2h':
         return <Calendar className="h-5 w-5 text-orange-500" />
       default:
         return <Bell className="h-5 w-5 text-gray-500" />
@@ -52,7 +59,7 @@ export function NotificationItem({ notification, onClick, className }: Notificat
       onClick={onClick}
       className={cn(
         'flex gap-3 p-4 transition-colors hover:bg-accent cursor-pointer border-b last:border-b-0',
-        !notification.read && 'bg-primary/5',
+        !notification.isRead && 'bg-primary/5',
         className
       )}
     >
@@ -62,11 +69,11 @@ export function NotificationItem({ notification, onClick, className }: Notificat
         <div className="flex items-start justify-between gap-2">
           <h4 className={cn(
             'text-sm font-medium',
-            !notification.read && 'font-semibold'
+            !notification.isRead && 'font-semibold'
           )}>
-            {notification.title}
+            {t(`notification.type.${notification.type}`, { defaultValue: t('notification.type.general') })}
           </h4>
-          {!notification.read && (
+          {!notification.isRead && (
             <div className="h-2 w-2 rounded-full bg-primary flex-shrink-0 mt-1.5" />
           )}
         </div>

@@ -18,7 +18,7 @@ export const authApi = {
   },
 
   async updateProfile(data: UpdateProfileRequest): Promise<User> {
-    const response = await apiClient.put<User>('/auth/profile', data)
+    const response = await apiClient.put<User>('/users/me/player-profile', data)
     return response.data
   },
 

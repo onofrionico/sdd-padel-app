@@ -3,11 +3,25 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ProfilePictureUpload } from '../ProfilePictureUpload'
 
+// jsdom no decodifica imágenes: simulamos una de 400x400 para la validación de dimensiones
+class FakeImage {
+  width = 400
+  height = 400
+  onload: (() => void) | null = null
+  onerror: (() => void) | null = null
+  set src(_value: string) {
+    setTimeout(() => this.onload?.(), 0)
+  }
+}
+
 describe('ProfilePictureUpload', () => {
   const mockOnUpload = vi.fn()
 
   beforeEach(() => {
-    mockOnUpload.mockClear()
+    mockOnUpload.mockReset()
+    vi.stubGlobal('Image', FakeImage)
+    URL.createObjectURL = vi.fn(() => 'blob:test')
+    URL.revokeObjectURL = vi.fn()
   })
 
   it('renders with default state', () => {
@@ -55,10 +69,10 @@ describe('ProfilePictureUpload', () => {
   })
 
   it('shows error for invalid file type', async () => {
-    const user = userEvent.setup()
+    const user = userEvent.setup({ applyAccept: false })
     render(<ProfilePictureUpload onUpload={mockOnUpload} />)
 
-    const file = new File(['test'], 'test.txt', { type: 'text/plain' })
+    const file = new File(['test'], 'test.gif', { type: 'image/gif' })
     const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
     
     if (fileInput) {

@@ -288,6 +288,23 @@
   "notification": {
     "timeAgo": {
       "default": "hace un momento"
+    },
+    "type": {
+      "tournament_invitation": "Invitación a torneo",
+      "team_invitation": "Invitación a equipo",
+      "match_scheduled": "Partido programado",
+      "match_result": "Resultado de partido",
+      "tournament_update": "Novedades del torneo",
+      "association_invitation": "Invitación a asociación",
+      "payment_required": "Pago pendiente",
+      "payment_confirmed": "Pago confirmado",
+      "payment_failed": "Pago rechazado",
+      "payment_deadline_reminder_24h": "Recordatorio de pago (24 h)",
+      "payment_deadline_reminder_12h": "Recordatorio de pago (12 h)",
+      "payment_deadline_reminder_2h": "Recordatorio de pago (2 h)",
+      "team_payment_completed": "Pago del equipo completo",
+      "refund_processed": "Reembolso procesado",
+      "general": "Notificación"
     }
   },
   "landing": {

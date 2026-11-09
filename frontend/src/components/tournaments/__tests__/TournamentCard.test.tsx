@@ -6,17 +6,19 @@ import { Tournament } from '@/types/tournament'
 const mockTournament: Tournament = {
   id: '1',
   name: 'Summer Championship 2024',
+  description: 'Torneo de verano en Buenos Aires',
   associationId: '1',
   startDate: '2024-07-01',
   endDate: '2024-07-03',
-  registrationDeadline: '2024-06-25',
-  location: 'Buenos Aires',
-  format: 'single_elimination',
-  maxTeams: 16,
-  categories: [1, 2, 3],
+  type: 'single_elimination',
   status: 'upcoming',
-  pointDistribution: { '1st': 100, '2nd': 75, '3rd': 50 },
-  showCapacity: true,
+  settings: {
+    maxTeams: 16,
+    teamSize: 2,
+    categoryRange: { min: 1, max: 3 },
+    pointsDistribution: { '1st': 100, '2nd': 75, '3rd': 50 },
+  },
+  isPublic: true,
   createdAt: '2024-01-01',
   updatedAt: '2024-01-01',
 }
@@ -27,30 +29,30 @@ describe('TournamentCard', () => {
     expect(screen.getByText('Summer Championship 2024')).toBeInTheDocument()
   })
 
-  it('should render tournament location', () => {
+  it('should render tournament description', () => {
     render(<TournamentCard tournament={mockTournament} />)
-    expect(screen.getByText('Buenos Aires')).toBeInTheDocument()
+    expect(screen.getByText('Torneo de verano en Buenos Aires')).toBeInTheDocument()
   })
 
   it('should render tournament status badge', () => {
     render(<TournamentCard tournament={mockTournament} />)
-    expect(screen.getByText('Próximo')).toBeInTheDocument()
+    expect(screen.getByText('Upcoming')).toBeInTheDocument()
   })
 
-  it('should render categories', () => {
+  it('should render categories from the category range', () => {
     render(<TournamentCard tournament={mockTournament} />)
-    expect(screen.getByText('1ra Categoría')).toBeInTheDocument()
-    expect(screen.getByText('2da Categoría')).toBeInTheDocument()
-    expect(screen.getByText('3ra Categoría')).toBeInTheDocument()
+    expect(screen.getByText('1st Category')).toBeInTheDocument()
+    expect(screen.getByText('2nd Category')).toBeInTheDocument()
+    expect(screen.getByText('3rd Category')).toBeInTheDocument()
   })
 
-  it('should render capacity when showCapacity is true', () => {
+  it('should render capacity when maxTeams is set', () => {
     render(<TournamentCard tournament={mockTournament} />)
     expect(screen.getByText(/Capacity: 16 teams/i)).toBeInTheDocument()
   })
 
-  it('should not render capacity when showCapacity is false', () => {
-    const tournament = { ...mockTournament, showCapacity: false }
+  it('should not render capacity when maxTeams is not set', () => {
+    const tournament = { ...mockTournament, settings: { ...mockTournament.settings, maxTeams: undefined } }
     render(<TournamentCard tournament={tournament} />)
     expect(screen.queryByText(/Capacity:/i)).not.toBeInTheDocument()
   })

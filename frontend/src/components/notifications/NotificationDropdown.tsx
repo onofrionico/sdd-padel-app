@@ -82,7 +82,7 @@ export function NotificationDropdown({ isOpen, onClose, triggerRef }: Notificati
                 key={notification.id}
                 notification={notification}
                 onClick={() => {
-                  if (!notification.read) {
+                  if (!notification.isRead) {
                     markAsRead(notification.id)
                   }
                   onClose()

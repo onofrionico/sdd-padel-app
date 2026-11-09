@@ -76,5 +76,24 @@
     "save": "Salvar",
     "cancel": "Cancelar",
     "required": "Este campo é obrigatório"
+  },
+  "notification": {
+    "type": {
+      "tournament_invitation": "Convite para torneio",
+      "team_invitation": "Convite para equipe",
+      "match_scheduled": "Partida agendada",
+      "match_result": "Resultado da partida",
+      "tournament_update": "Novidades do torneio",
+      "association_invitation": "Convite para associação",
+      "payment_required": "Pagamento pendente",
+      "payment_confirmed": "Pagamento confirmado",
+      "payment_failed": "Pagamento recusado",
+      "payment_deadline_reminder_24h": "Lembrete de pagamento (24 h)",
+      "payment_deadline_reminder_12h": "Lembrete de pagamento (12 h)",
+      "payment_deadline_reminder_2h": "Lembrete de pagamento (2 h)",
+      "team_payment_completed": "Pagamento da equipe concluído",
+      "refund_processed": "Reembolso processado",
+      "general": "Notificação"
+    }
   }
 }

@@ -29,27 +29,24 @@ export function TournamentForm({ tournament, onSubmit, isLoading = false }: Tour
     mode: 'onSubmit',
     defaultValues: tournament ? {
       name: tournament.name,
-      description: '',
+      description: tournament.description ?? '',
       startDate: tournament.startDate.split('T')[0],
       endDate: tournament.endDate?.split('T')[0],
-      type: tournament.format,
-      isPublic: false,
+      type: tournament.type,
+      isPublic: tournament.isPublic ?? false,
       associationId: tournament.associationId.toString(),
       settings: {
-        maxTeams: tournament.maxTeams,
-        minTeams: 2,
-        teamSize: 2,
-        categoryRange: {
-          min: Math.min(...tournament.categories),
-          max: Math.max(...tournament.categories),
-        },
-        pointsDistribution: tournament.pointDistribution || {
+        maxTeams: tournament.settings?.maxTeams,
+        minTeams: tournament.settings?.minTeams,
+        teamSize: tournament.settings?.teamSize ?? 2,
+        categoryRange: tournament.settings?.categoryRange,
+        pointsDistribution: tournament.settings?.pointsDistribution || {
           '1': 100,
           '2': 70,
           '3': 50,
           '4': 30,
         },
-        tiebreakers: ['head_to_head', 'point_difference', 'points_scored'],
+        tiebreakers: tournament.settings?.tiebreakers || ['head_to_head', 'point_difference', 'points_scored'],
       },
     } : {
       isPublic: false,

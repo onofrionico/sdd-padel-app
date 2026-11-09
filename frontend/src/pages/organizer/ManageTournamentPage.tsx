@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { tournamentsApi } from '@/services/api/tournaments'
 import { enrollmentsApi } from '@/services/api/enrollments'
-import { Tournament } from '@/types/tournament'
+import { Tournament, getTournamentCategories, formatTournamentType } from '@/types/tournament'
 import { EnrollmentWithDetails } from '@/types/enrollment'
 import { TournamentStatusSelector } from '@/components/organizer/TournamentStatusSelector'
 import { ParticipantsList } from '@/components/organizer/ParticipantsList'
@@ -12,7 +12,7 @@ import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useToast } from '@/hooks/use-toast'
-import { AlertCircle, Edit, Trash2, Users, Calendar, MapPin, DollarSign } from 'lucide-react'
+import { AlertCircle, Edit, Trash2, Users, Calendar, DollarSign } from 'lucide-react'
 
 export function ManageTournamentPage() {
   const { id } = useParams<{ id: string }>()
@@ -29,7 +29,7 @@ export function ManageTournamentPage() {
 
   const { data: enrollments, isLoading: enrollmentsLoading } = useQuery<EnrollmentWithDetails[]>({
     queryKey: ['tournament-enrollments', id],
-    queryFn: () => enrollmentsApi.getTournamentEnrollments(id!) as Promise<EnrollmentWithDetails[]>,
+    queryFn: () => enrollmentsApi.getTournamentEnrollments(id!),
     enabled: !!id,
   })
 
@@ -70,7 +70,7 @@ export function ManageTournamentPage() {
   })
 
   const approveMutation = useMutation({
-    mutationFn: (enrollmentId: string) => enrollmentsApi.approveEnrollment(enrollmentId),
+    mutationFn: (enrollmentId: string) => enrollmentsApi.approveEnrollment({ tournamentId: id!, enrollmentId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament-enrollments', id] })
       toast({
@@ -88,7 +88,8 @@ export function ManageTournamentPage() {
   })
 
   const rejectMutation = useMutation({
-    mutationFn: (enrollmentId: string) => enrollmentsApi.rejectEnrollment(enrollmentId),
+    mutationFn: ({ enrollmentId, rejectionReason }: { enrollmentId: string; rejectionReason?: string }) =>
+      enrollmentsApi.rejectEnrollment({ tournamentId: id!, enrollmentId, rejectionReason }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament-enrollments', id] })
       toast({
@@ -104,6 +105,13 @@ export function ManageTournamentPage() {
       })
     },
   })
+
+  // El motivo del rechazo queda guardado en la inscripción (rejectionReason)
+  const handleReject = (enrollmentId: string) => {
+    const reason = window.prompt('Motivo del rechazo (opcional):')
+    if (reason === null) return
+    rejectMutation.mutate({ enrollmentId, rejectionReason: reason.trim() || undefined })
+  }
 
   if (tournamentLoading) {
     return (
@@ -137,10 +145,6 @@ export function ManageTournamentPage() {
             <div className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
               <span>{new Date(tournament.startDate).toLocaleDateString()}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <MapPin className="h-4 w-4" />
-              <span>{tournament.location}</span>
             </div>
             <div className="flex items-center gap-1">
               <Users className="h-4 w-4" />
@@ -247,20 +251,20 @@ export function ManageTournamentPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Format</p>
-                  <p className="text-base capitalize">{tournament.format.replace('_', ' ')}</p>
+                  <p className="text-base capitalize">{formatTournamentType(tournament.type)}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Max Teams</p>
-                  <p className="text-base">{tournament.maxTeams || 'Unlimited'}</p>
+                  <p className="text-base">{tournament.settings?.maxTeams || 'Unlimited'}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Categories</p>
-                  <p className="text-base">{tournament.categories.join(', ')}</p>
+                  <p className="text-base">{getTournamentCategories(tournament).join(', ') || '-'}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Registration Deadline</p>
+                  <p className="text-sm font-medium text-muted-foreground">End Date</p>
                   <p className="text-base">
-                    {new Date(tournament.registrationDeadline).toLocaleDateString()}
+                    {tournament.endDate ? new Date(tournament.endDate).toLocaleDateString() : '-'}
                   </p>
                 </div>
               </div>
@@ -293,7 +297,7 @@ export function ManageTournamentPage() {
                     key={enrollment.id}
                     enrollment={enrollment}
                     onApprove={approveMutation.mutate}
-                    onReject={rejectMutation.mutate}
+                    onReject={handleReject}
                     isLoading={approveMutation.isPending || rejectMutation.isPending}
                   />
                 ))}
@@ -318,7 +322,7 @@ export function ManageTournamentPage() {
                     key={enrollment.id}
                     enrollment={enrollment}
                     onApprove={approveMutation.mutate}
-                    onReject={rejectMutation.mutate}
+                    onReject={handleReject}
                     isLoading={approveMutation.isPending || rejectMutation.isPending}
                   />
                 ))}

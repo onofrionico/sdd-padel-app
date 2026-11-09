@@ -51,7 +51,7 @@ export const useNotifications = () => {
     total: notificationsQuery.data?.total || 0,
     isLoading: notificationsQuery.isLoading,
     error: notificationsQuery.error,
-    markAsRead: (notificationId: number) => markAsReadMutation.mutate(notificationId),
+    markAsRead: (notificationId: string) => markAsReadMutation.mutate(notificationId),
     markAllAsRead: () => markAllAsReadMutation.mutate(),
     isMarkingAsRead: markAsReadMutation.isPending,
     isMarkingAllAsRead: markAllAsReadMutation.isPending,

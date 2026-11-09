@@ -64,7 +64,7 @@ export function NotificationsPage() {
                 key={notification.id}
                 notification={notification}
                 onClick={() => {
-                  if (!notification.read) {
+                  if (!notification.isRead) {
                     markAsRead(notification.id)
                   }
                 }}

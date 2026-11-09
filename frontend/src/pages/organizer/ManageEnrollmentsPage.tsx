@@ -15,12 +15,12 @@ export function ManageEnrollmentsPage() {
 
   const { data: enrollments, isLoading, error } = useQuery<EnrollmentWithDetails[]>({
     queryKey: ['tournament-enrollments', id],
-    queryFn: () => enrollmentsApi.getTournamentEnrollments(id!) as Promise<EnrollmentWithDetails[]>,
+    queryFn: () => enrollmentsApi.getTournamentEnrollments(id!),
     enabled: !!id,
   })
 
   const approveMutation = useMutation({
-    mutationFn: (enrollmentId: string) => enrollmentsApi.approveEnrollment(enrollmentId),
+    mutationFn: (enrollmentId: string) => enrollmentsApi.approveEnrollment({ tournamentId: id!, enrollmentId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament-enrollments', id] })
       toast({
@@ -38,7 +38,8 @@ export function ManageEnrollmentsPage() {
   })
 
   const rejectMutation = useMutation({
-    mutationFn: (enrollmentId: string) => enrollmentsApi.rejectEnrollment(enrollmentId),
+    mutationFn: ({ enrollmentId, rejectionReason }: { enrollmentId: string; rejectionReason?: string }) =>
+      enrollmentsApi.rejectEnrollment({ tournamentId: id!, enrollmentId, rejectionReason }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament-enrollments', id] })
       toast({
@@ -54,6 +55,13 @@ export function ManageEnrollmentsPage() {
       })
     },
   })
+
+  // El motivo del rechazo queda guardado en la inscripción (rejectionReason)
+  const handleReject = (enrollmentId: string) => {
+    const reason = window.prompt('Motivo del rechazo (opcional):')
+    if (reason === null) return
+    rejectMutation.mutate({ enrollmentId, rejectionReason: reason.trim() || undefined })
+  }
 
   if (isLoading) {
     return (
@@ -106,7 +114,7 @@ export function ManageEnrollmentsPage() {
                 key={enrollment.id}
                 enrollment={enrollment}
                 onApprove={approveMutation.mutate}
-                onReject={rejectMutation.mutate}
+                onReject={handleReject}
                 isLoading={approveMutation.isPending || rejectMutation.isPending}
               />
             ))}
@@ -132,7 +140,7 @@ export function ManageEnrollmentsPage() {
                 key={enrollment.id}
                 enrollment={enrollment}
                 onApprove={approveMutation.mutate}
-                onReject={rejectMutation.mutate}
+                onReject={handleReject}
                 isLoading={approveMutation.isPending || rejectMutation.isPending}
               />
             ))}
@@ -152,7 +160,7 @@ export function ManageEnrollmentsPage() {
                 key={enrollment.id}
                 enrollment={enrollment}
                 onApprove={approveMutation.mutate}
-                onReject={rejectMutation.mutate}
+                onReject={handleReject}
                 isLoading={approveMutation.isPending || rejectMutation.isPending}
               />
             ))}

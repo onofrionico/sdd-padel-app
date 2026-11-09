@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import { Tournament } from '@/types/tournament'
+import { Tournament, getTournamentCategories, formatTournamentType } from '@/types/tournament'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, MapPin, Users, Building2 } from 'lucide-react'
+import { Calendar, Users, Building2 } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
 import { formatTournamentStatus, formatCategory } from '@/lib/i18nUtils'
 import { cn } from '@/lib/utils'
@@ -34,10 +34,9 @@ export function TournamentCard({ tournament, className }: TournamentCardProps) {
               {formatTournamentStatus(tournament.status)}
             </Badge>
           </div>
-          {tournament.location && (
-            <CardDescription className="flex items-center gap-1 text-sm">
-              <MapPin className="h-4 w-4" />
-              {tournament.location}
+          {tournament.description && (
+            <CardDescription className="text-sm line-clamp-2">
+              {tournament.description}
             </CardDescription>
           )}
         </CardHeader>
@@ -62,9 +61,9 @@ export function TournamentCard({ tournament, className }: TournamentCardProps) {
             </div>
           )}
 
-          {tournament.categories && tournament.categories.length > 0 && (
+          {getTournamentCategories(tournament).length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {tournament.categories.map((category) => (
+              {getTournamentCategories(tournament).map((category) => (
                 <Badge key={category} variant="outline">
                   {formatCategory(category)}
                 </Badge>
@@ -72,18 +71,18 @@ export function TournamentCard({ tournament, className }: TournamentCardProps) {
             </div>
           )}
 
-          {tournament.showCapacity && tournament.maxTeams && (
+          {tournament.settings?.maxTeams && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Users className="h-4 w-4" />
               <span>
-                {t('tournament.card.capacity', { maxTeams: tournament.maxTeams })}
+                {t('tournament.card.capacity', { maxTeams: tournament.settings.maxTeams })}
               </span>
             </div>
           )}
 
-          {tournament.format && (
+          {tournament.type && (
             <div className="text-sm text-muted-foreground">
-              {t('tournament.card.format')} <span className="font-medium">{tournament.format.replace('_', ' ')}</span>
+              {t('tournament.card.format')} <span className="font-medium">{formatTournamentType(tournament.type)}</span>
             </div>
           )}
         </CardContent>

@@ -45,10 +45,10 @@ export class ErrorBoundary extends Component<Props, State> {
             <CardHeader>
               <div className="flex items-center gap-2">
                 <AlertCircle className="h-6 w-6 text-destructive" />
-                <CardTitle>{i18n.t('error.title')}</CardTitle>
+                <CardTitle>{i18n.t('error.boundary.title')}</CardTitle>
               </div>
               <CardDescription>
-                {i18n.t('error.description')}
+                {i18n.t('error.boundary.description')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -61,10 +61,10 @@ export class ErrorBoundary extends Component<Props, State> {
               )}
               <div className="flex gap-2">
                 <Button onClick={this.handleReset} className="flex-1">
-                  {i18n.t('error.button.goHome')}
+                  {i18n.t('error.boundary.button.home')}
                 </Button>
                 <Button onClick={() => window.location.reload()} variant="outline" className="flex-1">
-                  {i18n.t('error.button.refresh')}
+                  {i18n.t('error.boundary.button.refresh')}
                 </Button>
               </div>
             </CardContent>

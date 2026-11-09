@@ -1,41 +1,42 @@
 import { apiClient } from './client'
 import { Enrollment, EnrollmentRequest, EnrollmentWithDetails } from '@/types/enrollment'
-import { ApiResponse } from '@/types/api'
+
+export interface EnrollmentDecisionParams {
+  tournamentId: string
+  enrollmentId: string
+  rejectionReason?: string
+}
 
 export const enrollmentsApi = {
   createEnrollment: async (data: EnrollmentRequest): Promise<Enrollment> => {
-    const response = await apiClient.post<ApiResponse<Enrollment>>(
-      `/tournaments/${data.tournamentId}/enrollments`,
-      data
-    )
-    return response.data.data
+    const { tournamentId, ...body } = data
+    const response = await apiClient.post<Enrollment>(`/tournaments/${tournamentId}/enrollments`, body)
+    return response.data
   },
 
   getMyEnrollments: async (): Promise<EnrollmentWithDetails[]> => {
-    const response = await apiClient.get<EnrollmentWithDetails[]>(
-      '/users/me/enrollments'
+    const response = await apiClient.get<EnrollmentWithDetails[]>('/users/me/enrollments')
+    return response.data
+  },
+
+  getTournamentEnrollments: async (tournamentId: string): Promise<EnrollmentWithDetails[]> => {
+    const response = await apiClient.get<EnrollmentWithDetails[]>(`/tournaments/${tournamentId}/enrollments`)
+    return response.data
+  },
+
+  approveEnrollment: async ({ tournamentId, enrollmentId }: EnrollmentDecisionParams): Promise<Enrollment> => {
+    const response = await apiClient.put<Enrollment>(
+      `/tournaments/${tournamentId}/enrollments/${enrollmentId}/decision`,
+      { decision: 'approved' }
     )
     return response.data
   },
 
-  getTournamentEnrollments: async (tournamentId: string): Promise<Enrollment[]> => {
-    const response = await apiClient.get<ApiResponse<Enrollment[]>>(
-      `/tournaments/${tournamentId}/enrollments`
+  rejectEnrollment: async ({ tournamentId, enrollmentId, rejectionReason }: EnrollmentDecisionParams): Promise<Enrollment> => {
+    const response = await apiClient.put<Enrollment>(
+      `/tournaments/${tournamentId}/enrollments/${enrollmentId}/decision`,
+      { decision: 'rejected', ...(rejectionReason ? { rejectionReason } : {}) }
     )
-    return response.data.data
-  },
-
-  approveEnrollment: async (enrollmentId: string): Promise<Enrollment> => {
-    const response = await apiClient.put<ApiResponse<Enrollment>>(
-      `/enrollments/${enrollmentId}/approve`
-    )
-    return response.data.data
-  },
-
-  rejectEnrollment: async (enrollmentId: string): Promise<Enrollment> => {
-    const response = await apiClient.put<ApiResponse<Enrollment>>(
-      `/enrollments/${enrollmentId}/reject`
-    )
-    return response.data.data
+    return response.data
   },
 }

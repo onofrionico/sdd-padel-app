@@ -10,25 +10,9 @@ export function useRankings(associationId: string | undefined, filters?: Ranking
   })
 }
 
-export function usePlayerStatistics(playerId: number) {
-  return useQuery({
-    queryKey: ['player-statistics', playerId],
-    queryFn: () => rankingsApi.getPlayerStatistics(playerId),
-    enabled: !!playerId,
-  })
-}
-
 export function useMyStatistics() {
   return useQuery({
     queryKey: ['my-statistics'],
     queryFn: () => rankingsApi.getMyStatistics(),
-  })
-}
-
-export function usePlayerRanking(playerId: number, categoryId?: number) {
-  return useQuery({
-    queryKey: ['player-ranking', playerId, categoryId],
-    queryFn: () => rankingsApi.getPlayerRanking(playerId, categoryId),
-    enabled: !!playerId,
   })
 }

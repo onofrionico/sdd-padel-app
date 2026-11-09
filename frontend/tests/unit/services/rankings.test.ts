@@ -52,29 +52,6 @@ describe('rankingsApi', () => {
     })
   })
 
-  describe('getPlayerStatistics', () => {
-    it('should fetch player statistics by id', async () => {
-      const mockStats = {
-        playerId: 1,
-        totalPoints: 500,
-        totalTournaments: 10,
-        totalMatches: 50,
-        matchesWon: 30,
-        matchesLost: 20,
-        winRate: 0.6,
-        categoriesPlayed: [1, 2, 3],
-        recentTournaments: [],
-        bestRanking: null,
-      }
-      vi.mocked(apiClient.get).mockResolvedValue({ data: mockStats })
-
-      const result = await rankingsApi.getPlayerStatistics(1)
-
-      expect(apiClient.get).toHaveBeenCalledWith('/players/1/statistics')
-      expect(result).toEqual(mockStats)
-    })
-  })
-
   describe('getMyStatistics', () => {
     it('should fetch current user statistics', async () => {
       const mockStats = {
@@ -93,54 +70,9 @@ describe('rankingsApi', () => {
 
       const result = await rankingsApi.getMyStatistics()
 
-      expect(apiClient.get).toHaveBeenCalledWith('/players/me/statistics')
+      expect(apiClient.get).toHaveBeenCalledWith('/users/me/statistics')
       expect(result).toEqual(mockStats)
     })
   })
 
-  describe('getPlayerRanking', () => {
-    it('should fetch player ranking without category', async () => {
-      const mockRanking = {
-        id: 1,
-        playerId: 1,
-        playerName: 'Test Player',
-        categoryId: 3,
-        points: 500,
-        position: 5,
-        matchesPlayed: 50,
-        matchesWon: 30,
-        matchesLost: 20,
-        tournamentsPlayed: 10,
-        updatedAt: '2024-01-01',
-      }
-      vi.mocked(apiClient.get).mockResolvedValue({ data: mockRanking })
-
-      const result = await rankingsApi.getPlayerRanking(1)
-
-      expect(apiClient.get).toHaveBeenCalledWith('/players/1/ranking')
-      expect(result).toEqual(mockRanking)
-    })
-
-    it('should fetch player ranking with category filter', async () => {
-      const mockRanking = {
-        id: 1,
-        playerId: 1,
-        playerName: 'Test Player',
-        categoryId: 3,
-        points: 500,
-        position: 5,
-        matchesPlayed: 50,
-        matchesWon: 30,
-        matchesLost: 20,
-        tournamentsPlayed: 10,
-        updatedAt: '2024-01-01',
-      }
-      vi.mocked(apiClient.get).mockResolvedValue({ data: mockRanking })
-
-      const result = await rankingsApi.getPlayerRanking(1, 3)
-
-      expect(apiClient.get).toHaveBeenCalledWith('/players/1/ranking?categoryId=3')
-      expect(result).toEqual(mockRanking)
-    })
-  })
 })

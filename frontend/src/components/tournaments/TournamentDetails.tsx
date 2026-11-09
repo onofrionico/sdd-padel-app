@@ -1,7 +1,7 @@
-import { Tournament } from '@/types/tournament'
+import { Tournament, getTournamentCategories, formatTournamentType } from '@/types/tournament'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Calendar, MapPin, Trophy, Building2 } from 'lucide-react'
+import { Calendar, Trophy, Building2 } from 'lucide-react'
 import { formatDate, formatTournamentStatus, formatCategory } from '@/lib/utils'
 
 interface TournamentDetailsProps {
@@ -15,11 +15,8 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
         <div className="flex items-start justify-between gap-4 mb-4">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">{tournament.name}</h1>
-            {tournament.location && (
-              <p className="text-muted-foreground mt-2 flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                {tournament.location}
-              </p>
+            {tournament.description && (
+              <p className="text-muted-foreground mt-2">{tournament.description}</p>
             )}
           </div>
           <Badge className="text-base px-4 py-2">
@@ -81,14 +78,8 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
             </div>
             <div>
               <p className="text-sm text-muted-foreground">End Date</p>
-              <p className="font-medium">{formatDate(tournament.endDate)}</p>
+              <p className="font-medium">{tournament.endDate ? formatDate(tournament.endDate) : '-'}</p>
             </div>
-            {tournament.registrationDeadline && (
-              <div>
-                <p className="text-sm text-muted-foreground">Registration Deadline</p>
-                <p className="font-medium">{formatDate(tournament.registrationDeadline)}</p>
-              </div>
-            )}
           </CardContent>
         </Card>
 
@@ -100,24 +91,26 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            {tournament.format && (
+            {tournament.type && (
               <div>
                 <p className="text-sm text-muted-foreground">Format</p>
                 <p className="font-medium capitalize">
-                  {tournament.format.replace(/_/g, ' ')}
+                  {formatTournamentType(tournament.type)}
                 </p>
               </div>
             )}
-            {tournament.maxTeams && (
+            {tournament.settings?.maxTeams && (
               <div>
                 <p className="text-sm text-muted-foreground">Maximum Teams</p>
-                <p className="font-medium">{tournament.maxTeams} teams</p>
+                <p className="font-medium">{tournament.settings.maxTeams} teams</p>
               </div>
             )}
-            <div>
-              <p className="text-sm text-muted-foreground">Capacity Visible</p>
-              <p className="font-medium">{tournament.showCapacity ? 'Yes' : 'No'}</p>
-            </div>
+            {tournament.settings?.teamSize && (
+              <div>
+                <p className="text-sm text-muted-foreground">Team Size</p>
+                <p className="font-medium">{tournament.settings.teamSize}</p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
@@ -128,9 +121,9 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
           <CardDescription>Available categories for this tournament</CardDescription>
         </CardHeader>
         <CardContent>
-          {tournament.categories && tournament.categories.length > 0 ? (
+          {getTournamentCategories(tournament).length > 0 ? (
             <div className="flex flex-wrap gap-2">
-              {tournament.categories.map((category) => (
+              {getTournamentCategories(tournament).map((category) => (
                 <Badge key={category} variant="outline" className="text-base px-4 py-2">
                   {formatCategory(category)}
                 </Badge>
@@ -148,9 +141,9 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
           <CardDescription>Points awarded for each position</CardDescription>
         </CardHeader>
         <CardContent>
-          {tournament.pointDistribution && Object.keys(tournament.pointDistribution).length > 0 ? (
+          {tournament.settings?.pointsDistribution && Object.keys(tournament.settings.pointsDistribution).length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {Object.entries(tournament.pointDistribution).map(([position, points]) => (
+              {Object.entries(tournament.settings.pointsDistribution).map(([position, points]) => (
                 <div key={position} className="flex flex-col items-center p-4 border rounded-lg">
                   <p className="text-sm text-muted-foreground">{position}</p>
                   <p className="text-2xl font-bold">{points}</p>

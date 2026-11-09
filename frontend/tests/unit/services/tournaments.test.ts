@@ -78,13 +78,10 @@ describe('tournamentsApi', () => {
         associationId: '1',
         startDate: '2024-07-01',
         endDate: '2024-07-03',
-        registrationDeadline: '2024-06-25',
-        location: 'Test Location',
-        format: 'single_elimination' as const,
-        categories: [1, 2],
+        type: 'single_elimination' as const,
         status: 'upcoming' as const,
-        pointDistribution: {},
-        showCapacity: true,
+        settings: { categoryRange: { min: 1, max: 2 } },
+        isPublic: true,
       }
       const mockResponse = { data: { ...newTournament, id: '1' } }
       vi.mocked(apiClient.post).mockResolvedValue(mockResponse)
