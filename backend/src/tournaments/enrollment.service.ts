@@ -130,7 +130,13 @@ export class EnrollmentService {
       userId: params.partnerId,
       type: NotificationType.TOURNAMENT_INVITATION,
       message: `You have been added to an enrollment request for tournament "${tournament.name}".`,
-      metadata: { tournamentId: tournament.id, registrationId: registration.id, teamId: team.id },
+      metadata: {
+        tournamentId: tournament.id,
+        registrationId: registration.id,
+        teamId: team.id,
+        messageKey: 'enrollment_invitation',
+        messageParams: { tournamentName: tournament.name },
+      },
     });
 
     return this.getRegistrationById(registration.id);
@@ -216,12 +222,14 @@ export class EnrollmentService {
         for (const p of players) {
           await this.notificationsService.create({
             userId: p.userId,
-            type: NotificationType.PAYMENT_CONFIRMED,
+            type: NotificationType.PAYMENT_REQUIRED,
             message: `Your enrollment was approved for "${tournament?.name ?? ''}". Payment is required to confirm your participation.`,
             metadata: {
               tournamentId: params.tournamentId,
               registrationId: registration.id,
               requiresPayment: true,
+              messageKey: 'enrollment_approved_payment_required',
+              messageParams: { tournamentName: tournament?.name ?? '' },
             },
           });
         }
@@ -237,6 +245,8 @@ export class EnrollmentService {
               tournamentId: params.tournamentId,
               registrationId: registration.id,
               decision: params.decision,
+              messageKey: 'enrollment_approved',
+              messageParams: { tournamentName: tournament?.name ?? '' },
             },
           });
         }
@@ -256,6 +266,16 @@ export class EnrollmentService {
             registrationId: registration.id,
             decision: params.decision,
             rejectionReason: registration.rejectionReason,
+            messageKey:
+              params.decision === 'approved'
+                ? 'enrollment_approved'
+                : registration.rejectionReason
+                  ? 'enrollment_rejected_with_reason'
+                  : 'enrollment_rejected',
+            messageParams: {
+              tournamentName: tournament?.name ?? '',
+              reason: registration.rejectionReason ?? '',
+            },
           },
         });
       }

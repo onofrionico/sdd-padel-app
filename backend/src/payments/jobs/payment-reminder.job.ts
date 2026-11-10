@@ -57,6 +57,8 @@ export class PaymentReminderJob {
               expiresAt: payment.expiresAt,
               amount: payment.amount,
               paymentUrl: payment.paymentUrl,
+              messageKey: 'payment_reminder',
+              messageParams: { tournamentName, hours },
             },
           });
         } catch (error) {
