@@ -1,7 +1,8 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { TOURNAMENT_STATUSES, CATEGORIES } from '@/lib/constants'
-import { formatTournamentStatus, formatCategory } from '@/lib/utils'
+import { formatTournamentStatus, formatCategory } from '@/lib/i18nUtils'
 import { useAssociations } from '@/hooks/useAssociations'
+import { useTranslation } from 'react-i18next'
 
 interface TournamentFiltersProps {
   status?: string
@@ -20,6 +21,7 @@ export function TournamentFilters({
   onCategoryChange,
   onAssociationChange,
 }: TournamentFiltersProps) {
+  const { t } = useTranslation()
   const { data: associations } = useAssociations()
 
   return (
@@ -27,10 +29,10 @@ export function TournamentFilters({
       <div className="flex-1">
         <Select value={status || 'all'} onValueChange={onStatusChange}>
           <SelectTrigger className="w-full sm:w-[200px]">
-            <SelectValue placeholder="Filter by status" />
+            <SelectValue placeholder={t('tournament.filters.byStatus')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
+            <SelectItem value="all">{t('tournament.filters.allStatuses')}</SelectItem>
             {TOURNAMENT_STATUSES.map((s) => (
               <SelectItem key={s} value={s}>
                 {formatTournamentStatus(s)}
@@ -43,10 +45,10 @@ export function TournamentFilters({
       <div className="flex-1">
         <Select value={category?.toString() || 'all'} onValueChange={onCategoryChange}>
           <SelectTrigger className="w-full sm:w-[200px]">
-            <SelectValue placeholder="Filter by category" />
+            <SelectValue placeholder={t('tournament.filters.byCategory')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
+            <SelectItem value="all">{t('rankings.filter.allCategories')}</SelectItem>
             {CATEGORIES.map((c) => (
               <SelectItem key={c} value={c.toString()}>
                 {formatCategory(c)}
@@ -59,10 +61,10 @@ export function TournamentFilters({
       <div className="flex-1">
         <Select value={associationId || 'all'} onValueChange={onAssociationChange}>
           <SelectTrigger className="w-full sm:w-[200px]">
-            <SelectValue placeholder="Filter by association" />
+            <SelectValue placeholder={t('tournament.filters.byAssociation')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Associations</SelectItem>
+            <SelectItem value="all">{t('tournament.filters.allAssociations')}</SelectItem>
             {associations?.map((association) => (
               <SelectItem key={association.id} value={association.id}>
                 {association.name}

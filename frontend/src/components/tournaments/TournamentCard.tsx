@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import { Tournament, getTournamentCategories, formatTournamentType } from '@/types/tournament'
+import { Tournament, getTournamentCategories } from '@/types/tournament'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Calendar, Users, Building2 } from 'lucide-react'
 import { formatDate } from '@/lib/utils'
-import { formatTournamentStatus, formatCategory } from '@/lib/i18nUtils'
+import { formatTournamentStatus, formatCategory, formatTournamentType } from '@/lib/i18nUtils'
 import { cn } from '@/lib/utils'
 import { useTranslation } from 'react-i18next'
 

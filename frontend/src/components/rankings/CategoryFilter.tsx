@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useTranslation } from 'react-i18next'
 
 interface CategoryFilterProps {
   value?: number
@@ -23,16 +24,17 @@ const categories = [
 ]
 
 export function CategoryFilter({ value, onChange }: CategoryFilterProps) {
+  const { t } = useTranslation()
   return (
     <Select
       value={value?.toString() || 'all'}
       onValueChange={(val) => onChange(val === 'all' ? undefined : parseInt(val))}
     >
       <SelectTrigger className="w-[200px]">
-        <SelectValue placeholder="All Categories" />
+        <SelectValue placeholder={t('rankings.filter.allCategories')} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="all">All Categories</SelectItem>
+        <SelectItem value="all">{t('rankings.filter.allCategories')}</SelectItem>
         {categories.map((category) => (
           <SelectItem key={category.id} value={category.id.toString()}>
             {category.name}

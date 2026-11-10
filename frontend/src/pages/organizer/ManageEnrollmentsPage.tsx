@@ -7,11 +7,13 @@ import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { useToast } from '@/hooks/useToast'
 import { AlertCircle, Users } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import { useTranslation } from 'react-i18next'
 
 export function ManageEnrollmentsPage() {
   const { id } = useParams<{ id: string }>()
   const { toast } = useToast()
   const queryClient = useQueryClient()
+  const { t } = useTranslation()
 
   const { data: enrollments, isLoading, error } = useQuery<EnrollmentWithDetails[]>({
     queryKey: ['tournament-enrollments', id],
@@ -24,14 +26,14 @@ export function ManageEnrollmentsPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament-enrollments', id] })
       toast({
-        title: 'Success',
-        description: 'Enrollment approved successfully',
+        title: t('common.success'),
+        description: t('organizer.toast.enrollmentApproved'),
       })
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.response?.data?.message || 'Failed to approve enrollment',
+        title: t('common.error'),
+        description: error.response?.data?.message || t('organizer.toast.enrollmentApproveFailed'),
         variant: 'destructive',
       })
     },
@@ -43,14 +45,14 @@ export function ManageEnrollmentsPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament-enrollments', id] })
       toast({
-        title: 'Success',
-        description: 'Enrollment rejected',
+        title: t('common.success'),
+        description: t('organizer.toast.enrollmentRejected'),
       })
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.response?.data?.message || 'Failed to reject enrollment',
+        title: t('common.error'),
+        description: error.response?.data?.message || t('organizer.toast.enrollmentRejectFailed'),
         variant: 'destructive',
       })
     },
@@ -58,7 +60,7 @@ export function ManageEnrollmentsPage() {
 
   // El motivo del rechazo queda guardado en la inscripción (rejectionReason)
   const handleReject = (enrollmentId: string) => {
-    const reason = window.prompt('Motivo del rechazo (opcional):')
+    const reason = window.prompt(t('organizer.enrollments.rejectReasonPrompt'))
     if (reason === null) return
     rejectMutation.mutate({ enrollmentId, rejectionReason: reason.trim() || undefined })
   }
@@ -76,7 +78,7 @@ export function ManageEnrollmentsPage() {
       <div className="container py-8">
         <div className="flex items-center gap-2 rounded-md bg-destructive/10 p-4 text-destructive">
           <AlertCircle className="h-5 w-5" />
-          <span>Failed to load enrollments. Please try again.</span>
+          <span>{t('organizer.enrollments.loadFailed')}</span>
         </div>
       </div>
     )
@@ -89,22 +91,22 @@ export function ManageEnrollmentsPage() {
   return (
     <div className="container py-8 space-y-8">
       <div>
-        <h1 className="text-3xl font-bold mb-2">Manage Enrollments</h1>
+        <h1 className="text-3xl font-bold mb-2">{t('organizer.enrollments.title')}</h1>
         <p className="text-muted-foreground">
-          Review and process tournament enrollment requests
+          {t('organizer.enrollments.subtitle')}
         </p>
       </div>
 
       {/* Pending Enrollments */}
       <div>
         <h2 className="text-2xl font-bold mb-4">
-          Pending Requests ({pendingEnrollments.length})
+          {t('organizer.enrollments.pending', { count: pendingEnrollments.length })}
         </h2>
         {pendingEnrollments.length === 0 ? (
           <Card>
             <CardContent className="py-8 text-center text-muted-foreground">
               <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>No pending enrollment requests</p>
+              <p>{t('organizer.enrollments.noPending')}</p>
             </CardContent>
           </Card>
         ) : (
@@ -125,12 +127,12 @@ export function ManageEnrollmentsPage() {
       {/* Approved Enrollments */}
       <div>
         <h2 className="text-2xl font-bold mb-4">
-          Approved ({approvedEnrollments.length})
+          {t('organizer.enrollments.approved', { count: approvedEnrollments.length })}
         </h2>
         {approvedEnrollments.length === 0 ? (
           <Card>
             <CardContent className="py-8 text-center text-muted-foreground">
-              <p>No approved enrollments yet</p>
+              <p>{t('organizer.enrollments.noApproved')}</p>
             </CardContent>
           </Card>
         ) : (
@@ -152,7 +154,7 @@ export function ManageEnrollmentsPage() {
       {rejectedEnrollments.length > 0 && (
         <div>
           <h2 className="text-2xl font-bold mb-4">
-            Rejected ({rejectedEnrollments.length})
+            {t('organizer.enrollments.rejected', { count: rejectedEnrollments.length })}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {rejectedEnrollments.map((enrollment) => (

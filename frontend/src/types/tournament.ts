@@ -77,7 +77,3 @@ export function getTournamentCategories(tournament: Pick<Tournament, 'settings'>
   return out
 }
 
-/** Nombre legible del formato ("double_elimination" → "double elimination"). */
-export function formatTournamentType(type?: string | null): string {
-  return (type ?? '').replace(/_/g, ' ')
-}

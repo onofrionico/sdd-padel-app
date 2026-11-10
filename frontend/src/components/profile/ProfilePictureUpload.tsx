@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { validateImage } from '@/lib/imageValidation'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 interface ProfilePictureUploadProps {
   currentPictureUrl?: string
@@ -18,6 +19,7 @@ export function ProfilePictureUpload({
   isUploading = false,
   className,
 }: ProfilePictureUploadProps) {
+  const { t } = useTranslation()
   const [preview, setPreview] = useState<string | null>(null)
   const [dragActive, setDragActive] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -37,7 +39,7 @@ export function ProfilePictureUpload({
       })
 
       if (!validation.valid) {
-        setError(validation.error || 'Invalid image')
+        setError(validation.error || t('profile.picture.invalid'))
         return
       }
 
@@ -51,7 +53,7 @@ export function ProfilePictureUpload({
         await onUpload(file)
         setError(null)
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to upload image')
+        setError(err instanceof Error ? err.message : t('profile.picture.uploadFailed'))
         setPreview(null)
       }
     },
@@ -120,7 +122,7 @@ export function ProfilePictureUpload({
                 {displayImage ? (
                   <img
                     src={displayImage}
-                    alt="Profile"
+                    alt={t('profile.picture.alt')}
                     className="w-full h-full object-cover"
                   />
                 ) : (
@@ -135,9 +137,9 @@ export function ProfilePictureUpload({
             </div>
 
             <div className="text-center">
-              <h3 className="font-semibold">Profile Picture</h3>
+              <h3 className="font-semibold">{t('profile.picture.title')}</h3>
               <p className="text-sm text-muted-foreground">
-                JPG, PNG or WEBP. Max 5MB. Min 100x100px.
+                {t('profile.picture.hint')}
               </p>
             </div>
           </div>
@@ -164,10 +166,10 @@ export function ProfilePictureUpload({
 
             <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
             <p className="text-sm font-medium mb-1">
-              Drag and drop your image here, or click to browse
+              {t('profile.picture.drop')}
             </p>
             <p className="text-xs text-muted-foreground mb-4">
-              Recommended: Square image, at least 400x400px
+              {t('profile.picture.recommended')}
             </p>
 
             <Button
@@ -179,12 +181,12 @@ export function ProfilePictureUpload({
               {isUploading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Uploading...
+                  {t('profile.picture.uploading')}
                 </>
               ) : (
                 <>
                   <Upload className="mr-2 h-4 w-4" />
-                  Choose File
+                  {t('profile.picture.choose')}
                 </>
               )}
             </Button>
@@ -198,7 +200,7 @@ export function ProfilePictureUpload({
 
           {preview && !isUploading && (
             <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
-              <span className="text-sm font-medium">New image ready</span>
+              <span className="text-sm font-medium">{t('profile.picture.ready')}</span>
               <Button
                 type="button"
                 variant="ghost"

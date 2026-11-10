@@ -1,29 +1,32 @@
 import { TournamentHistory } from '@/types/ranking'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { formatCategory, formatDate } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
+import { formatCategory } from '@/lib/i18nUtils'
 import { Trophy, Users } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface TournamentStatisticsProps {
   tournaments: TournamentHistory[]
 }
 
 export function TournamentStatistics({ tournaments }: TournamentStatisticsProps) {
+  const { t } = useTranslation()
   if (tournaments.length === 0) {
     return (
       <Card>
         <CardContent className="py-8 text-center text-muted-foreground">
-          No tournament history available yet
+          {t('rankings.history.empty')}
         </CardContent>
       </Card>
     )
   }
 
   const getPositionBadge = (position: number | null) => {
-    if (!position) return <Badge variant="outline">Participated</Badge>
-    if (position === 1) return <Badge className="bg-yellow-500">🥇 Champion</Badge>
-    if (position === 2) return <Badge className="bg-gray-400">🥈 Runner-up</Badge>
-    if (position === 3) return <Badge className="bg-orange-600">🥉 3rd Place</Badge>
+    if (!position) return <Badge variant="outline">{t('rankings.history.participated')}</Badge>
+    if (position === 1) return <Badge className="bg-yellow-500">{t('rankings.history.champion')}</Badge>
+    if (position === 2) return <Badge className="bg-gray-400">{t('rankings.history.runnerUp')}</Badge>
+    if (position === 3) return <Badge className="bg-orange-600">{t('rankings.history.third')}</Badge>
     return <Badge variant="outline">#{position}</Badge>
   }
 
@@ -32,7 +35,7 @@ export function TournamentStatistics({ tournaments }: TournamentStatisticsProps)
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Trophy className="h-5 w-5" />
-          Recent Tournament History
+          {t('rankings.history.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>

@@ -66,7 +66,7 @@ describe('TournamentFilters', () => {
       />
     )
     
-    expect(screen.getByText('Próximo')).toBeInTheDocument()
+    expect(screen.getByText('Upcoming')).toBeInTheDocument()
   })
 
   it('should display selected category', () => {
@@ -83,6 +83,6 @@ describe('TournamentFilters', () => {
       />
     )
     
-    expect(screen.getByText('3ra Categoría')).toBeInTheDocument()
+    expect(screen.getByText('3rd Category')).toBeInTheDocument()
   })
 })

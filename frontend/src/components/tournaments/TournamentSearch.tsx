@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface TournamentSearchProps {
   value?: string
@@ -11,8 +12,9 @@ interface TournamentSearchProps {
 export function TournamentSearch({
   value = '',
   onSearch,
-  placeholder = 'Search tournaments...',
+  placeholder,
 }: TournamentSearchProps) {
+  const { t } = useTranslation()
   const [searchValue, setSearchValue] = useState(value)
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export function TournamentSearch({
       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
       <Input
         type="search"
-        placeholder={placeholder}
+        placeholder={placeholder ?? t('tournament.filters.search')}
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
         className="pl-10"

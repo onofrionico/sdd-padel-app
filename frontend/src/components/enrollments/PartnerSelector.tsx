@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card'
 import { Search, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { usersApi } from '@/services/api/users'
+import { useTranslation } from 'react-i18next'
 
 interface Partner {
   id: string
@@ -24,6 +25,7 @@ export function PartnerSelector({
   onSelectPartner,
   className,
 }: PartnerSelectorProps) {
+  const { t } = useTranslation()
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState<Partner[]>([])
   const [isSearching, setIsSearching] = useState(false)
@@ -52,14 +54,14 @@ export function PartnerSelector({
   return (
     <div className={cn('space-y-4', className)}>
       <div className="space-y-2">
-        <Label htmlFor="partner-search">Search for Partner</Label>
+        <Label htmlFor="partner-search">{t('enrollment.partner.label')}</Label>
         <div className="flex gap-2">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               id="partner-search"
               type="text"
-              placeholder="Search by name or email..."
+              placeholder={t('enrollment.partner.placeholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={handleKeyPress}
@@ -71,14 +73,14 @@ export function PartnerSelector({
             onClick={handleSearch}
             disabled={isSearching || !searchQuery.trim()}
           >
-            {isSearching ? 'Searching...' : 'Search'}
+            {isSearching ? t('enrollment.partner.searching') : t('enrollment.partner.search')}
           </Button>
         </div>
       </div>
 
       {searchResults.length > 0 && (
         <div className="space-y-2">
-          <Label>Search Results</Label>
+          <Label>{t('enrollment.partner.results')}</Label>
           <div className="max-h-60 space-y-2 overflow-y-auto">
             {searchResults.map((partner) => (
               <Card
@@ -109,7 +111,7 @@ export function PartnerSelector({
 
       {searchQuery && searchResults.length === 0 && !isSearching && (
         <p className="text-center text-sm text-muted-foreground">
-          No players found. Try a different search term.
+          {t('enrollment.partner.noResults')}
         </p>
       )}
     </div>

@@ -1,12 +1,14 @@
 import { EnrollmentWithDetails } from '@/types/enrollment'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Users, Trophy } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface ParticipantsListProps {
   enrollments: EnrollmentWithDetails[]
 }
 
 export function ParticipantsList({ enrollments }: ParticipantsListProps) {
+  const { t } = useTranslation()
   const approvedEnrollments = enrollments.filter((e) => e.status === 'approved')
   
   const categoryCounts = approvedEnrollments.reduce((acc, enrollment) => {
@@ -22,7 +24,7 @@ export function ParticipantsList({ enrollments }: ParticipantsListProps) {
       <Card>
         <CardContent className="py-8 text-center text-muted-foreground">
           <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-          <p>No approved participants yet</p>
+          <p>{t('organizer.participants.empty')}</p>
         </CardContent>
       </Card>
     )
@@ -35,7 +37,7 @@ export function ParticipantsList({ enrollments }: ParticipantsListProps) {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Total Teams
+              {t('organizer.participants.totalTeams')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -45,7 +47,7 @@ export function ParticipantsList({ enrollments }: ParticipantsListProps) {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Total Players
+              {t('organizer.participants.totalPlayers')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -55,7 +57,7 @@ export function ParticipantsList({ enrollments }: ParticipantsListProps) {
         <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Categories
+              {t('organizer.overview.categories')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -66,7 +68,7 @@ export function ParticipantsList({ enrollments }: ParticipantsListProps) {
 
       {/* By Category */}
       <div>
-        <h3 className="text-lg font-semibold mb-4">Teams by Category</h3>
+        <h3 className="text-lg font-semibold mb-4">{t('organizer.participants.byCategory')}</h3>
         <div className="space-y-4">
           {Object.entries(categoryCounts)
             .sort(([a], [b]) => Number(a) - Number(b))
@@ -104,10 +106,10 @@ export function ParticipantsList({ enrollments }: ParticipantsListProps) {
                               </span>
                               <div>
                                 <p className="font-medium">
-                                  {player1 ? `${player1.firstName} ${player1.lastName}` : 'Unknown'}
+                                  {player1 ? `${player1.firstName} ${player1.lastName}` : t('organizer.participants.unknown')}
                                 </p>
                                 <p className="text-sm text-muted-foreground">
-                                  {player2 ? `${player2.firstName} ${player2.lastName}` : 'Unknown'}
+                                  {player2 ? `${player2.firstName} ${player2.lastName}` : t('organizer.participants.unknown')}
                                 </p>
                               </div>
                             </div>

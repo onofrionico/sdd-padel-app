@@ -2,8 +2,10 @@ import { useAssociations } from '@/hooks/useAssociations'
 import { AssociationCard } from './AssociationCard'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Loader2, Building2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export function MyAssociations() {
+  const { t } = useTranslation()
   const { data: associations, isLoading, error } = useAssociations()
 
   if (isLoading) {
@@ -21,7 +23,7 @@ export function MyAssociations() {
       <Card>
         <CardContent className="py-12">
           <div className="text-center text-muted-foreground">
-            <p>Failed to load associations</p>
+            <p>{t('association.my.loadFailed')}</p>
             <p className="text-sm mt-2">{error.message}</p>
           </div>
         </CardContent>
@@ -33,13 +35,13 @@ export function MyAssociations() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>My Associations</CardTitle>
-          <CardDescription>You are not a member of any associations yet</CardDescription>
+          <CardTitle>{t('association.my.title2')}</CardTitle>
+          <CardDescription>{t('association.my.emptyTitle')}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center justify-center py-12">
           <Building2 className="h-12 w-12 text-muted-foreground mb-4" />
           <p className="text-muted-foreground text-center">
-            Browse available associations and request membership to get started
+            {t('association.my.emptyDescription')}
           </p>
         </CardContent>
       </Card>
@@ -49,9 +51,9 @@ export function MyAssociations() {
   return (
     <div className="space-y-4">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">My Associations</h2>
+        <h2 className="text-2xl font-bold tracking-tight">{t('association.my.title2')}</h2>
         <p className="text-muted-foreground">
-          Associations you are a member of
+          {t('association.my.subtitle')}
         </p>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

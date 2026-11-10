@@ -9,10 +9,12 @@ import { CategoryUpdateDialog } from '@/components/associations/CategoryUpdateDi
 import { ArrowLeft, Building2, Globe, Trophy } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { formatDate } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 export function AssociationDetailsPage() {
   const { id } = useParams<{ id: string }>()
   const { user } = useAuth()
+  const { t } = useTranslation()
   
   const { data: association, isLoading, error, refetch } = useAssociation(id || '')
   const { data: memberCategory } = useMemberCategory(
@@ -34,11 +36,11 @@ export function AssociationDetailsPage() {
     return (
       <div className="container py-8">
         <div className="text-center py-12">
-          <p className="text-destructive text-lg">Association not found.</p>
+          <p className="text-destructive text-lg">{t('association.details.notFound')}</p>
           <Button asChild className="mt-4">
             <Link to="/associations">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Associations
+              {t('association.details.back')}
             </Link>
           </Button>
         </div>
@@ -53,7 +55,7 @@ export function AssociationDetailsPage() {
       <Button variant="ghost" asChild className="mb-6">
         <Link to="/associations">
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Associations
+          {t('association.details.back')}
         </Link>
       </Button>
 
@@ -75,10 +77,10 @@ export function AssociationDetailsPage() {
               <h1 className="text-3xl font-bold tracking-tight">{association.name}</h1>
               {association.isActive ? (
                 <Badge className="mt-2 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
-                  Active
+                  {t('association.details.active')}
                 </Badge>
               ) : (
-                <Badge variant="outline" className="mt-2">Inactive</Badge>
+                <Badge variant="outline" className="mt-2">{t('association.details.inactive')}</Badge>
               )}
             </div>
           </div>
@@ -87,7 +89,7 @@ export function AssociationDetailsPage() {
         {association.description && (
           <Card>
             <CardHeader>
-              <CardTitle>About</CardTitle>
+              <CardTitle>{t('association.details.about')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">{association.description}</p>
@@ -100,13 +102,13 @@ export function AssociationDetailsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Globe className="h-5 w-5" />
-                Information
+                {t('association.details.information')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {association.website && (
                 <div>
-                  <p className="text-sm text-muted-foreground">Website</p>
+                  <p className="text-sm text-muted-foreground">{t('tournament.details.website')}</p>
                   <a 
                     href={association.website} 
                     target="_blank" 
@@ -118,7 +120,7 @@ export function AssociationDetailsPage() {
                 </div>
               )}
               <div>
-                <p className="text-sm text-muted-foreground">Created</p>
+                <p className="text-sm text-muted-foreground">{t('association.details.created')}</p>
                 <p className="font-medium">{formatDate(association.createdAt)}</p>
               </div>
             </CardContent>
@@ -128,7 +130,7 @@ export function AssociationDetailsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Trophy className="h-5 w-5" />
-                Points System
+                {t('association.details.pointsSystem')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -142,7 +144,7 @@ export function AssociationDetailsPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground">No points system configured</p>
+                <p className="text-sm text-muted-foreground">{t('association.details.noPointsSystem')}</p>
               )}
             </CardContent>
           </Card>
@@ -151,19 +153,19 @@ export function AssociationDetailsPage() {
         {user && (
           <Card>
             <CardHeader>
-              <CardTitle>Membership</CardTitle>
+              <CardTitle>{t('association.details.membership')}</CardTitle>
               <CardDescription>
                 {isMember 
-                  ? 'You are a member of this association' 
-                  : 'Join this association to participate in tournaments'}
+                  ? t('association.details.isMember') 
+                  : t('association.details.joinToParticipate')}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {isMember && memberCategory?.category && (
                 <div>
-                  <p className="text-sm text-muted-foreground mb-2">Your Category</p>
+                  <p className="text-sm text-muted-foreground mb-2">{t('association.details.yourCategory')}</p>
                   <Badge className="text-base px-4 py-2">
-                    Category {memberCategory.category}
+                    {t('category.default', { number: memberCategory.category })}
                   </Badge>
                 </div>
               )}
@@ -188,10 +190,10 @@ export function AssociationDetailsPage() {
         {!user && (
           <div className="rounded-lg border bg-muted/50 p-6 text-center">
             <p className="mb-4 text-muted-foreground">
-              You need to be logged in to join this association.
+              {t('association.details.loginRequired')}
             </p>
             <Button asChild>
-              <Link to="/login">Log In to Join</Link>
+              <Link to="/login">{t('association.details.loginToJoin')}</Link>
             </Button>
           </div>
         )}

@@ -3,7 +3,6 @@ import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import en from './locales/en.json'
 import es from './locales/es.json'
-import pt from './locales/pt.json'
 
 i18n
   .use(LanguageDetector)
@@ -12,9 +11,10 @@ i18n
     resources: {
       en: { translation: en },
       es: { translation: es },
-      pt: { translation: pt },
     },
     fallbackLng: 'es',
+    supportedLngs: ['es', 'en'],
+    nonExplicitSupportedLngs: true,
     debug: false,
     interpolation: {
       escapeValue: false,
@@ -24,5 +24,12 @@ i18n
       caches: ['localStorage'],
     },
   })
+
+// Mantiene <html lang> al día: lo usan los lectores de pantalla y el formato de fechas
+const syncHtmlLang = (lng?: string) => {
+  if (typeof document !== 'undefined' && lng) document.documentElement.lang = lng
+}
+syncHtmlLang(i18n.resolvedLanguage || i18n.language)
+i18n.on('languageChanged', syncHtmlLang)
 
 export default i18n

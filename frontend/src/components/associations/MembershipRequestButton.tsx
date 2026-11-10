@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { useAddMembership, useRemoveMembership } from '@/hooks/useAssociations'
 import { useAuth } from '@/contexts/AuthContext'
 import { UserPlus, UserMinus, Loader2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface MembershipRequestButtonProps {
   associationId: string
@@ -15,6 +16,7 @@ export function MembershipRequestButton({
   isMember,
   onSuccess 
 }: MembershipRequestButtonProps) {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const addMembership = useAddMembership()
   const removeMembership = useRemoveMembership()
@@ -65,12 +67,12 @@ export function MembershipRequestButton({
         {isLoading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Removing...
+            {t('association.membership.removing')}
           </>
         ) : (
           <>
             <UserMinus className="mr-2 h-4 w-4" />
-            Leave Association
+            {t('association.membership.leave')}
           </>
         )}
       </Button>
@@ -85,12 +87,12 @@ export function MembershipRequestButton({
       {isLoading ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          Requesting...
+          {t('association.membership.requesting')}
         </>
       ) : (
         <>
           <UserPlus className="mr-2 h-4 w-4" />
-          Request Membership
+          {t('association.membership.request')}
         </>
       )}
     </Button>

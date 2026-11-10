@@ -8,8 +8,10 @@ import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export function RankingsPage() {
+  const { t } = useTranslation()
   const { data: associations, isLoading: loadingAssociations } = useAssociations()
   const [selectedAssociationId, setSelectedAssociationId] = useState<string | undefined>(undefined)
   const [selectedSeasonId, setSelectedSeasonId] = useState<string | undefined>(undefined)
@@ -46,7 +48,7 @@ export function RankingsPage() {
       <div className="container py-8">
         <div className="rounded-lg border bg-muted/50 p-8 text-center">
           <p className="text-muted-foreground">
-            You need to join an association to view rankings.
+            {t('rankings.page.needAssociation')}
           </p>
         </div>
       </div>
@@ -57,7 +59,7 @@ export function RankingsPage() {
     return (
       <div className="container py-8">
         <div className="rounded-lg border border-destructive bg-destructive/10 p-4 text-center">
-          <p className="text-destructive">Failed to load rankings. Please try again.</p>
+          <p className="text-destructive">{t('rankings.page.loadFailed')}</p>
         </div>
       </div>
     )
@@ -68,9 +70,9 @@ export function RankingsPage() {
   return (
     <div className="container py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Player Rankings</h1>
+        <h1 className="text-3xl font-bold mb-2">{t('rankings.page.title')}</h1>
         <p className="text-muted-foreground">
-          View the current rankings and standings across all categories
+          {t('rankings.page.subtitle')}
         </p>
       </div>
 
@@ -78,7 +80,7 @@ export function RankingsPage() {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Association</label>
+              <label className="text-sm font-medium">{t('tournament.details.association')}</label>
               <Select 
                 value={selectedAssociationId} 
                 onValueChange={(value) => {
@@ -87,7 +89,7 @@ export function RankingsPage() {
                 }}
               >
                 <SelectTrigger className="w-[250px]">
-                  <SelectValue placeholder="Select association" />
+                  <SelectValue placeholder={t('rankings.page.selectAssociation')} />
                 </SelectTrigger>
                 <SelectContent>
                   {associations.map((assoc) => (
@@ -100,17 +102,17 @@ export function RankingsPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">Season</label>
+              <label className="text-sm font-medium">{t('rankings.page.season')}</label>
               <Select 
                 value={selectedSeasonId || 'current'} 
                 onValueChange={(value) => setSelectedSeasonId(value === 'current' ? undefined : value)}
                 disabled={!selectedAssociationId || loadingSeasons}
               >
                 <SelectTrigger className="w-[250px]">
-                  <SelectValue placeholder="Select season" />
+                  <SelectValue placeholder={t('rankings.page.selectSeason')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="current">Current Season</SelectItem>
+                  <SelectItem value="current">{t('rankings.page.currentSeason')}</SelectItem>
                   {seasons?.map((season) => (
                     <SelectItem key={season.id} value={season.id}>
                       {season.name}
@@ -121,14 +123,14 @@ export function RankingsPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">Category</label>
+              <label className="text-sm font-medium">{t('rankings.page.category')}</label>
               <CategoryFilter value={categoryId} onChange={setCategoryId} />
             </div>
           </div>
           
           {data && (
             <div className="text-sm text-muted-foreground">
-              Showing {rankings.length} of {data.count} players
+              {t('rankings.page.showing', { shown: rankings.length, total: data.count })}
               {data.season && ` • ${data.season.name}`}
             </div>
           )}
@@ -138,13 +140,13 @@ export function RankingsPage() {
       {!data?.season ? (
         <div className="rounded-lg border bg-muted/50 p-8 text-center">
           <p className="text-muted-foreground">
-            No active season found for this association. Rankings will be available once a season is created.
+            {t('rankings.page.noSeason')}
           </p>
         </div>
       ) : rankings.length === 0 ? (
         <div className="rounded-lg border bg-muted/50 p-8 text-center">
           <p className="text-muted-foreground">
-            No rankings available for this category yet.
+            {t('rankings.page.empty')}
           </p>
         </div>
       ) : (
@@ -160,7 +162,7 @@ export function RankingsPage() {
                 disabled={page === 1}
               >
                 <ChevronLeft className="h-4 w-4" />
-                Previous
+                {t('common.previous')}
               </Button>
               
               <div className="flex items-center gap-1">
@@ -195,7 +197,7 @@ export function RankingsPage() {
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
               >
-                Next
+                {t('common.next')}
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>

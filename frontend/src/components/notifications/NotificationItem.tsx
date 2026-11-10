@@ -42,6 +42,16 @@ export function NotificationItem({ notification, onClick, className }: Notificat
     }
   }
 
+  // El backend manda messageKey + messageParams; si no hay traducción, se muestra su texto original
+  const getMessage = (): string => {
+    const key = notification.metadata?.messageKey
+    if (!key) return notification.message
+    return String(t(`notification.messages.${key}`, {
+      ...(notification.metadata?.messageParams ?? {}),
+      defaultValue: notification.message,
+    }))
+  }
+
   const getTimeAgo = () => {
     try {
       const locale = i18n.language === 'es' ? es : enUS
@@ -79,7 +89,7 @@ export function NotificationItem({ notification, onClick, className }: Notificat
         </div>
         
         <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-          {notification.message}
+          {getMessage()}
         </p>
         
         <p className="mt-1 text-xs text-muted-foreground">

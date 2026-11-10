@@ -1,14 +1,17 @@
-import { Tournament, getTournamentCategories, formatTournamentType } from '@/types/tournament'
+import { Tournament, getTournamentCategories } from '@/types/tournament'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Calendar, Trophy, Building2 } from 'lucide-react'
-import { formatDate, formatTournamentStatus, formatCategory } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
+import { formatTournamentStatus, formatCategory, formatTournamentType } from '@/lib/i18nUtils'
+import { useTranslation } from 'react-i18next'
 
 interface TournamentDetailsProps {
   tournament: Tournament
 }
 
 export function TournamentDetails({ tournament }: TournamentDetailsProps) {
+  const { t } = useTranslation()
   return (
     <div className="space-y-6">
       <div>
@@ -30,24 +33,24 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Building2 className="h-5 w-5" />
-              Association
+              {t('tournament.details.association')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
               <div>
-                <p className="text-sm text-muted-foreground">Name</p>
+                <p className="text-sm text-muted-foreground">{t('tournament.details.name')}</p>
                 <p className="font-medium text-lg">{tournament.association.name}</p>
               </div>
               {tournament.association.description && (
                 <div>
-                  <p className="text-sm text-muted-foreground">Description</p>
+                  <p className="text-sm text-muted-foreground">{t('tournament.details.description')}</p>
                   <p className="text-muted-foreground">{tournament.association.description}</p>
                 </div>
               )}
               {tournament.association.website && (
                 <div>
-                  <p className="text-sm text-muted-foreground">Website</p>
+                  <p className="text-sm text-muted-foreground">{t('tournament.details.website')}</p>
                   <a 
                     href={tournament.association.website} 
                     target="_blank" 
@@ -68,16 +71,16 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Calendar className="h-5 w-5" />
-              Tournament Dates
+              {t('tournament.details.dates')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div>
-              <p className="text-sm text-muted-foreground">Start Date</p>
+              <p className="text-sm text-muted-foreground">{t('tournament.details.startDate')}</p>
               <p className="font-medium">{formatDate(tournament.startDate)}</p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">End Date</p>
+              <p className="text-sm text-muted-foreground">{t('organizer.overview.endDate')}</p>
               <p className="font-medium">{tournament.endDate ? formatDate(tournament.endDate) : '-'}</p>
             </div>
           </CardContent>
@@ -87,13 +90,13 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Trophy className="h-5 w-5" />
-              Tournament Format
+              {t('tournament.details.format')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {tournament.type && (
               <div>
-                <p className="text-sm text-muted-foreground">Format</p>
+                <p className="text-sm text-muted-foreground">{t('organizer.overview.format')}</p>
                 <p className="font-medium capitalize">
                   {formatTournamentType(tournament.type)}
                 </p>
@@ -101,13 +104,13 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
             )}
             {tournament.settings?.maxTeams && (
               <div>
-                <p className="text-sm text-muted-foreground">Maximum Teams</p>
-                <p className="font-medium">{tournament.settings.maxTeams} teams</p>
+                <p className="text-sm text-muted-foreground">{t('organizer.overview.maxTeams')}</p>
+                <p className="font-medium">{t('tournament.details.teams', { count: tournament.settings.maxTeams })}</p>
               </div>
             )}
             {tournament.settings?.teamSize && (
               <div>
-                <p className="text-sm text-muted-foreground">Team Size</p>
+                <p className="text-sm text-muted-foreground">{t('tournament.details.teamSize')}</p>
                 <p className="font-medium">{tournament.settings.teamSize}</p>
               </div>
             )}
@@ -117,8 +120,8 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Categories</CardTitle>
-          <CardDescription>Available categories for this tournament</CardDescription>
+          <CardTitle>{t('organizer.overview.categories')}</CardTitle>
+          <CardDescription>{t('tournament.details.categoriesDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
           {getTournamentCategories(tournament).length > 0 ? (
@@ -130,15 +133,15 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
               ))}
             </div>
           ) : (
-            <p className="text-muted-foreground">No categories defined</p>
+            <p className="text-muted-foreground">{t('tournament.details.noCategories')}</p>
           )}
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Point Distribution</CardTitle>
-          <CardDescription>Points awarded for each position</CardDescription>
+          <CardTitle>{t('tournament.details.points')}</CardTitle>
+          <CardDescription>{t('tournament.details.pointsDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
           {tournament.settings?.pointsDistribution && Object.keys(tournament.settings.pointsDistribution).length > 0 ? (
@@ -147,12 +150,12 @@ export function TournamentDetails({ tournament }: TournamentDetailsProps) {
                 <div key={position} className="flex flex-col items-center p-4 border rounded-lg">
                   <p className="text-sm text-muted-foreground">{position}</p>
                   <p className="text-2xl font-bold">{points}</p>
-                  <p className="text-xs text-muted-foreground">points</p>
+                  <p className="text-xs text-muted-foreground">{t('tournament.details.pointsUnit')}</p>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-muted-foreground">No point distribution defined</p>
+            <p className="text-muted-foreground">{t('tournament.details.noPoints')}</p>
           )}
         </CardContent>
       </Card>

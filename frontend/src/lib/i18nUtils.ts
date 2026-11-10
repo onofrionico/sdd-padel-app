@@ -24,3 +24,10 @@ export function formatEnrollmentStatus(status: string): string {
   }
   return i18n.t(statusMap[status] || status)
 }
+
+/** Formato del torneo traducido ("double_elimination" → "Eliminación Doble"). */
+export function formatTournamentType(type?: string | null): string {
+  if (!type) return ''
+  const key = type.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase()) // double_elimination → doubleElimination
+  return i18n.t(`tournament.form.type.${key}`, { defaultValue: type.replace(/_/g, ' ') })
+}

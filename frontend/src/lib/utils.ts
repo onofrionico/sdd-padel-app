@@ -5,8 +5,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+/** Locale de fechas según el idioma activo de la app (es → formato argentino). */
+export function getDateLocale(): string {
+  const lang = (typeof document !== 'undefined' && document.documentElement.lang) || 'es'
+  return lang.startsWith('en') ? 'en-US' : 'es-AR'
+}
+
 export function formatDate(date: string | Date): string {
-  return new Date(date).toLocaleDateString('es-ES', {
+  return new Date(date).toLocaleDateString(getDateLocale(), {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

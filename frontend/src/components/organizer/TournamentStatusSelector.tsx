@@ -1,5 +1,6 @@
 import { Tournament } from '@/types/tournament'
 import { Label } from '@/components/ui/label'
+import { useTranslation } from 'react-i18next'
 
 interface TournamentStatusSelectorProps {
   currentStatus: Tournament['status']
@@ -12,32 +13,38 @@ export function TournamentStatusSelector({
   onChange,
   disabled = false,
 }: TournamentStatusSelectorProps) {
+  const { t } = useTranslation()
   const statuses: Array<{ value: Tournament['status']; label: string; description: string }> = [
     {
       value: 'upcoming',
-      label: 'Upcoming',
-      description: 'Tournament is scheduled but not started',
+      label: t('tournament.status.upcoming'),
+      description: t('organizer.statusSelector.upcoming'),
+    },
+    {
+      value: 'registration_open',
+      label: t('tournament.status.registrationOpen'),
+      description: t('organizer.statusSelector.registrationOpen'),
     },
     {
       value: 'in_progress',
-      label: 'In Progress',
-      description: 'Tournament is currently active',
+      label: t('tournament.status.inProgress'),
+      description: t('organizer.statusSelector.inProgress'),
     },
     {
       value: 'completed',
-      label: 'Completed',
-      description: 'Tournament has finished',
+      label: t('tournament.status.completed'),
+      description: t('organizer.statusSelector.completed'),
     },
     {
       value: 'cancelled',
-      label: 'Cancelled',
-      description: 'Tournament was cancelled',
+      label: t('tournament.status.cancelled'),
+      description: t('organizer.statusSelector.cancelled'),
     },
   ]
 
   return (
     <div className="space-y-2">
-      <Label htmlFor="status">Tournament Status</Label>
+      <Label htmlFor="status">{t('organizer.overview.statusTitle')}</Label>
       <select
         id="status"
         value={currentStatus}

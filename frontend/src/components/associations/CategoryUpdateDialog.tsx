@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useUpdateMemberCategory } from '@/hooks/useAssociations'
 import { useAuth } from '@/contexts/AuthContext'
 import { Loader2, Edit } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface CategoryUpdateDialogProps {
   associationId: string
@@ -26,6 +27,7 @@ export function CategoryUpdateDialog({
   currentCategory,
   onSuccess 
 }: CategoryUpdateDialogProps) {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const [open, setOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string>(
@@ -57,26 +59,26 @@ export function CategoryUpdateDialog({
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
           <Edit className="mr-2 h-4 w-4" />
-          Update Category
+          {t('association.category.update')}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Update Category</DialogTitle>
+            <DialogTitle>{t('association.category.update')}</DialogTitle>
             <DialogDescription>
-              Select your category for this association. Categories range from 1st (highest) to 8th (lowest).
+              {t('association.category.description')}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="category">Category</Label>
+              <Label htmlFor="category">{t('rankings.page.category')}</Label>
               <Select
                 value={selectedCategory}
                 onValueChange={setSelectedCategory}
               >
                 <SelectTrigger id="category">
-                  <SelectValue placeholder="Select a category" />
+                  <SelectValue placeholder={t('association.category.placeholder')} />
                 </SelectTrigger>
                 <SelectContent>
                   {[1, 2, 3, 4, 5, 6, 7, 8].map((cat) => (
@@ -95,16 +97,16 @@ export function CategoryUpdateDialog({
               onClick={() => setOpen(false)}
               disabled={updateCategory.isPending}
             >
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button type="submit" disabled={updateCategory.isPending}>
               {updateCategory.isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Updating...
+                  {t('association.category.updating')}
                 </>
               ) : (
-                'Update Category'
+                t('association.category.update')
               )}
             </Button>
           </DialogFooter>

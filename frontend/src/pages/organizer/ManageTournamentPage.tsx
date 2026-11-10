@@ -3,7 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { tournamentsApi } from '@/services/api/tournaments'
 import { enrollmentsApi } from '@/services/api/enrollments'
-import { Tournament, getTournamentCategories, formatTournamentType } from '@/types/tournament'
+import { Tournament, getTournamentCategories } from '@/types/tournament'
+import { formatTournamentType } from '@/lib/i18nUtils'
 import { EnrollmentWithDetails } from '@/types/enrollment'
 import { TournamentStatusSelector } from '@/components/organizer/TournamentStatusSelector'
 import { ParticipantsList } from '@/components/organizer/ParticipantsList'
@@ -13,12 +14,14 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { useToast } from '@/hooks/use-toast'
 import { AlertCircle, Edit, Trash2, Users, Calendar, DollarSign } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export function ManageTournamentPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { toast } = useToast()
   const queryClient = useQueryClient()
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState<'overview' | 'enrollments' | 'participants' | 'payments'>('overview')
 
   const { data: tournament, isLoading: tournamentLoading, error: tournamentError } = useQuery({
@@ -38,14 +41,14 @@ export function ManageTournamentPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament', id] })
       toast({
-        title: 'Success',
-        description: 'Tournament status updated successfully',
+        title: t('common.success'),
+        description: t('organizer.toast.statusUpdated'),
       })
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.response?.data?.message || 'Failed to update status',
+        title: t('common.error'),
+        description: error.response?.data?.message || t('organizer.toast.statusUpdateFailed'),
         variant: 'destructive',
       })
     },
@@ -55,15 +58,15 @@ export function ManageTournamentPage() {
     mutationFn: () => tournamentsApi.delete(id!),
     onSuccess: () => {
       toast({
-        title: 'Success',
-        description: 'Tournament deleted successfully',
+        title: t('common.success'),
+        description: t('organizer.toast.deleted'),
       })
       navigate('/organizer/tournaments')
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.response?.data?.message || 'Failed to delete tournament',
+        title: t('common.error'),
+        description: error.response?.data?.message || t('organizer.toast.deleteFailed'),
         variant: 'destructive',
       })
     },
@@ -74,14 +77,14 @@ export function ManageTournamentPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament-enrollments', id] })
       toast({
-        title: 'Success',
-        description: 'Enrollment approved successfully',
+        title: t('common.success'),
+        description: t('organizer.toast.enrollmentApproved'),
       })
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.response?.data?.message || 'Failed to approve enrollment',
+        title: t('common.error'),
+        description: error.response?.data?.message || t('organizer.toast.enrollmentApproveFailed'),
         variant: 'destructive',
       })
     },
@@ -93,14 +96,14 @@ export function ManageTournamentPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tournament-enrollments', id] })
       toast({
-        title: 'Success',
-        description: 'Enrollment rejected',
+        title: t('common.success'),
+        description: t('organizer.toast.enrollmentRejected'),
       })
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.response?.data?.message || 'Failed to reject enrollment',
+        title: t('common.error'),
+        description: error.response?.data?.message || t('organizer.toast.enrollmentRejectFailed'),
         variant: 'destructive',
       })
     },
@@ -108,7 +111,7 @@ export function ManageTournamentPage() {
 
   // El motivo del rechazo queda guardado en la inscripción (rejectionReason)
   const handleReject = (enrollmentId: string) => {
-    const reason = window.prompt('Motivo del rechazo (opcional):')
+    const reason = window.prompt(t('organizer.enrollments.rejectReasonPrompt'))
     if (reason === null) return
     rejectMutation.mutate({ enrollmentId, rejectionReason: reason.trim() || undefined })
   }
@@ -126,7 +129,7 @@ export function ManageTournamentPage() {
       <div className="container py-8">
         <div className="flex items-center gap-2 rounded-md bg-destructive/10 p-4 text-destructive">
           <AlertCircle className="h-5 w-5" />
-          <span>Failed to load tournament. Please try again.</span>
+          <span>{t('organizer.loadTournamentFailed')}</span>
         </div>
       </div>
     )
@@ -148,7 +151,7 @@ export function ManageTournamentPage() {
             </div>
             <div className="flex items-center gap-1">
               <Users className="h-4 w-4" />
-              <span>{approvedEnrollments.length} teams enrolled</span>
+              <span>{t('organizer.teamsEnrolled', { count: approvedEnrollments.length })}</span>
             </div>
           </div>
         </div>
@@ -158,19 +161,19 @@ export function ManageTournamentPage() {
             onClick={() => navigate(`/organizer/tournaments/${id}/edit`)}
           >
             <Edit className="h-4 w-4 mr-2" />
-            Edit
+            {t('common.edit')}
           </Button>
           <Button
             variant="destructive"
             onClick={() => {
-              if (confirm('Are you sure you want to delete this tournament?')) {
+              if (confirm(t('organizer.confirmDelete'))) {
                 deleteMutation.mutate()
               }
             }}
             disabled={deleteMutation.isPending}
           >
             <Trash2 className="h-4 w-4 mr-2" />
-            Delete
+            {t('common.delete')}
           </Button>
         </div>
       </div>
@@ -186,7 +189,7 @@ export function ManageTournamentPage() {
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
-            Overview
+            {t('organizer.tabs.overview')}
           </button>
           <button
             onClick={() => setActiveTab('enrollments')}
@@ -196,7 +199,7 @@ export function ManageTournamentPage() {
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
-            Enrollments {pendingEnrollments.length > 0 && (
+            {t('organizer.tabs.enrollments')} {pendingEnrollments.length > 0 && (
               <span className="ml-1 bg-primary text-primary-foreground rounded-full px-2 py-0.5 text-xs">
                 {pendingEnrollments.length}
               </span>
@@ -210,7 +213,7 @@ export function ManageTournamentPage() {
                 : 'border-transparent text-muted-foreground hover:text-foreground'
             }`}
           >
-            Participants
+            {t('organizer.tabs.participants')}
           </button>
           <button
             onClick={() => setActiveTab('payments')}
@@ -221,7 +224,7 @@ export function ManageTournamentPage() {
             }`}
           >
             <DollarSign className="h-4 w-4 inline mr-1" />
-            Payments
+            {t('organizer.tabs.payments')}
           </button>
         </div>
       </div>
@@ -231,8 +234,8 @@ export function ManageTournamentPage() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Tournament Status</CardTitle>
-              <CardDescription>Update the current status of the tournament</CardDescription>
+              <CardTitle>{t('organizer.overview.statusTitle')}</CardTitle>
+              <CardDescription>{t('organizer.overview.statusDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <TournamentStatusSelector
@@ -245,24 +248,24 @@ export function ManageTournamentPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Tournament Details</CardTitle>
+              <CardTitle>{t('organizer.overview.detailsTitle')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Format</p>
-                  <p className="text-base capitalize">{formatTournamentType(tournament.type)}</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('organizer.overview.format')}</p>
+                  <p className="text-base">{formatTournamentType(tournament.type)}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Max Teams</p>
-                  <p className="text-base">{tournament.settings?.maxTeams || 'Unlimited'}</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('organizer.overview.maxTeams')}</p>
+                  <p className="text-base">{tournament.settings?.maxTeams || t('organizer.overview.unlimited')}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">Categories</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('organizer.overview.categories')}</p>
                   <p className="text-base">{getTournamentCategories(tournament).join(', ') || '-'}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">End Date</p>
+                  <p className="text-sm font-medium text-muted-foreground">{t('organizer.overview.endDate')}</p>
                   <p className="text-base">
                     {tournament.endDate ? new Date(tournament.endDate).toLocaleDateString() : '-'}
                   </p>
@@ -277,7 +280,7 @@ export function ManageTournamentPage() {
         <div className="space-y-6">
           <div>
             <h2 className="text-2xl font-bold mb-4">
-              Pending Requests ({pendingEnrollments.length})
+              {t('organizer.enrollments.pending', { count: pendingEnrollments.length })}
             </h2>
             {enrollmentsLoading ? (
               <div className="flex justify-center py-8">
@@ -287,7 +290,7 @@ export function ManageTournamentPage() {
               <Card>
                 <CardContent className="py-8 text-center text-muted-foreground">
                   <Users className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                  <p>No pending enrollment requests</p>
+                  <p>{t('organizer.enrollments.noPending')}</p>
                 </CardContent>
               </Card>
             ) : (
@@ -307,12 +310,12 @@ export function ManageTournamentPage() {
 
           <div>
             <h2 className="text-2xl font-bold mb-4">
-              Approved ({approvedEnrollments.length})
+              {t('organizer.enrollments.approved', { count: approvedEnrollments.length })}
             </h2>
             {approvedEnrollments.length === 0 ? (
               <Card>
                 <CardContent className="py-8 text-center text-muted-foreground">
-                  <p>No approved enrollments yet</p>
+                  <p>{t('organizer.enrollments.noApproved')}</p>
                 </CardContent>
               </Card>
             ) : (
@@ -352,13 +355,13 @@ export function ManageTournamentPage() {
             className="mb-4"
           >
             <DollarSign className="h-4 w-4 mr-2" />
-            View Full Payment Dashboard
+            {t('organizer.payments.viewDashboard')}
           </Button>
           <Card>
             <CardContent className="py-8 text-center text-muted-foreground">
               <DollarSign className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p className="mb-2">Payment management for this tournament</p>
-              <p className="text-sm">Click the button above to view the full payment dashboard with statistics and payment list.</p>
+              <p className="mb-2">{t('organizer.payments.title')}</p>
+              <p className="text-sm">{t('organizer.payments.description')}</p>
             </CardContent>
           </Card>
         </div>

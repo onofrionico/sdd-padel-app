@@ -13,6 +13,7 @@ import { useEnrollments } from '@/hooks/useEnrollments'
 import { Tournament } from '@/types/tournament'
 import { EnrollmentFormData } from '@/lib/validators'
 import { UserPlus } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 interface EnrollmentDialogProps {
   tournament: Tournament
@@ -21,6 +22,7 @@ interface EnrollmentDialogProps {
 }
 
 export function EnrollmentDialog({ tournament, disabled, children }: EnrollmentDialogProps) {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const { createEnrollment, isCreatingEnrollment } = useEnrollments()
 
@@ -35,7 +37,7 @@ export function EnrollmentDialog({ tournament, disabled, children }: EnrollmentD
         {children || (
           <Button disabled={disabled} size="lg" className="w-full sm:w-auto">
             <UserPlus className="mr-2 h-5 w-5" />
-            Enroll in Tournament
+            {t('enrollment.dialog.title')}
           </Button>
         )}
       </DialogTrigger>
@@ -43,8 +45,7 @@ export function EnrollmentDialog({ tournament, disabled, children }: EnrollmentD
         <DialogHeader>
           <DialogTitle>Enroll in {tournament.name}</DialogTitle>
           <DialogDescription>
-            Select your partner and category to enroll in this tournament. Your enrollment will
-            be reviewed by the organizer.
+            {t('enrollment.dialog.description')}
           </DialogDescription>
         </DialogHeader>
         <EnrollmentForm

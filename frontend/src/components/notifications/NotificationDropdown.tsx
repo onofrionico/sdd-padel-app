@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { LoadingSpinner } from '@/components/common/LoadingSpinner'
 import { CheckCheck, Bell } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 interface NotificationDropdownProps {
   isOpen: boolean
@@ -14,6 +15,7 @@ interface NotificationDropdownProps {
 }
 
 export function NotificationDropdown({ isOpen, onClose, triggerRef }: NotificationDropdownProps) {
+  const { t } = useTranslation()
   const dropdownRef = useRef<HTMLDivElement>(null)
   const { notifications, isLoading, markAsRead, markAllAsRead, unreadCount } = useNotifications()
 
@@ -51,7 +53,7 @@ export function NotificationDropdown({ isOpen, onClose, triggerRef }: Notificati
       )}
     >
       <div className="flex items-center justify-between border-b p-4">
-        <h3 className="font-semibold">Notifications</h3>
+        <h3 className="font-semibold">{t('header.nav.notifications')}</h3>
         {unreadCount > 0 && (
           <Button
             variant="ghost"
@@ -60,7 +62,7 @@ export function NotificationDropdown({ isOpen, onClose, triggerRef }: Notificati
             className="h-8 text-xs"
           >
             <CheckCheck className="mr-1 h-3 w-3" />
-            Mark all read
+            {t('notification.markAllRead')}
           </Button>
         )}
       </div>
@@ -73,7 +75,7 @@ export function NotificationDropdown({ isOpen, onClose, triggerRef }: Notificati
         ) : recentNotifications.length === 0 ? (
           <div className="flex flex-col items-center justify-center p-8 text-center">
             <Bell className="h-12 w-12 text-muted-foreground/50 mb-3" />
-            <p className="text-sm text-muted-foreground">No notifications yet</p>
+            <p className="text-sm text-muted-foreground">{t('notification.empty')}</p>
           </div>
         ) : (
           <>
@@ -102,7 +104,7 @@ export function NotificationDropdown({ isOpen, onClose, triggerRef }: Notificati
             className="w-full"
             onClick={onClose}
           >
-            <Link to="/notifications">View all notifications</Link>
+            <Link to="/notifications">{t('notification.viewAll')}</Link>
           </Button>
         </div>
       )}
