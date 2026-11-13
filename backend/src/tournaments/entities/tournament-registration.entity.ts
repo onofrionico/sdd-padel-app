@@ -2,7 +2,14 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDa
 import { Tournament } from './tournament.entity';
 import { TournamentTeam } from './tournament-team.entity';
 
-export type RegistrationStatus = 'pending' | 'approved' | 'rejected' | 'withdrawn';
+export type RegistrationStatus = 
+  | 'pending' 
+  | 'approved' 
+  | 'payment_pending' 
+  | 'confirmed' 
+  | 'rejected' 
+  | 'withdrawn' 
+  | 'cancelled';
 
 @Entity('tournament_registrations')
 export class TournamentRegistration {

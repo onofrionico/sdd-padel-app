@@ -44,11 +44,23 @@ export class PlayerService {
   }
 
   async updateProfile(userId: string, dto: UpdatePlayerProfileDto): Promise<User> {
-    await this.usersRepository.update(userId, {
-      playingHand: dto.playingHand,
-      playingStyle: dto.playingStyle,
-      profilePicture: dto.profilePicture,
-    });
+    // Solo se actualizan los campos enviados
+    const changes = Object.fromEntries(
+      Object.entries({
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+        phoneNumber: dto.phoneNumber,
+        gender: dto.gender,
+        dateOfBirth: dto.dateOfBirth,
+        playingHand: dto.playingHand,
+        playingStyle: dto.playingStyle,
+        profilePicture: dto.profilePicture,
+      }).filter(([, value]) => value !== undefined),
+    );
+
+    if (Object.keys(changes).length > 0) {
+      await this.usersRepository.update(userId, changes as any);
+    }
 
     return this.getProfile(userId);
   }

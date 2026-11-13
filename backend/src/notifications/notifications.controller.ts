@@ -19,6 +19,20 @@ export class NotificationsController {
     return this.notificationsService.listForUser(req.user.id);
   }
 
+  @Get('unread-count')
+  @ApiOperation({ summary: 'Count my unread notifications' })
+  @ApiResponse({ status: 200, schema: { example: { count: 3 } } })
+  async unreadCount(@Req() req: { user: User }) {
+    return { count: await this.notificationsService.countUnread(req.user.id) };
+  }
+
+  @Put('read-all')
+  @ApiOperation({ summary: 'Mark all my notifications as read' })
+  @ApiResponse({ status: 200, schema: { example: { updated: 3 } } })
+  async markAllRead(@Req() req: { user: User }) {
+    return { updated: await this.notificationsService.markAllAsRead(req.user.id) };
+  }
+
   @Put(':id/read')
   @ApiOperation({ summary: 'Mark a notification as read' })
   @ApiParam({ name: 'id', format: 'uuid' })

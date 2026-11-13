@@ -3,6 +3,8 @@ import {
   ForbiddenException,
   Injectable,
   NotFoundException,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -14,6 +16,7 @@ import { Tournament, TournamentStatus } from './entities/tournament.entity';
 import { TournamentPlayer } from './entities/tournament-player.entity';
 import { TournamentRegistration, RegistrationStatus } from './entities/tournament-registration.entity';
 import { TournamentTeam } from './entities/tournament-team.entity';
+import { PaymentsService } from '../payments/services/payments.service';
 
 @Injectable()
 export class EnrollmentService {
@@ -28,6 +31,8 @@ export class EnrollmentService {
     private readonly registrationRepository: Repository<TournamentRegistration>,
     private readonly associationsService: AssociationsService,
     private readonly notificationsService: NotificationsService,
+    @Inject(forwardRef(() => PaymentsService))
+    private readonly paymentsService: PaymentsService,
   ) {}
 
   async submitEnrollmentRequest(params: {
@@ -125,7 +130,13 @@ export class EnrollmentService {
       userId: params.partnerId,
       type: NotificationType.TOURNAMENT_INVITATION,
       message: `You have been added to an enrollment request for tournament "${tournament.name}".`,
-      metadata: { tournamentId: tournament.id, registrationId: registration.id, teamId: team.id },
+      metadata: {
+        tournamentId: tournament.id,
+        registrationId: registration.id,
+        teamId: team.id,
+        messageKey: 'enrollment_invitation',
+        messageParams: { tournamentName: tournament.name },
+      },
     });
 
     return this.getRegistrationById(registration.id);
@@ -191,21 +202,83 @@ export class EnrollmentService {
     });
 
     const players = registration.team?.players ?? [];
-    for (const p of players) {
-      await this.notificationsService.create({
-        userId: p.userId,
-        type: NotificationType.TOURNAMENT_UPDATE,
-        message:
-          params.decision === 'approved'
-            ? `Your enrollment request was approved for tournament "${tournament?.name ?? ''}".`
-            : `Your enrollment request was rejected for tournament "${tournament?.name ?? ''}".`,
-        metadata: {
-          tournamentId: params.tournamentId,
-          registrationId: registration.id,
-          decision: params.decision,
-          rejectionReason: registration.rejectionReason,
-        },
-      });
+    
+    // Create payment if enrollment is approved and tournament requires payment
+    if (params.decision === 'approved' && tournament?.paymentSettings?.requiresDeposit) {
+      try {
+        // Update registration status to payment_pending
+        registration.status = 'payment_pending' as RegistrationStatus;
+        await this.registrationRepository.save(registration);
+
+        // Create payment with default type (can be changed by user later)
+        const firstPlayer = players[0];
+        await this.paymentsService.createPaymentForEnrollment(
+          registration.id,
+          firstPlayer.userId,
+          tournament.paymentSettings.allowTeamPayment ? 'full_team' : 'split',
+        );
+
+        // Notify players about payment requirement
+        for (const p of players) {
+          await this.notificationsService.create({
+            userId: p.userId,
+            type: NotificationType.PAYMENT_REQUIRED,
+            message: `Your enrollment was approved for "${tournament?.name ?? ''}". Payment is required to confirm your participation.`,
+            metadata: {
+              tournamentId: params.tournamentId,
+              registrationId: registration.id,
+              requiresPayment: true,
+              messageKey: 'enrollment_approved_payment_required',
+              messageParams: { tournamentName: tournament?.name ?? '' },
+            },
+          });
+        }
+      } catch (error) {
+        console.error('Error creating payment:', error);
+        // If payment creation fails, still notify about approval
+        for (const p of players) {
+          await this.notificationsService.create({
+            userId: p.userId,
+            type: NotificationType.TOURNAMENT_UPDATE,
+            message: `Your enrollment request was approved for tournament "${tournament?.name ?? ''}".`,
+            metadata: {
+              tournamentId: params.tournamentId,
+              registrationId: registration.id,
+              decision: params.decision,
+              messageKey: 'enrollment_approved',
+              messageParams: { tournamentName: tournament?.name ?? '' },
+            },
+          });
+        }
+      }
+    } else {
+      // No payment required, send standard notifications
+      for (const p of players) {
+        await this.notificationsService.create({
+          userId: p.userId,
+          type: NotificationType.TOURNAMENT_UPDATE,
+          message:
+            params.decision === 'approved'
+              ? `Your enrollment request was approved for tournament "${tournament?.name ?? ''}".`
+              : `Your enrollment request was rejected for tournament "${tournament?.name ?? ''}".`,
+          metadata: {
+            tournamentId: params.tournamentId,
+            registrationId: registration.id,
+            decision: params.decision,
+            rejectionReason: registration.rejectionReason,
+            messageKey:
+              params.decision === 'approved'
+                ? 'enrollment_approved'
+                : registration.rejectionReason
+                  ? 'enrollment_rejected_with_reason'
+                  : 'enrollment_rejected',
+            messageParams: {
+              tournamentName: tournament?.name ?? '',
+              reason: registration.rejectionReason ?? '',
+            },
+          },
+        });
+      }
     }
 
     return this.getRegistrationById(registration.id);
@@ -224,6 +297,41 @@ export class EnrollmentService {
     });
 
     return registrations.map(r => r.team).filter(Boolean);
+  }
+
+  async getUserEnrollments(userId: string): Promise<TournamentRegistration[]> {
+    console.log('getUserEnrollments called for userId:', userId);
+    
+    // First, get the team IDs where the user is a player
+    const playerTeams = await this.playerRepository
+      .createQueryBuilder('player')
+      .select('player.teamId')
+      .where('player.userId = :userId', { userId })
+      .getMany();
+
+    console.log('Found player teams:', playerTeams.length, playerTeams);
+
+    if (playerTeams.length === 0) {
+      console.log('No player teams found, returning empty array');
+      return [];
+    }
+
+    const teamIds = playerTeams.map(pt => pt.teamId);
+    console.log('Team IDs:', teamIds);
+
+    // Then get the registrations for those teams with all relations
+    const registrations = await this.registrationRepository
+      .createQueryBuilder('registration')
+      .leftJoinAndSelect('registration.team', 'team')
+      .leftJoinAndSelect('team.players', 'players')
+      .leftJoinAndSelect('players.user', 'user')
+      .leftJoinAndSelect('registration.tournament', 'tournament')
+      .where('registration.teamId IN (:...teamIds)', { teamIds })
+      .orderBy('registration.registeredAt', 'DESC')
+      .getMany();
+
+    console.log('Found registrations:', registrations.length);
+    return registrations;
   }
 
   private async getRegistrationById(id: string): Promise<TournamentRegistration> {
@@ -245,7 +353,7 @@ export class EnrollmentService {
     return registration;
   }
 
-  private async assertOrganizer(tournamentId: string, user: User): Promise<void> {
+  async assertOrganizer(tournamentId: string, user: User): Promise<void> {
     const tournament = await this.tournamentRepository.findOne({ where: { id: tournamentId } });
     if (!tournament) {
       throw new NotFoundException('Tournament not found');

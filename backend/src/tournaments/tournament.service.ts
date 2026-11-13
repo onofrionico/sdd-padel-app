@@ -53,13 +53,43 @@ export class TournamentService {
   }
 
   async findAll(options: FindAllOptions = {}): Promise<[Tournament[], number]> {
-    const [items, count] = await this.tournamentRepository.findAndCount({
-      relations: ['association'],
-      skip: options.skip,
-      take: options.take,
-      where: options.where,
-    });
+    const queryBuilder = this.tournamentRepository
+      .createQueryBuilder('tournament')
+      .leftJoinAndSelect('tournament.association', 'association');
 
+    if (options.where) {
+      if (options.where.status) {
+        queryBuilder.andWhere('tournament.status = :status', { status: options.where.status });
+      }
+      if (options.where.associationId) {
+        queryBuilder.andWhere('tournament.associationId = :associationId', { 
+          associationId: options.where.associationId 
+        });
+      }
+      if (options.where.category) {
+        queryBuilder.andWhere(
+          "tournament.settings::jsonb->'categoryRange'->>'min' <= :category AND tournament.settings::jsonb->'categoryRange'->>'max' >= :category",
+          { category: options.where.category }
+        );
+      }
+      if (options.where.search) {
+        queryBuilder.andWhere(
+          '(LOWER(tournament.name) LIKE LOWER(:search) OR LOWER(tournament.description) LIKE LOWER(:search))',
+          { search: `%${options.where.search}%` }
+        );
+      }
+    }
+
+    if (options.skip !== undefined) {
+      queryBuilder.skip(options.skip);
+    }
+    if (options.take !== undefined) {
+      queryBuilder.take(options.take);
+    }
+
+    queryBuilder.orderBy('tournament.startDate', 'DESC');
+
+    const [items, count] = await queryBuilder.getManyAndCount();
     return [items, count];
   }
 

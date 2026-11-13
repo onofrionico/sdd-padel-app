@@ -1,19 +1,62 @@
-import { NestFactory } from '@nestjs/core';
+import './polyfills';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
+import { DataSource } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  
+  // Admin inicial: solo si la base no tiene usuarios y se definieron
+  // ADMIN_EMAIL y ADMIN_PASSWORD (variables de entorno, nunca en el código).
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (adminEmail && adminPassword) {
+    const dataSource = app.get(DataSource);
+    try {
+      const userCount = await dataSource.query('SELECT COUNT(*) as count FROM users');
+      if (parseInt(userCount[0].count) === 0) {
+        const hashedPassword = await bcrypt.hash(adminPassword, 10);
+        await dataSource.query(
+          `INSERT INTO users (email, password, "firstName", "lastName", role, "isVerified", "createdAt", "updatedAt")
+           VALUES ($1, $2, $3, $4, $5, true, NOW(), NOW())`,
+          [adminEmail, hashedPassword, 'Admin', 'Sistema', 'admin']
+        );
+        console.log(`Admin inicial creado: ${adminEmail}`);
+      }
+    } catch (error) {
+      console.error('Error creating admin user:', error);
+    }
+  }
+  
+  // Serve static files from uploads directory
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+    prefix: '/uploads/',
+  });
+  
+  // Set global prefix
+  app.setGlobalPrefix('api');
   
   // Enable CORS
-  app.enableCors();
+  app.enableCors({
+    origin: process.env.FRONTEND_URL || 'https://padel-tournament-frontend-h0pv.onrender.com',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
   
   // Enable global validation pipe
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     transform: true,
   }));
+
+  // Aplica @Exclude() de las entidades (por ejemplo, nunca devolver User.password)
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   // Swagger configuration
   const config = new DocumentBuilder()

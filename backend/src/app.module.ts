@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { RankingsModule } from './rankings/rankings.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { RankingsModule } from './rankings/rankings.module';
     AuthModule,
     NotificationsModule,
     RankingsModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

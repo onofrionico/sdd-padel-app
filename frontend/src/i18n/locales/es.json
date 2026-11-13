@@ -1,0 +1,795 @@
+{
+  "header": {
+    "appName": "Padel Master",
+    "nav": {
+      "tournaments": "Torneos",
+      "myEnrollments": "Mis Inscripciones",
+      "rankings": "Rankings",
+      "associations": "Asociaciones",
+      "createTournament": "Crear Torneo",
+      "notifications": "Notificaciones",
+      "profile": "Perfil"
+    },
+    "button": {
+      "login": "Iniciar Sesión",
+      "logout": "Cerrar Sesión",
+      "register": "Registrarse"
+    },
+    "aria": {
+      "home": "Inicio",
+      "profile": "Perfil",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú"
+    }
+  },
+  "footer": {
+    "appName": "Padel Tournament",
+    "description": "Gestiona tus torneos de pádel, inscripciones y rankings en un solo lugar.",
+    "section": {
+      "platform": "Plataforma",
+      "support": "Soporte",
+      "legal": "Legal"
+    },
+    "link": {
+      "tournaments": "Torneos",
+      "rankings": "Rankings",
+      "associations": "Asociaciones",
+      "helpCenter": "Centro de Ayuda",
+      "contactUs": "Contáctanos",
+      "faq": "Preguntas Frecuentes",
+      "privacy": "Política de Privacidad",
+      "terms": "Términos de Servicio"
+    },
+    "copyright": "Padel Tournament Management. Todos los derechos reservados."
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido",
+      "description": "Inicia sesión en tu cuenta para continuar",
+      "email": {
+        "label": "Correo Electrónico",
+        "placeholder": "tu.email@ejemplo.com"
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Ingresa tu contraseña"
+      },
+      "button": {
+        "submit": "Iniciar Sesión",
+        "submitting": "Iniciando sesión..."
+      },
+      "noAccount": "¿No tienes una cuenta?",
+      "signUp": "Regístrate",
+      "error": {
+        "default": "Correo electrónico o contraseña inválidos"
+      }
+    },
+    "register": {
+      "title": "Crear Cuenta",
+      "description": "Regístrate para comenzar a jugar torneos de pádel",
+      "firstName": {
+        "label": "Nombre",
+        "placeholder": "Juan"
+      },
+      "lastName": {
+        "label": "Apellido",
+        "placeholder": "Pérez"
+      },
+      "email": {
+        "label": "Correo Electrónico",
+        "placeholder": "tu.email@ejemplo.com"
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Al menos 8 caracteres"
+      },
+      "phoneNumber": {
+        "label": "Número de Teléfono (Opcional)",
+        "placeholder": "+54 9 11 1234-5678"
+      },
+      "button": {
+        "submit": "Crear Cuenta",
+        "submitting": "Creando cuenta..."
+      },
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "signIn": "Inicia sesión",
+      "error": {
+        "default": "Registro fallido. Por favor, intenta nuevamente."
+      }
+    },
+    "profile": {
+      "title": "Completa tu Perfil",
+      "description": "Cuéntanos más sobre ti para comenzar",
+      "phoneNumber": {
+        "label": "Número de Teléfono (Opcional)",
+        "placeholder": "+54 9 11 1234-5678"
+      },
+      "gender": {
+        "label": "Género (Opcional)",
+        "placeholder": "Selecciona género",
+        "male": "Masculino",
+        "female": "Femenino",
+        "other": "Otro"
+      },
+      "dateOfBirth": {
+        "label": "Fecha de Nacimiento (Opcional)"
+      },
+      "playingHand": {
+        "label": "Mano de Juego (Opcional)",
+        "placeholder": "Selecciona mano de juego",
+        "right": "Derecha",
+        "left": "Izquierda",
+        "ambidextrous": "Ambidiestro"
+      },
+      "playingStyle": {
+        "label": "Estilo de Juego (Opcional)",
+        "placeholder": "Selecciona estilo de juego",
+        "defensive": "Defensivo",
+        "offensive": "Ofensivo",
+        "allAround": "Completo"
+      },
+      "button": {
+        "submit": "Completar Perfil",
+        "submitting": "Guardando perfil...",
+        "skip": "Omitir por ahora"
+      },
+      "error": {
+        "default": "Error al actualizar el perfil. Por favor, intenta nuevamente."
+      }
+    }
+  },
+  "tournament": {
+    "card": {
+      "capacity": "Capacidad: {{maxTeams}} equipos",
+      "format": "Formato:"
+    },
+    "form": {
+      "section": {
+        "basic": {
+          "title": "Información Básica",
+          "description": "Detalles generales del torneo"
+        },
+        "settings": {
+          "title": "Configuración del Torneo",
+          "description": "Configura los parámetros del torneo"
+        }
+      },
+      "name": {
+        "label": "Nombre del Torneo *",
+        "placeholder": "Campeonato de Pádel Verano 2024"
+      },
+      "description": {
+        "label": "Descripción",
+        "placeholder": "Descripción del torneo..."
+      },
+      "startDate": {
+        "label": "Fecha de Inicio *"
+      },
+      "endDate": {
+        "label": "Fecha de Fin"
+      },
+      "type": {
+        "label": "Tipo de Torneo *",
+        "placeholder": "Selecciona tipo de torneo",
+        "singleElimination": "Eliminación Simple",
+        "doubleElimination": "Eliminación Doble",
+        "roundRobin": "Todos contra Todos",
+        "groupsKnockout": "Grupos + Eliminación"
+      },
+      "associationId": {
+        "label": "ID de Asociación *",
+        "placeholder": "UUID de la asociación"
+      },
+      "isPublic": {
+        "label": "Hacer torneo público"
+      },
+      "maxTeams": {
+        "label": "Equipos Máximos",
+        "placeholder": "32"
+      },
+      "minTeams": {
+        "label": "Equipos Mínimos",
+        "placeholder": "4"
+      },
+      "teamSize": {
+        "label": "Tamaño del Equipo *"
+      },
+      "categoryRange": {
+        "label": "Rango de Categorías",
+        "min": "Categoría Mínima",
+        "max": "Categoría Máxima"
+      },
+      "category": {
+        "label": "Categoría {{number}}"
+      },
+      "button": {
+        "create": "Crear Torneo",
+        "update": "Actualizar Torneo",
+        "saving": "Guardando..."
+      },
+      "error": {
+        "default": "Error al guardar el torneo. Por favor, intenta nuevamente."
+      }
+    },
+    "status": {
+      "upcoming": "Próximo",
+      "registrationOpen": "Inscripción Abierta",
+      "inProgress": "En Progreso",
+      "completed": "Completado",
+      "cancelled": "Cancelado"
+    },
+    "details": {
+      "association": "Asociación",
+      "name": "Nombre",
+      "description": "Descripción",
+      "website": "Sitio web",
+      "dates": "Fechas del torneo",
+      "startDate": "Fecha de inicio",
+      "format": "Formato del torneo",
+      "teamSize": "Jugadores por equipo",
+      "categoriesDescription": "Categorías habilitadas para este torneo",
+      "noCategories": "Sin categorías definidas",
+      "points": "Reparto de puntos",
+      "pointsDescription": "Puntos que otorga cada posición",
+      "pointsUnit": "puntos",
+      "noPoints": "Sin reparto de puntos definido",
+      "notFound": "No se encontró el torneo.",
+      "back": "Volver a torneos",
+      "loginRequired": "Tenés que iniciar sesión para inscribirte en este torneo.",
+      "loginToEnroll": "Iniciar sesión para inscribirme",
+      "teams_one": "{{count}} equipo",
+      "teams_other": "{{count}} equipos"
+    },
+    "filters": {
+      "allStatuses": "Todos los estados",
+      "allAssociations": "Todas las asociaciones",
+      "byStatus": "Filtrar por estado",
+      "byCategory": "Filtrar por categoría",
+      "byAssociation": "Filtrar por asociación",
+      "search": "Buscar torneos..."
+    },
+    "list": {
+      "subtitle": "Descubrí torneos de pádel cerca tuyo",
+      "loadFailed": "Error al cargar los torneos. Probá de nuevo.",
+      "empty": "No se encontraron torneos.",
+      "emptyDescription": "Probá cambiando los filtros o la búsqueda."
+    }
+  },
+  "enrollment": {
+    "card": {
+      "tournament": "Torneo",
+      "tbd": "Por Definir",
+      "team": "Equipo:",
+      "category": "Categoría:",
+      "categoryNumber": "{{number}}° Categoría",
+      "status": {
+        "pending": {
+          "message": "Tu inscripción está pendiente de aprobación del organizador del torneo."
+        },
+        "approved": {
+          "message": "¡Tu inscripción ha sido aprobada! Buena suerte en el torneo."
+        },
+        "rejected": {
+          "message": "Tu inscripción no fue aprobada. Por favor, contacta al organizador para más información."
+        }
+      }
+    },
+    "form": {
+      "button": {
+        "cancel": "Cancelar",
+        "submit": "Enviar Inscripción",
+        "submitting": "Enviando..."
+      }
+    },
+    "status": {
+      "pending": "Pendiente de Aprobación",
+      "approved": "Aprobado",
+      "rejected": "Rechazado",
+      "withdrawn": "Retirado"
+    },
+    "dialog": {
+      "title": "Inscribirse al torneo",
+      "description": "Elegí a tu pareja y la categoría. El organizador va a revisar la inscripción."
+    },
+    "partner": {
+      "label": "Buscar pareja",
+      "results": "Resultados",
+      "noResults": "No se encontraron jugadores. Probá con otra búsqueda.",
+      "placeholder": "Buscar por nombre o email...",
+      "searching": "Buscando...",
+      "search": "Buscar"
+    },
+    "my": {
+      "loadFailedTitle": "No se pudieron cargar las inscripciones",
+      "loadFailed": "Hubo un error al cargar tus inscripciones. Probá de nuevo más tarde.",
+      "subtitle": "Mirá y seguí tus solicitudes de inscripción",
+      "emptyTitle": "Todavía no tenés inscripciones",
+      "emptyDescription": "Todavía no te inscribiste en ningún torneo. Explorá los torneos disponibles para empezar.",
+      "findMore": "Buscar más torneos"
+    }
+  },
+  "association": {
+    "card": {
+      "member": "Miembro",
+      "notMember": "No es miembro",
+      "active": "Activa",
+      "inactive": "Inactiva",
+      "pointsSystem": "Sistema de puntos configurado"
+    },
+    "my": {
+      "title": "Mis Asociaciones",
+      "description": "Asociaciones de las que eres miembro",
+      "empty": {
+        "title": "Mis Asociaciones",
+        "description": "Aún no eres miembro de ninguna asociación",
+        "message": "Explora las asociaciones disponibles y solicita membresía para comenzar"
+      },
+      "error": "Error al cargar las asociaciones",
+      "loadFailed": "No se pudieron cargar las asociaciones",
+      "title2": "Mis asociaciones",
+      "emptyTitle": "Todavía no sos socio de ninguna asociación",
+      "emptyDescription": "Explorá las asociaciones y pedí la membresía para empezar",
+      "subtitle": "Asociaciones de las que sos socio"
+    },
+    "details": {
+      "notFound": "No se encontró la asociación.",
+      "back": "Volver a asociaciones",
+      "active": "Activa",
+      "inactive": "Inactiva",
+      "about": "Acerca de",
+      "information": "Información",
+      "created": "Creada",
+      "pointsSystem": "Sistema de puntos",
+      "noPointsSystem": "Sin sistema de puntos configurado",
+      "membership": "Membresía",
+      "isMember": "Sos socio de esta asociación",
+      "joinToParticipate": "Asociate para participar en sus torneos",
+      "yourCategory": "Tu categoría",
+      "loginRequired": "Tenés que iniciar sesión para asociarte.",
+      "loginToJoin": "Iniciar sesión para asociarme"
+    },
+    "category": {
+      "update": "Actualizar categoría",
+      "description": "Elegí tu categoría en esta asociación. Va de 1ra (la más alta) a 8va (la más baja).",
+      "updating": "Actualizando...",
+      "placeholder": "Elegí una categoría"
+    },
+    "membership": {
+      "removing": "Saliendo...",
+      "leave": "Dejar la asociación",
+      "requesting": "Enviando solicitud...",
+      "request": "Solicitar membresía"
+    },
+    "list": {
+      "subtitle": "Explorá las asociaciones de pádel y sumate para jugar sus torneos",
+      "loadFailed": "Error al cargar las asociaciones. Probá de nuevo.",
+      "empty": "No se encontraron asociaciones.",
+      "emptyDescription": "Volvé más tarde para ver nuevas asociaciones."
+    }
+  },
+  "rankings": {
+    "table": {
+      "position": "Posición",
+      "player": "Jugador",
+      "points": "Puntos",
+      "tournaments": "Torneos",
+      "you": "Tú"
+    },
+    "position": {
+      "first": "🥇 1°",
+      "second": "🥈 2°",
+      "third": "🥉 3°"
+    },
+    "filter": {
+      "allCategories": "Todas las categorías"
+    },
+    "stats": {
+      "best": "Mejor ranking alcanzado",
+      "categoriesPlayed": "Categorías jugadas",
+      "totalPoints": "Puntos totales",
+      "totalPointsDescription": "Puntos de ranking acumulados",
+      "tournamentsDescription": "Torneos jugados",
+      "winRate": "Efectividad",
+      "totalMatches": "Partidos",
+      "matchesDescription": "Partidos jugados"
+    },
+    "history": {
+      "empty": "Todavía no hay historial de torneos",
+      "participated": "Participó",
+      "champion": "🥇 Campeón",
+      "runnerUp": "🥈 Subcampeón",
+      "third": "🥉 3er puesto",
+      "title": "Últimos torneos"
+    },
+    "page": {
+      "needAssociation": "Tenés que ser socio de una asociación para ver los rankings.",
+      "loadFailed": "No se pudieron cargar los rankings. Probá de nuevo.",
+      "title": "Rankings de jugadores",
+      "subtitle": "Mirá las posiciones actuales en todas las categorías",
+      "currentSeason": "Temporada actual",
+      "noSeason": "Esta asociación no tiene una temporada activa. Los rankings aparecen cuando se crea una.",
+      "empty": "Todavía no hay ranking para esta categoría.",
+      "selectAssociation": "Elegí una asociación",
+      "selectSeason": "Elegí una temporada",
+      "category": "Categoría",
+      "showing": "Mostrando {{shown}} de {{total}} jugadores",
+      "season": "Temporada"
+    }
+  },
+  "notification": {
+    "timeAgo": {
+      "default": "hace un momento",
+      "justNow": "hace un momento"
+    },
+    "type": {
+      "tournament_invitation": "Invitación a torneo",
+      "team_invitation": "Invitación a equipo",
+      "match_scheduled": "Partido programado",
+      "match_result": "Resultado de partido",
+      "tournament_update": "Novedades del torneo",
+      "association_invitation": "Invitación a asociación",
+      "payment_required": "Pago pendiente",
+      "payment_confirmed": "Pago confirmado",
+      "payment_failed": "Pago rechazado",
+      "payment_deadline_reminder_24h": "Recordatorio de pago (24 h)",
+      "payment_deadline_reminder_12h": "Recordatorio de pago (12 h)",
+      "payment_deadline_reminder_2h": "Recordatorio de pago (2 h)",
+      "team_payment_completed": "Pago del equipo completo",
+      "refund_processed": "Reembolso procesado",
+      "general": "Notificación"
+    },
+    "markAllRead": "Marcar todas como leídas",
+    "empty": "Todavía no tenés notificaciones",
+    "viewAll": "Ver todas las notificaciones",
+    "loadFailedTitle": "No se pudieron cargar las notificaciones",
+    "loadFailed": "Hubo un error al cargar tus notificaciones. Probá de nuevo más tarde.",
+    "subtitle": "Enterate de todo lo que pasa con tus torneos",
+    "emptyDescription": "Acá vas a ver los avisos sobre torneos, inscripciones y novedades.",
+    "markAllReadCount": "Marcar todas como leídas ({{count}})",
+    "showing": "Mostrando {{count}} notificaciones",
+    "messages": {
+      "enrollment_invitation": "Te sumaron como pareja en una inscripción para \"{{tournamentName}}\".",
+      "enrollment_approved": "Aprobaron tu inscripción en \"{{tournamentName}}\".",
+      "enrollment_approved_payment_required": "Aprobaron tu inscripción en \"{{tournamentName}}\". Completá el pago para confirmar tu lugar.",
+      "enrollment_rejected": "Rechazaron tu inscripción en \"{{tournamentName}}\".",
+      "enrollment_rejected_with_reason": "Rechazaron tu inscripción en \"{{tournamentName}}\". Motivo: {{reason}}",
+      "payment_reminder": "Recordatorio: el pago de \"{{tournamentName}}\" vence en {{hours}} horas."
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "Bienvenido a Padel Tournament Manager",
+      "subtitle": "La plataforma completa para organizar, participar y seguir torneos de pádel",
+      "getStarted": "Comenzar",
+      "signIn": "Iniciar Sesión"
+    },
+    "features": {
+      "title": "Todo lo que Necesitas",
+      "tournamentManagement": {
+        "title": "Gestión de Torneos",
+        "description": "Crea y gestiona torneos de pádel con formatos y sistemas de puntuación personalizables"
+      },
+      "teamEnrollment": {
+        "title": "Inscripción de Equipos",
+        "description": "Inscríbete fácilmente con compañeros y sigue tu participación en torneos"
+      },
+      "rankings": {
+        "title": "Rankings y Estadísticas",
+        "description": "Visualiza rankings específicos por categoría y sigue tu rendimiento a lo largo del tiempo"
+      },
+      "schedule": {
+        "title": "Calendario y Notificaciones",
+        "description": "Mantente actualizado con calendarios de partidos y anuncios de torneos"
+      }
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar a Jugar?",
+      "subtitle": "Únete a miles de jugadores y organizadores que usan nuestra plataforma",
+      "button": "Crea tu Cuenta"
+    }
+  },
+  "notFound": {
+    "title": "Página No Encontrada",
+    "code": "404",
+    "heading": "Página No Encontrada",
+    "message": "La página que buscas no existe o ha sido movida.",
+    "button": {
+      "home": "Ir al Inicio",
+      "back": "Volver",
+      "goHome": "Ir al inicio",
+      "goBack": "Volver"
+    },
+    "seo": {
+      "title": "Página no encontrada",
+      "description": "La página que buscás no existe o se movió."
+    },
+    "description": "La página que buscás no existe o se movió."
+  },
+  "dashboard": {
+    "welcome": "¡Bienvenido de nuevo, {{firstName}}!",
+    "subtitle": "Esto es lo que está pasando con tus torneos",
+    "stats": {
+      "activeEnrollments": "Inscripciones Activas",
+      "activeEnrollmentsEmpty": "Aún no tienes inscripciones activas",
+      "upcomingTournaments": "Torneos Próximos",
+      "upcomingTournamentsEmpty": "Explora torneos para comenzar",
+      "totalPoints": "Puntos Totales",
+      "totalPointsEmpty": "Gana puntos participando"
+    },
+    "quickActions": {
+      "title": "Acciones Rápidas",
+      "browseTournaments": {
+        "title": "Explorar Torneos",
+        "description": "Encuentra e inscríbete en próximos torneos"
+      },
+      "myEnrollments": {
+        "title": "Mis Inscripciones",
+        "description": "Visualiza tus inscripciones a torneos"
+      },
+      "rankings": {
+        "title": "Rankings",
+        "description": "Consulta tu ranking y estadísticas"
+      },
+      "notifications": {
+        "title": "Notificaciones",
+        "description": "Visualiza tus últimas notificaciones"
+      },
+      "goTo": "Ir a {{title}}"
+    },
+    "recentActivity": {
+      "title": "Actividad Reciente",
+      "empty": "Aún no hay actividad reciente. ¡Comienza inscribiéndote en un torneo!"
+    },
+    "payments": {
+      "title": "Pagos pendientes",
+      "required": "Pago requerido",
+      "requiredDescription": "Tenés inscripciones aprobadas que necesitan el pago para confirmar tu lugar",
+      "none": "No tenés pagos pendientes",
+      "noneDescription": "Los pagos aparecen acá cuando te aprueban una inscripción",
+      "viewEnrollments": "Ver mis inscripciones"
+    }
+  },
+  "error": {
+    "boundary": {
+      "title": "Algo salió mal",
+      "description": "Ocurrió un error inesperado. Por favor, intenta actualizar la página.",
+      "button": {
+        "home": "Ir al Inicio",
+        "refresh": "Actualizar Página"
+      }
+    }
+  },
+  "offline": {
+    "message": "Sin conexión a internet"
+  },
+  "loading": {
+    "default": "Cargando..."
+  },
+  "category": {
+    "1": "1ra Categoría",
+    "2": "2da Categoría",
+    "3": "3ra Categoría",
+    "4": "4ta Categoría",
+    "5": "5ta Categoría",
+    "6": "6ta Categoría",
+    "7": "7ma Categoría",
+    "8": "8va Categoría",
+    "default": "Categoría {{number}}"
+  },
+  "payments": {
+    "paymentFor": "Pago para",
+    "tournament": "Torneo",
+    "player": "Jugador",
+    "amount": "Monto",
+    "platformFee": "Comisión de plataforma",
+    "timeRemaining": "Tiempo restante",
+    "expired": "Pago vencido",
+    "paidOn": "Pagado el",
+    "payNow": "Pagar Ahora",
+    "viewDetails": "Ver Detalles",
+    "perPlayer": "por jugador",
+    "expires": "Vence en",
+    "selectPaymentType": "Selecciona el tipo de pago",
+    "selectPaymentTypeDescription": "Elige cómo deseas realizar el pago de la inscripción",
+    "teamPaymentInfo": "Un jugador pagará el monto completo por el equipo. El compañero será notificado.",
+    "splitPaymentInfo": "Cada jugador pagará su parte. Ambos deben completar el pago antes del plazo.",
+    "status": {
+      "pending": "Pendiente",
+      "processing": "Procesando",
+      "completed": "Completado",
+      "failed": "Fallido",
+      "refunded": "Reembolsado",
+      "partiallyRefunded": "Parcialmente Reembolsado"
+    },
+    "type": {
+      "fullTeam": "Pago por Equipo",
+      "fullTeamDescription": "Un jugador paga el monto completo por el equipo",
+      "split": "Pago Dividido",
+      "splitDescription": "Cada jugador paga su parte"
+    },
+    "dashboard": {
+      "totalRevenue": "Ingresos Totales",
+      "netRevenue": "Ingresos Netos",
+      "completedPayments": "Pagos Completados",
+      "pendingPayments": "Pagos Pendientes",
+      "outOf": "de",
+      "awaitingPayment": "Esperando pago",
+      "averagePayment": "Pago Promedio",
+      "paymentsList": "Lista de Pagos",
+      "paymentsListDescription": "Todos los pagos del torneo",
+      "all": "Todos",
+      "noPayments": "No hay pagos en esta categoría"
+    },
+    "settings": {
+      "basicSettings": "Configuración Básica",
+      "basicSettingsDescription": "Configura los requisitos de pago para el torneo",
+      "requireDeposit": "Requerir Pago",
+      "requireDepositDescription": "Los jugadores deben pagar para confirmar su inscripción",
+      "depositAmount": "Monto del Depósito",
+      "totalFee": "Cuota Total",
+      "totalFeeDescription": "Monto total que los jugadores deben pagar (opcional)",
+      "paymentDeadline": "Plazo de Pago (horas)",
+      "paymentDeadlineDescription": "Tiempo que tienen los jugadores para completar el pago después de la aprobación",
+      "paymentOptions": "Opciones de Pago",
+      "paymentOptionsDescription": "Configura cómo los jugadores pueden pagar",
+      "allowTeamPayment": "Permitir Pago por Equipo",
+      "allowTeamPaymentDescription": "Un jugador puede pagar por todo el equipo",
+      "allowSplitPayment": "Permitir Pago Dividido",
+      "allowSplitPaymentDescription": "Cada jugador paga su parte",
+      "atLeastOnePaymentOption": "Debes permitir al menos una opción de pago",
+      "refundPolicy": "Política de Reembolsos",
+      "refundPolicyDescription": "Configura las reglas de reembolso para cancelaciones",
+      "fullRefundDeadline": "Plazo para Reembolso Completo (horas)",
+      "fullRefundDeadlineDescription": "Tiempo antes del torneo para recibir reembolso completo",
+      "partialRefundPercentage": "Porcentaje de Reembolso Parcial",
+      "partialRefundPercentageDescription": "Porcentaje a reembolsar después del plazo completo",
+      "noRefundDeadline": "Plazo Sin Reembolso (horas)",
+      "noRefundDeadlineDescription": "Tiempo antes del torneo donde no hay reembolso"
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "saving": "Guardando...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "required": "Este campo es requerido",
+    "success": "Listo",
+    "error": "Error",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "organizer": {
+    "toast": {
+      "statusUpdated": "Estado del torneo actualizado",
+      "statusUpdateFailed": "No se pudo actualizar el estado",
+      "deleted": "Torneo eliminado",
+      "deleteFailed": "No se pudo eliminar el torneo",
+      "enrollmentApproved": "Inscripción aprobada",
+      "enrollmentApproveFailed": "No se pudo aprobar la inscripción",
+      "enrollmentRejected": "Inscripción rechazada",
+      "enrollmentRejectFailed": "No se pudo rechazar la inscripción",
+      "created": "Torneo creado",
+      "createFailed": "No se pudo crear el torneo",
+      "updated": "Torneo actualizado",
+      "updateFailed": "No se pudo actualizar el torneo"
+    },
+    "loadTournamentFailed": "No se pudo cargar el torneo. Probá de nuevo.",
+    "confirmDelete": "¿Seguro que querés eliminar este torneo?",
+    "tabs": {
+      "overview": "Resumen",
+      "enrollments": "Inscripciones",
+      "participants": "Participantes",
+      "payments": "Pagos"
+    },
+    "overview": {
+      "statusTitle": "Estado del torneo",
+      "statusDescription": "Actualizá el estado actual del torneo",
+      "detailsTitle": "Detalles del torneo",
+      "format": "Formato",
+      "maxTeams": "Máximo de equipos",
+      "unlimited": "Sin límite",
+      "categories": "Categorías",
+      "endDate": "Fecha de fin"
+    },
+    "enrollments": {
+      "title": "Gestionar inscripciones",
+      "subtitle": "Revisá y resolvé las solicitudes de inscripción",
+      "loadFailed": "No se pudieron cargar las inscripciones. Probá de nuevo.",
+      "pending": "Solicitudes pendientes ({{count}})",
+      "approved": "Aprobadas ({{count}})",
+      "rejected": "Rechazadas ({{count}})",
+      "noPending": "No hay solicitudes pendientes",
+      "noApproved": "Todavía no hay inscripciones aprobadas",
+      "rejectReasonPrompt": "Motivo del rechazo (opcional):"
+    },
+    "payments": {
+      "viewDashboard": "Ver panel de pagos",
+      "title": "Gestión de pagos del torneo",
+      "description": "Usá el botón de arriba para ver el panel con estadísticas y la lista de pagos."
+    },
+    "edit": {
+      "title": "Editar torneo",
+      "subtitle": "Actualizá los datos y la configuración del torneo"
+    },
+    "create": {
+      "title": "Crear torneo",
+      "subtitle": "Armá un nuevo torneo para tu asociación"
+    },
+    "statusSelector": {
+      "upcoming": "El torneo está programado pero la inscripción todavía no abrió",
+      "registrationOpen": "Las parejas pueden enviar su inscripción",
+      "inProgress": "El torneo se está jugando",
+      "completed": "El torneo terminó",
+      "cancelled": "El torneo se canceló"
+    },
+    "dashboard": {
+      "loadFailed": "No se pudieron cargar los torneos. Probá de nuevo.",
+      "title": "Panel del organizador",
+      "subtitle": "Gestioná tus torneos e inscripciones",
+      "stats": {
+        "total": "Torneos en total",
+        "allTime": "Desde el inicio",
+        "scheduled": "Programados",
+        "activeNow": "En juego ahora",
+        "finished": "Terminados"
+      },
+      "upcomingTitle": "Próximos torneos",
+      "viewAll": "Ver todos",
+      "noUpcoming": "No hay torneos próximos",
+      "createFirst": "Creá tu primer torneo",
+      "activeTitle": "Torneos en juego",
+      "started": "Empezó el {{date}}",
+      "status": "Estado"
+    },
+    "enrollmentCard": {
+      "unknownPlayer": "Jugador desconocido",
+      "partner": "Pareja:",
+      "enrolled": "Inscripción:",
+      "approve": "Aprobar",
+      "reject": "Rechazar"
+    },
+    "participants": {
+      "empty": "Todavía no hay participantes aprobados",
+      "totalTeams": "Equipos",
+      "totalPlayers": "Jugadores",
+      "byCategory": "Equipos por categoría",
+      "unknown": "Desconocido"
+    },
+    "teamsEnrolled_one": "{{count}} equipo inscripto",
+    "teamsEnrolled_other": "{{count}} equipos inscriptos"
+  },
+  "profile": {
+    "picture": {
+      "title": "Foto de perfil",
+      "hint": "JPG, PNG o WEBP. Máx. 5 MB. Mín. 100x100 px.",
+      "drop": "Arrastrá la imagen acá o hacé clic para elegirla",
+      "recommended": "Recomendado: imagen cuadrada de al menos 400x400 px",
+      "uploading": "Subiendo...",
+      "choose": "Elegir archivo",
+      "ready": "Imagen nueva lista",
+      "alt": "Perfil",
+      "uploadFailed": "No se pudo subir la imagen",
+      "invalid": "Imagen no válida"
+    },
+    "loginRequired": "Iniciá sesión para ver tu perfil.",
+    "title": "Mi perfil",
+    "personalInfo": "Datos personales",
+    "statsLoadFailed": "No se pudieron cargar las estadísticas.",
+    "stats": "Estadísticas",
+    "noStats": "Todavía no hay estadísticas. ¡Jugá torneos para verlas!",
+    "role": "Rol",
+    "genders": {
+      "male": "Masculino",
+      "female": "Femenino",
+      "other": "Otro",
+      "prefer_not_to_say": "Prefiero no decirlo"
+    },
+    "roles": {
+      "user": "Jugador",
+      "organizer": "Organizador",
+      "admin": "Administrador"
+    }
+  }
+}

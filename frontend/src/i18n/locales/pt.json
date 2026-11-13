@@ -1,0 +1,419 @@
+{
+  "payments": {
+    "paymentFor": "Pagamento para",
+    "tournament": "Torneio",
+    "player": "Jogador",
+    "amount": "Valor",
+    "platformFee": "Taxa da plataforma",
+    "timeRemaining": "Tempo restante",
+    "expired": "Pagamento vencido",
+    "paidOn": "Pago em",
+    "payNow": "Pagar Agora",
+    "viewDetails": "Ver Detalhes",
+    "perPlayer": "por jogador",
+    "expires": "Vence em",
+    "selectPaymentType": "Selecione o tipo de pagamento",
+    "selectPaymentTypeDescription": "Escolha como deseja pagar a inscrição",
+    "teamPaymentInfo": "Um jogador pagará o valor total pela equipe. O parceiro será notificado.",
+    "splitPaymentInfo": "Cada jogador pagará sua parte. Ambos devem completar o pagamento antes do prazo.",
+    "status": {
+      "pending": "Pendente",
+      "processing": "Processando",
+      "completed": "Concluído",
+      "failed": "Falhou",
+      "refunded": "Reembolsado",
+      "partiallyRefunded": "Parcialmente Reembolsado"
+    },
+    "type": {
+      "fullTeam": "Pagamento por Equipe",
+      "fullTeamDescription": "Um jogador paga o valor total pela equipe",
+      "split": "Pagamento Dividido",
+      "splitDescription": "Cada jogador paga sua parte"
+    },
+    "dashboard": {
+      "totalRevenue": "Receita Total",
+      "netRevenue": "Receita Líquida",
+      "completedPayments": "Pagamentos Concluídos",
+      "pendingPayments": "Pagamentos Pendentes",
+      "outOf": "de",
+      "awaitingPayment": "Aguardando pagamento",
+      "averagePayment": "Pagamento Médio",
+      "paymentsList": "Lista de Pagamentos",
+      "paymentsListDescription": "Todos os pagamentos do torneio",
+      "all": "Todos",
+      "noPayments": "Não há pagamentos nesta categoria"
+    },
+    "settings": {
+      "basicSettings": "Configurações Básicas",
+      "basicSettingsDescription": "Configure os requisitos de pagamento para o torneio",
+      "requireDeposit": "Exigir Pagamento",
+      "requireDepositDescription": "Os jogadores devem pagar para confirmar sua inscrição",
+      "depositAmount": "Valor do Depósito",
+      "totalFee": "Taxa Total",
+      "totalFeeDescription": "Valor total que os jogadores devem pagar (opcional)",
+      "paymentDeadline": "Prazo de Pagamento (horas)",
+      "paymentDeadlineDescription": "Tempo que os jogadores têm para completar o pagamento após aprovação",
+      "paymentOptions": "Opções de Pagamento",
+      "paymentOptionsDescription": "Configure como os jogadores podem pagar",
+      "allowTeamPayment": "Permitir Pagamento por Equipe",
+      "allowTeamPaymentDescription": "Um jogador pode pagar por toda a equipe",
+      "allowSplitPayment": "Permitir Pagamento Dividido",
+      "allowSplitPaymentDescription": "Cada jogador paga sua parte",
+      "atLeastOnePaymentOption": "Você deve permitir pelo menos uma opção de pagamento",
+      "refundPolicy": "Política de Reembolso",
+      "refundPolicyDescription": "Configure as regras de reembolso para cancelamentos",
+      "fullRefundDeadline": "Prazo para Reembolso Completo (horas)",
+      "fullRefundDeadlineDescription": "Tempo antes do torneio para receber reembolso completo",
+      "partialRefundPercentage": "Porcentagem de Reembolso Parcial",
+      "partialRefundPercentageDescription": "Porcentagem a reembolsar após o prazo completo",
+      "noRefundDeadline": "Prazo Sem Reembolso (horas)",
+      "noRefundDeadlineDescription": "Tempo antes do torneio onde não há reembolso"
+    }
+  },
+  "common": {
+    "loading": "Carregando...",
+    "saving": "Salvando...",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "required": "Este campo é obrigatório",
+    "success": "Sucesso",
+    "error": "Erro",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "previous": "Anterior",
+    "next": "Próximo"
+  },
+  "notification": {
+    "type": {
+      "tournament_invitation": "Convite para torneio",
+      "team_invitation": "Convite para equipe",
+      "match_scheduled": "Partida agendada",
+      "match_result": "Resultado da partida",
+      "tournament_update": "Novidades do torneio",
+      "association_invitation": "Convite para associação",
+      "payment_required": "Pagamento pendente",
+      "payment_confirmed": "Pagamento confirmado",
+      "payment_failed": "Pagamento recusado",
+      "payment_deadline_reminder_24h": "Lembrete de pagamento (24 h)",
+      "payment_deadline_reminder_12h": "Lembrete de pagamento (12 h)",
+      "payment_deadline_reminder_2h": "Lembrete de pagamento (2 h)",
+      "team_payment_completed": "Pagamento da equipe concluído",
+      "refund_processed": "Reembolso processado",
+      "general": "Notificação"
+    },
+    "markAllRead": "Marcar todas como lidas",
+    "empty": "Você ainda não tem notificações",
+    "viewAll": "Ver todas as notificações",
+    "loadFailedTitle": "Não foi possível carregar as notificações",
+    "loadFailed": "Ocorreu um erro ao carregar suas notificações. Tente novamente mais tarde.",
+    "subtitle": "Fique por dentro dos seus torneios",
+    "emptyDescription": "Aqui você verá os avisos sobre torneios, inscrições e novidades.",
+    "markAllReadCount": "Marcar todas como lidas ({{count}})",
+    "showing": "Mostrando {{count}} notificações",
+    "timeAgo": {
+      "justNow": "agora mesmo"
+    },
+    "messages": {
+      "enrollment_invitation": "Você foi adicionado como dupla em uma inscrição para \"{{tournamentName}}\".",
+      "enrollment_approved": "Sua inscrição em \"{{tournamentName}}\" foi aprovada.",
+      "enrollment_approved_payment_required": "Sua inscrição em \"{{tournamentName}}\" foi aprovada. Conclua o pagamento para confirmar sua vaga.",
+      "enrollment_rejected": "Sua inscrição em \"{{tournamentName}}\" foi recusada.",
+      "enrollment_rejected_with_reason": "Sua inscrição em \"{{tournamentName}}\" foi recusada. Motivo: {{reason}}",
+      "payment_reminder": "Lembrete: o pagamento de \"{{tournamentName}}\" vence em {{hours}} horas."
+    }
+  },
+  "organizer": {
+    "toast": {
+      "statusUpdated": "Status do torneio atualizado",
+      "statusUpdateFailed": "Não foi possível atualizar o status",
+      "deleted": "Torneio excluído",
+      "deleteFailed": "Não foi possível excluir o torneio",
+      "enrollmentApproved": "Inscrição aprovada",
+      "enrollmentApproveFailed": "Não foi possível aprovar a inscrição",
+      "enrollmentRejected": "Inscrição recusada",
+      "enrollmentRejectFailed": "Não foi possível recusar a inscrição",
+      "created": "Torneio criado",
+      "createFailed": "Não foi possível criar o torneio",
+      "updated": "Torneio atualizado",
+      "updateFailed": "Não foi possível atualizar o torneio"
+    },
+    "loadTournamentFailed": "Não foi possível carregar o torneio. Tente novamente.",
+    "confirmDelete": "Tem certeza de que deseja excluir este torneio?",
+    "tabs": {
+      "overview": "Resumo",
+      "enrollments": "Inscrições",
+      "participants": "Participantes",
+      "payments": "Pagamentos"
+    },
+    "overview": {
+      "statusTitle": "Status do torneio",
+      "statusDescription": "Atualize o status atual do torneio",
+      "detailsTitle": "Detalhes do torneio",
+      "format": "Formato",
+      "maxTeams": "Máximo de equipes",
+      "unlimited": "Ilimitado",
+      "categories": "Categorias",
+      "endDate": "Data de término"
+    },
+    "enrollments": {
+      "title": "Gerenciar inscrições",
+      "subtitle": "Revise e processe as solicitações de inscrição",
+      "loadFailed": "Não foi possível carregar as inscrições. Tente novamente.",
+      "pending": "Solicitações pendentes ({{count}})",
+      "approved": "Aprovadas ({{count}})",
+      "rejected": "Recusadas ({{count}})",
+      "noPending": "Nenhuma solicitação pendente",
+      "noApproved": "Ainda não há inscrições aprovadas",
+      "rejectReasonPrompt": "Motivo da recusa (opcional):"
+    },
+    "payments": {
+      "viewDashboard": "Ver painel de pagamentos",
+      "title": "Gestão de pagamentos do torneio",
+      "description": "Use o botão acima para ver o painel com estatísticas e a lista de pagamentos."
+    },
+    "edit": {
+      "title": "Editar torneio",
+      "subtitle": "Atualize os dados e as configurações do torneio"
+    },
+    "create": {
+      "title": "Criar torneio",
+      "subtitle": "Configure um novo torneio para sua associação"
+    },
+    "statusSelector": {
+      "upcoming": "O torneio está agendado, mas as inscrições ainda não abriram",
+      "registrationOpen": "As duplas podem enviar a inscrição",
+      "inProgress": "O torneio está em andamento",
+      "completed": "O torneio terminou",
+      "cancelled": "O torneio foi cancelado"
+    },
+    "dashboard": {
+      "loadFailed": "Não foi possível carregar os torneios. Tente novamente.",
+      "title": "Painel do organizador",
+      "subtitle": "Gerencie seus torneios e inscrições",
+      "stats": {
+        "total": "Total de torneios",
+        "allTime": "Desde o início",
+        "scheduled": "Agendados",
+        "activeNow": "Em andamento",
+        "finished": "Encerrados"
+      },
+      "upcomingTitle": "Próximos torneios",
+      "viewAll": "Ver todos",
+      "noUpcoming": "Nenhum torneio próximo",
+      "createFirst": "Crie seu primeiro torneio",
+      "activeTitle": "Torneios em andamento",
+      "started": "Começou em {{date}}",
+      "status": "Status"
+    },
+    "enrollmentCard": {
+      "unknownPlayer": "Jogador desconhecido",
+      "partner": "Dupla:",
+      "enrolled": "Inscrição:",
+      "approve": "Aprovar",
+      "reject": "Recusar"
+    },
+    "participants": {
+      "empty": "Ainda não há participantes aprovados",
+      "totalTeams": "Equipes",
+      "totalPlayers": "Jogadores",
+      "byCategory": "Equipes por categoria",
+      "unknown": "Desconhecido"
+    },
+    "teamsEnrolled_one": "{{count}} equipe inscrita",
+    "teamsEnrolled_other": "{{count}} equipes inscritas"
+  },
+  "tournament": {
+    "details": {
+      "association": "Associação",
+      "name": "Nome",
+      "description": "Descrição",
+      "website": "Site",
+      "dates": "Datas do torneio",
+      "startDate": "Data de início",
+      "format": "Formato do torneio",
+      "teamSize": "Jogadores por equipe",
+      "categoriesDescription": "Categorias disponíveis neste torneio",
+      "noCategories": "Nenhuma categoria definida",
+      "points": "Distribuição de pontos",
+      "pointsDescription": "Pontos concedidos por posição",
+      "pointsUnit": "pontos",
+      "noPoints": "Nenhuma distribuição de pontos definida",
+      "notFound": "Torneio não encontrado.",
+      "back": "Voltar para torneios",
+      "loginRequired": "Você precisa entrar para se inscrever neste torneio.",
+      "loginToEnroll": "Entrar para se inscrever",
+      "teams_one": "{{count}} equipe",
+      "teams_other": "{{count}} equipes"
+    },
+    "filters": {
+      "allStatuses": "Todos os status",
+      "allAssociations": "Todas as associações",
+      "byStatus": "Filtrar por status",
+      "byCategory": "Filtrar por categoria",
+      "byAssociation": "Filtrar por associação",
+      "search": "Buscar torneios..."
+    },
+    "list": {
+      "subtitle": "Descubra torneios de padel perto de você",
+      "loadFailed": "Erro ao carregar os torneios. Tente novamente.",
+      "empty": "Nenhum torneio encontrado.",
+      "emptyDescription": "Tente ajustar os filtros ou a busca."
+    }
+  },
+  "association": {
+    "details": {
+      "notFound": "Associação não encontrada.",
+      "back": "Voltar para associações",
+      "active": "Ativa",
+      "inactive": "Inativa",
+      "about": "Sobre",
+      "information": "Informações",
+      "created": "Criada",
+      "pointsSystem": "Sistema de pontos",
+      "noPointsSystem": "Nenhum sistema de pontos configurado",
+      "membership": "Associação",
+      "isMember": "Você é membro desta associação",
+      "joinToParticipate": "Associe-se para participar dos torneios",
+      "yourCategory": "Sua categoria",
+      "loginRequired": "Você precisa entrar para se associar.",
+      "loginToJoin": "Entrar para se associar"
+    },
+    "category": {
+      "update": "Atualizar categoria",
+      "description": "Escolha sua categoria nesta associação. Vai da 1ª (mais alta) à 8ª (mais baixa).",
+      "updating": "Atualizando...",
+      "placeholder": "Escolha uma categoria"
+    },
+    "membership": {
+      "removing": "Saindo...",
+      "leave": "Sair da associação",
+      "requesting": "Enviando solicitação...",
+      "request": "Solicitar associação"
+    },
+    "my": {
+      "loadFailed": "Não foi possível carregar as associações",
+      "title2": "Minhas associações",
+      "emptyTitle": "Você ainda não é membro de nenhuma associação",
+      "emptyDescription": "Explore as associações e solicite a associação para começar",
+      "subtitle": "Associações das quais você é membro"
+    },
+    "list": {
+      "subtitle": "Explore as associações de padel e participe dos torneios",
+      "loadFailed": "Erro ao carregar as associações. Tente novamente.",
+      "empty": "Nenhuma associação encontrada.",
+      "emptyDescription": "Volte mais tarde para ver novas associações."
+    }
+  },
+  "enrollment": {
+    "dialog": {
+      "title": "Inscrever-se no torneio",
+      "description": "Escolha sua dupla e a categoria. O organizador vai revisar a inscrição."
+    },
+    "partner": {
+      "label": "Buscar dupla",
+      "results": "Resultados",
+      "noResults": "Nenhum jogador encontrado. Tente outra busca.",
+      "placeholder": "Buscar por nome ou e-mail...",
+      "searching": "Buscando...",
+      "search": "Buscar"
+    },
+    "my": {
+      "loadFailedTitle": "Não foi possível carregar as inscrições",
+      "loadFailed": "Ocorreu um erro ao carregar suas inscrições. Tente novamente mais tarde.",
+      "subtitle": "Veja e acompanhe suas solicitações de inscrição",
+      "emptyTitle": "Você ainda não tem inscrições",
+      "emptyDescription": "Você ainda não se inscreveu em nenhum torneio. Explore os torneios disponíveis para começar.",
+      "findMore": "Encontrar mais torneios"
+    }
+  },
+  "profile": {
+    "picture": {
+      "title": "Foto de perfil",
+      "hint": "JPG, PNG ou WEBP. Máx. 5 MB. Mín. 100x100 px.",
+      "drop": "Arraste a imagem aqui ou clique para escolher",
+      "recommended": "Recomendado: imagem quadrada de pelo menos 400x400 px",
+      "uploading": "Enviando...",
+      "choose": "Escolher arquivo",
+      "ready": "Nova imagem pronta",
+      "alt": "Perfil",
+      "uploadFailed": "Não foi possível enviar a imagem",
+      "invalid": "Imagem inválida"
+    },
+    "loginRequired": "Entre para ver seu perfil.",
+    "title": "Meu perfil",
+    "personalInfo": "Dados pessoais",
+    "statsLoadFailed": "Não foi possível carregar as estatísticas.",
+    "stats": "Estatísticas",
+    "noStats": "Ainda não há estatísticas. Jogue torneios para vê-las!",
+    "role": "Função",
+    "genders": {
+      "male": "Masculino",
+      "female": "Feminino",
+      "other": "Outro",
+      "prefer_not_to_say": "Prefiro não dizer"
+    },
+    "roles": {
+      "user": "Jogador",
+      "organizer": "Organizador",
+      "admin": "Administrador"
+    }
+  },
+  "rankings": {
+    "filter": {
+      "allCategories": "Todas as categorias"
+    },
+    "stats": {
+      "best": "Melhor ranking alcançado",
+      "categoriesPlayed": "Categorias jogadas",
+      "totalPoints": "Pontos totais",
+      "totalPointsDescription": "Pontos de ranking acumulados",
+      "tournamentsDescription": "Torneios disputados",
+      "winRate": "Aproveitamento",
+      "totalMatches": "Partidas",
+      "matchesDescription": "Partidas disputadas"
+    },
+    "history": {
+      "empty": "Ainda não há histórico de torneios",
+      "participated": "Participou",
+      "champion": "🥇 Campeão",
+      "runnerUp": "🥈 Vice-campeão",
+      "third": "🥉 3º lugar",
+      "title": "Últimos torneios"
+    },
+    "page": {
+      "needAssociation": "Você precisa ser membro de uma associação para ver os rankings.",
+      "loadFailed": "Não foi possível carregar os rankings. Tente novamente.",
+      "title": "Rankings de jogadores",
+      "subtitle": "Veja as posições atuais em todas as categorias",
+      "currentSeason": "Temporada atual",
+      "noSeason": "Esta associação não tem temporada ativa. Os rankings aparecem quando uma for criada.",
+      "empty": "Ainda não há ranking para esta categoria.",
+      "selectAssociation": "Escolha uma associação",
+      "selectSeason": "Escolha uma temporada",
+      "category": "Categoria",
+      "showing": "Mostrando {{shown}} de {{total}} jogadores",
+      "season": "Temporada"
+    }
+  },
+  "dashboard": {
+    "payments": {
+      "title": "Pagamentos pendentes",
+      "required": "Pagamento necessário",
+      "requiredDescription": "Você tem inscrições aprovadas que precisam do pagamento para confirmar sua vaga",
+      "none": "Você não tem pagamentos pendentes",
+      "noneDescription": "Os pagamentos aparecem aqui quando uma inscrição é aprovada",
+      "viewEnrollments": "Ver minhas inscrições"
+    }
+  },
+  "notFound": {
+    "seo": {
+      "title": "Página não encontrada",
+      "description": "A página que você procura não existe ou foi movida."
+    },
+    "description": "A página que você procura não existe ou foi movida.",
+    "button": {
+      "goHome": "Ir para o início",
+      "goBack": "Voltar"
+    }
+  }
+}

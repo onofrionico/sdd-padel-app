@@ -1,0 +1,63 @@
+databases:
+  - name: padel-tournament-db
+    databaseName: padel_tournament
+    user: padel_user
+
+services:
+  # Backend API (NestJS)
+  - type: web
+    name: padel-tournament-backend
+    env: docker
+    region: oregon
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DATABASE_HOST
+        fromDatabase:
+          name: padel-tournament-db
+          property: host
+      - key: DATABASE_PORT
+        fromDatabase:
+          name: padel-tournament-db
+          property: port
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: padel-tournament-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: padel-tournament-db
+          property: password
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: padel-tournament-db
+          property: database
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION
+        value: 1d
+      # Admin inicial (solo se crea si la base no tiene usuarios). Cargar en el panel de Render.
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+    healthCheckPath: /api/ping
+
+  # Frontend (React + Vite)
+  - type: web
+    name: padel-tournament-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://padel-tournament-backend.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

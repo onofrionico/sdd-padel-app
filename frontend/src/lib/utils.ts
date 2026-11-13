@@ -1,0 +1,61 @@
+import { type ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+/** Locale de fechas según el idioma activo de la app (es → formato argentino). */
+export function getDateLocale(): string {
+  const lang = (typeof document !== 'undefined' && document.documentElement.lang) || 'es'
+  return lang.startsWith('en') ? 'en-US' : 'es-AR'
+}
+
+export function formatDate(date: string | Date): string {
+  return new Date(date).toLocaleDateString(getDateLocale(), {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+export function formatCategory(category: number): string {
+  const categories: Record<number, string> = {
+    1: '1ra Categoría',
+    2: '2da Categoría',
+    3: '3ra Categoría',
+    4: '4ta Categoría',
+    5: '5ta Categoría',
+    6: '6ta Categoría',
+    7: '7ma Categoría',
+    8: '8va Categoría',
+  }
+  return categories[category] || `Categoría ${category}`
+}
+
+export function formatTournamentStatus(status: string): string {
+  const statuses: Record<string, string> = {
+    upcoming: 'Próximo',
+    registration_open: 'Inscripción Abierta',
+    in_progress: 'En Progreso',
+    completed: 'Completado',
+    cancelled: 'Cancelado',
+  }
+  return statuses[status] || status
+}
+
+export function formatEnrollmentStatus(status: string): string {
+  const statuses: Record<string, string> = {
+    pending: 'Pendiente',
+    approved: 'Aprobado',
+    rejected: 'Rechazado',
+  }
+  return statuses[status] || status
+}
+
+export function formatCurrency(amount: number, currency: string = 'ARS'): string {
+  return new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: currency,
+  }).format(amount)
+}

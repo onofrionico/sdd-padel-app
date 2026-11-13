@@ -70,4 +70,13 @@ export class AuthService {
     const { password, ...result } = newUser;
     return result as UserWithoutPassword;
   }
+
+  async getProfile(userId: string): Promise<UserWithoutPassword> {
+    const user = await this.usersService.findById(userId);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+    const { password, ...result } = user;
+    return result as UserWithoutPassword;
+  }
 }
